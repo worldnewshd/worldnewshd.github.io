@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WORLD NEWS HD - Admin Panel</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f3f3f3;
+  color:#222;
+}
+header{
+  background:#b40000;
+  color:white;
+  padding:18px;
+  text-align:center;
+}
+.container{
+  max-width:900px;
+  margin:20px auto;
+  padding:15px;
+}
+.card{
+  background:white;
+  padding:20px;
+  margin-bottom:20px;
+  border-radius:10px;
+  box-shadow:0 2px 8px #ccc;
+}
+input,textarea,select{
+  width:100%;
+  box-sizing:border-box;
+  padding:12px;
+  margin:7px 0 14px;
+  border:1px solid #ccc;
+  border-radius:6px;
+  font-size:16px;
+}
+textarea{
+  min-height:120px;
+}
+button{
+  background:#b40000;
+  color:white;
+  border:0;
+  padding:12px 20px;
+  border-radius:6px;
+  font-size:16px;
+  cursor:pointer;
+  margin:5px;
+}
+button:hover{
+  opacity:.9;
+}
+.logout{
+  background:#333;
+}
+.delete{
+  background:#555;
+}
+.live-on{
+  color:green;
+  font-weight:bold;
+}
+.live-off{
+  color:#b40000;
+  font-weight:bold;
+}
+.news-item{
+  border-bottom:1px solid #ddd;
+  padding:15px 0;
+}
+#panel{
+  display:none;
+}
+#message{
+  padding:10px;
+  margin:10px 0;
+  font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>WORLD NEWS HD</h1>
+  <div>Admin Panel</div>
+</header>
+
+<div class="container">
+
+<!-- LOGIN -->
+<div class="card" id="loginBox">
+  <h2>ایڈمن لاگ اِن</h2>
+
+  <label>ای میل</label>
+  <input type="email" id="email" placeholder="اپنی ای میل لکھیں">
+
+  <label>پاس ورڈ</label>
+  <input type="password" id="password" placeholder="اپنا پاس ورڈ لکھیں">
+
+  <button onclick="login()">لاگ اِن</button>
+
+  <div id="loginMessage"></div>
+</div>
+
+
+<!-- ADMIN PANEL -->
+<div id="panel">
+
+  <div class="card">
+    <h2>ایڈمن پینل</h2>
+    <button class="logout" onclick="logout()">لاگ آؤٹ</button>
+  </div>
+
+
+  <!-- LIVE -->
+  <div class="card">
+    <h2>🔴 LIVE ON / OFF</h2>
+
+    <label>Live کی سرخی</label>
+    <input type="text" id="liveTitle" placeholder="مثلاً: WORLD NEWS HD LIVE">
+
+    <label>Live Video URL</label>
+    <input type="text" id="liveVideo" placeholder="YouTube Live URL">
+
+    <button onclick="setLive(true)">LIVE ON</button>
+    <button class="delete" onclick="setLive(false)">LIVE OFF</button>
+
+    <p id="liveStatus"></p>
+  </div>
+
+
+  <!-- NEWS -->
+  <div class="card">
+    <h2>📰 نئی خبر پوسٹ کریں</h2>
+
+    <label>خبر کی سرخی</label>
+    <input type="text" id="newsTitle" placeholder="خبر کی سرخی لکھیں">
+
+    <label>خبر کی تفصیل</label>
+    <textarea id="newsBody" placeholder="خبر کی مکمل تفصیل لکھیں"></textarea>
+
+    <label>کیٹیگری</label>
+    <select id="newsCategory">
+      <option>تازہ خبریں</option>
+      <option>کراچی</option>
+      <option>پاکستان</option>
+      <option>دنیا</option>
+      <option>کرائم</option>
+      <option>سیاست</option>
+      <option>کھیل</option>
+      <option>کاروبار</option>
+    </select>
+
+    <label>تصویر کا URL</label>
+    <input type="text" id="newsImage" placeholder="تصویر کا لنک یہاں لگائیں">
+
+    <label>ویڈیو URL</label>
+    <input type="text" id="newsVideo" placeholder="YouTube ویڈیو لنک">
+
+    <button onclick="publishNews()">خبر شائع کریں</button>
+
+    <div id="newsMessage"></div>
+  </div>
+
+
+  <!-- NEWS LIST -->
+  <div class="card">
+    <h2>📋 شائع شدہ خبریں</h2>
+    <div id="newsList">خبریں لوڈ ہو رہی ہیں...</div>
+  </div>
+
+</div>
+</div>
+
+
+<script>
+
+const SUPABASE_URL =
+"https://mlydxfrsjnnbbaampqan.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_4xh2rkJSLqWX2UwC4eHHRA_WpujFv2w";
+
+const supabaseClient =
+supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+
+/* LOGIN */
+async function login(){
+
+  const email =
+  document.getElementById("email").value.trim();
+
+  const password =
+  document.getElementById("password").value;
+
+  const msg =
+  document.getElementById("loginMessage");
+
+  if(!email || !password){
+    msg.innerHTML="ای میل اور پاس ورڈ درج کریں۔";
+    return;
+  }
+
+  const {data,error} =
+  await supabaseClient.auth.signInWithPassword({
+    email:email,
+    password:password
+  });
+
+  if(error){
+    msg.innerHTML="❌ لاگ اِن ناکام: " + error.message;
+    return;
+  }
+
+  msg.innerHTML="✅ لاگ اِن کامیاب";
+
+  showPanel();
+
+  loadNews();
+  loadLive();
+
+}
+
+
+/* LOGOUT */
+async function logout(){
+
+  await supabaseClient.auth.signOut();
+
+  document.getElementById("panel").style.display="none";
+  document.getElementById("loginBox").style.display="block";
+
+}
+
+
+/* SHOW PANEL */
+function showPanel(){
+
+  document.getElementById("loginBox").style.display="none";
+  document.getElementById("panel").style.display="block";
+
+}
+
+
+/* CHECK LOGIN */
+async function checkUser(){
+
+  const {data} =
+  await supabaseClient.auth.getUser();
+
+  if(data.user){
+
+    showPanel();
+
+    loadNews();
+    loadLive();
+
+  }
+
+}
+
+
+/* PUBLISH NEWS */
+async function publishNews(){
+
+  const title =
+  document.getElementById("newsTitle").value.trim();
+
+  const body =
+  document.getElementById("newsBody").value.trim();
+
+  const category =
+  document.getElementById("newsCategory").value;
+
+  const image_url =
+  document.getElementById("newsImage").value.trim();
+
+  const video_url =
+  document.getElementById("newsVideo").value.trim();
+
+  const msg =
+  document.getElementById("newsMessage");
+
+
+  if(!title){
+
+    msg.innerHTML="❌ خبر کی سرخی لکھیں۔";
+    return;
+
+  }
+
+
+  const {error} =
+  await supabaseClient
+  .from("news")
+  .insert([{
+    title:title,
+    body:body,
+    category:category,
+    image_url:image_url,
+    video_url:video_url
+  }]);
+
+
+  if(error){
+
+    msg.innerHTML="❌ خبر شائع نہیں ہوئی: " + error.message;
+    return;
+
+  }
+
+
+  msg.innerHTML="✅ خبر کامیابی سے شائع ہوگئی۔";
+
+
+  document.getElementById("newsTitle").value="";
+  document.getElementById("newsBody").value="";
+  document.getElementById("newsImage").value="";
+  document.getElementById("newsVideo").value="";
+
+
+  loadNews();
+
+}
+
+
+/* LOAD NEWS */
+async function loadNews(){
+
+  const {data,error} =
+  await supabaseClient
+  .from("news")
+  .select("*")
+  .order("created_at",{ascending:false});
+
+
+  const box =
+  document.getElementById("newsList");
+
+
+  if(error){
+
+    box.innerHTML="❌ خبریں لوڈ نہیں ہو سکیں۔";
+    return;
+
+  }
+
+
+  if(!data || data.length===0){
+
+    box.innerHTML="ابھی کوئی خبر موجود نہیں۔";
+    return;
+
+  }
+
+
+  box.innerHTML="";
+
+
+  data.forEach(function(item){
+
+    const div =
+    document.createElement("div");
+
+    div.className="news-item";
+
+
+    div.innerHTML=`
+
+      <h3>${escapeHtml(item.title)}</h3>
+
+      <p>
+      <b>کیٹیگری:</b>
+      ${escapeHtml(item.category || "")}
+      </p>
+
+      <p>
+      ${escapeHtml(item.body || "")}
+      </p>
+
+      <button
+      class="delete"
+      onclick="deleteNews('${item.id}')">
+      خبر حذف کریں
+      </button>
+
+    `;
+
+
+    box.appendChild(div);
+
+  });
+
+}
+
+
+/* DELETE NEWS */
+async function deleteNews(id){
+
+  if(!confirm("کیا آپ یہ خبر حذف کرنا چاہتے ہیں؟")){
+    return;
+  }
+
+
+  const {error} =
+  await supabaseClient
+  .from("news")
+  .delete()
+  .eq("id",id);
+
+
+  if(error){
+
+    alert("خبر حذف نہیں ہوئی: " + error.message);
+    return;
+
+  }
+
+
+  loadNews();
+
+}
+
+
+/* LIVE ON/OFF */
+async function setLive(status){
+
+  const title =
+  document.getElementById("liveTitle").value.trim();
+
+  const video =
+  document.getElementById("liveVideo").value.trim();
+
+
+  const {error} =
+  await supabaseClient
+  .from("live_status")
+  .update({
+    is_live:status,
+    title:title,
+    video_url:video,
+    updated_at:new Date().toISOString()
+  })
+  .eq("id",1);
+
+
+  if(error){
+
+    alert("Live status update نہیں ہوا: " + error.message);
+    return;
+
+  }
+
+
+  loadLive();
+
+}
+
+
+/* LOAD LIVE */
+async function loadLive(){
+
+  const {data,error} =
+  await supabaseClient
+  .from("live_status")
+  .select("*")
+  .eq("id",1)
+  .single();
+
+
+  if(error || !data){
+    return;
+  }
+
+
+  document.getElementById("liveTitle").value =
+  data.title || "";
+
+  document.getElementById("liveVideo").value =
+  data.video_url || "";
+
+
+  const status =
+  document.getElementById("liveStatus");
+
+
+  if(data.is_live){
+
+    status.innerHTML =
+    '<span class="live-on">🔴 LIVE ON</span>';
+
+  }else{
+
+    status.innerHTML =
+    '<span class="live-off">⚫ LIVE OFF</span>';
+
+  }
+
+}
+
+
+/* HTML SECURITY */
+function escapeHtml(text){
+
+  return String(text)
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
+
+}
+
+
+/* START */
+checkUser();
+
+</script>
+
+</body>
+</html>
