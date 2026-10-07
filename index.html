@@ -4,7 +4,6 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>WORLD NEWS HD - دنیا بھر کی خبریں</title>
@@ -13,9 +12,9 @@
 
 <style>
 
-/* =================================================
+/* =========================
    BASIC
-================================================= */
+========================= */
 
 *{
   box-sizing:border-box;
@@ -35,9 +34,9 @@ a{
 }
 
 
-/* =================================================
+/* =========================
    TOP BAR
-================================================= */
+========================= */
 
 .topbar{
   background:#071d36;
@@ -48,9 +47,9 @@ a{
 }
 
 
-/* =================================================
+/* =========================
    HEADER
-================================================= */
+========================= */
 
 .header{
   position:relative;
@@ -66,7 +65,6 @@ a{
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:15px;
 }
 
 .brand{
@@ -106,9 +104,9 @@ a{
 }
 
 
-/* =================================================
-   ADMIN BUTTON
-================================================= */
+/* =========================
+   ADMIN
+========================= */
 
 .admin-link{
   position:absolute;
@@ -119,7 +117,6 @@ a{
   color:#fff;
 
   padding:7px 11px;
-
   border-radius:5px;
 
   font-size:12px;
@@ -128,19 +125,12 @@ a{
   box-shadow:0 2px 6px #0005;
 
   z-index:50;
-
-  transition:.2s;
-}
-
-.admin-link:hover{
-  background:#b90f18;
-  transform:scale(1.03);
 }
 
 
-/* =================================================
-   BREAKING NEWS MAIN BOX
-================================================= */
+/* =========================
+   BREAKING NEWS
+========================= */
 
 .breaking{
 
@@ -158,8 +148,6 @@ a{
 
   display:flex;
 
-  align-items:center;
-
   direction:ltr;
 
   box-shadow:0 2px 8px #0002;
@@ -167,18 +155,16 @@ a{
 }
 
 
-/* =================================================
+/* =========================
    BREAKING LABEL
-   RIGHT SIDE FIXED
-================================================= */
+   RIGHT SIDE
+========================= */
 
 .breaking-label{
 
   order:2;
 
   flex:0 0 auto;
-
-  width:auto;
 
   height:46px;
 
@@ -215,9 +201,7 @@ a{
 }
 
 
-/* =================================================
-   BREAKING LABEL BLINKING DOT
-================================================= */
+/* blinking dot */
 
 .breaking-label::before{
 
@@ -225,8 +209,6 @@ a{
 
   width:8px;
   height:8px;
-
-  flex:none;
 
   background:#fff;
 
@@ -253,9 +235,9 @@ a{
 }
 
 
-/* =================================================
-   TICKER WINDOW
-================================================= */
+/* =========================
+   TICKER AREA
+========================= */
 
 .ticker-window{
 
@@ -276,9 +258,9 @@ a{
 }
 
 
-/* =================================================
+/* =========================
    BREAKING TEXT
-================================================= */
+========================= */
 
 .breaking-text{
 
@@ -287,10 +269,6 @@ a{
   top:50%;
 
   left:0;
-
-  right:auto;
-
-  transform:translate3d(100vw,-50%,0);
 
   white-space:nowrap;
 
@@ -312,14 +290,18 @@ a{
 
   unicode-bidi:plaintext;
 
-  will-change:transform;
+  transform:translate3d(
+    -100%,
+    -50%,
+    0
+  );
 
 }
 
 
-/* =================================================
+/* =========================
    MAIN
-================================================= */
+========================= */
 
 .container{
   max-width:1200px;
@@ -328,9 +310,9 @@ a{
 }
 
 
-/* =================================================
-   LIVE VIDEO
-================================================= */
+/* =========================
+   LIVE
+========================= */
 
 .live-box{
   background:#050505;
@@ -340,33 +322,20 @@ a{
   box-shadow:0 3px 12px #0004;
 }
 
-
-/* =================================================
-   LIVE TITLE
-================================================= */
+.live-off{
+  display:none;
+}
 
 .live-title{
-
   background:#111;
-
   color:#fff;
-
   padding:9px 12px;
-
   min-height:46px;
 
   display:flex;
-
   align-items:center;
-
   justify-content:flex-start;
-
 }
-
-
-/* =================================================
-   LIVE BADGE
-================================================= */
 
 .live-badge{
 
@@ -388,18 +357,10 @@ a{
 
   font-weight:900;
 
-  letter-spacing:.5px;
-
   direction:ltr;
 
   box-shadow:0 2px 7px #0006;
-
 }
-
-
-/* =================================================
-   LIVE DOT
-================================================= */
 
 .live-dot{
 
@@ -428,50 +389,20 @@ a{
 
 }
 
-
-/* =================================================
-   LIVE FRAME
-================================================= */
-
 .live-frame{
 
   width:100%;
-
   aspect-ratio:16/9;
 
   border:0;
-
   display:block;
-
   background:#000;
-
-}
-
-.live-off{
-  display:none;
 }
 
 
-/* =================================================
-   LIVE LOADING
-================================================= */
-
-.live-loading{
-
-  color:#fff;
-
-  text-align:center;
-
-  padding:30px 10px;
-
-  font-size:15px;
-
-}
-
-
-/* =================================================
-   SECTION TITLE
-================================================= */
+/* =========================
+   SECTION
+========================= */
 
 .section-title{
 
@@ -492,24 +423,25 @@ a{
 }
 
 
-/* =================================================
+/* =========================
    NEWS GRID
-================================================= */
+========================= */
 
 .news-grid{
 
   display:grid;
 
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:
+    repeat(3,1fr);
 
   gap:18px;
 
 }
 
 
-/* =================================================
+/* =========================
    NEWS CARD
-================================================= */
+========================= */
 
 .news-card{
 
@@ -534,9 +466,9 @@ a{
 }
 
 
-/* =================================================
-   NEWS IMAGE
-================================================= */
+/* =========================
+   IMAGE
+========================= */
 
 .news-img{
 
@@ -553,14 +485,12 @@ a{
 }
 
 
-/* =================================================
-   NEWS CONTENT
-================================================= */
+/* =========================
+   CONTENT
+========================= */
 
 .news-content{
-
   padding:14px;
-
 }
 
 .category{
@@ -604,9 +534,9 @@ a{
 }
 
 
-/* =================================================
-   NEWS VIDEO
-================================================= */
+/* =========================
+   VIDEO
+========================= */
 
 .news-video{
 
@@ -623,9 +553,9 @@ a{
 }
 
 
-/* =================================================
+/* =========================
    SOCIAL
-================================================= */
+========================= */
 
 .social{
 
@@ -676,21 +606,17 @@ a{
 }
 
 .facebook{
-
   background:#1877f2;
-
 }
 
 .instagram{
-
   background:#c13584;
-
 }
 
 
-/* =================================================
+/* =========================
    FOOTER
-================================================= */
+========================= */
 
 .footer{
 
@@ -709,9 +635,9 @@ a{
 }
 
 
-/* =================================================
+/* =========================
    EMPTY
-================================================= */
+========================= */
 
 .empty{
 
@@ -728,103 +654,71 @@ a{
 }
 
 
-/* =================================================
+/* =========================
    TABLET
-================================================= */
+========================= */
 
 @media(max-width:800px){
 
   .news-grid{
-
     grid-template-columns:repeat(2,1fr);
-
   }
 
   .brand h1{
-
     font-size:24px;
-
   }
 
   .logo-mark{
-
     width:58px;
-
     height:58px;
-
     font-size:32px;
-
   }
 
 }
 
 
-/* =================================================
+/* =========================
    MOBILE
-================================================= */
+========================= */
 
 @media(max-width:550px){
 
   .header{
-
     padding:17px 10px;
-
   }
 
   .header-inner{
-
     min-height:65px;
-
     flex-direction:column;
-
     text-align:center;
-
   }
 
   .brand{
-
     gap:9px;
-
   }
 
   .brand h1{
-
     font-size:21px;
-
   }
 
   .brand p{
-
     font-size:11px;
-
   }
 
   .logo-mark{
-
     width:52px;
-
     height:52px;
-
     font-size:29px;
-
     border-width:2px;
-
   }
 
   .admin-link{
-
     left:7px;
-
     top:7px;
-
     padding:6px 8px;
-
     font-size:10px;
-
   }
 
-
-  /* BREAKING MOBILE */
 
   .breaking{
 
@@ -847,7 +741,6 @@ a{
   .breaking-label::before{
 
     width:6px;
-
     height:6px;
 
     margin-left:5px;
@@ -870,87 +763,64 @@ a{
 
 
   .news-grid{
-
     grid-template-columns:1fr;
-
   }
 
   .news-img{
-
     height:220px;
-
   }
 
   .live-title{
-
     min-height:43px;
-
     padding:8px 10px;
-
   }
 
   .live-badge{
-
     font-size:13px;
-
     padding:5px 9px;
-
   }
 
 }
 
 
-/* =================================================
-   VERY SMALL MOBILE
-================================================= */
+/* =========================
+   VERY SMALL
+========================= */
 
 @media(max-width:360px){
 
   .brand h1{
-
     font-size:18px;
-
   }
 
   .brand p{
-
     display:none;
-
   }
 
   .logo-mark{
-
     width:47px;
-
     height:47px;
-
     font-size:25px;
-
   }
 
   .breaking-label{
-
     font-size:12px;
-
     padding:0 7px;
-
   }
 
 }
 
 
-/* =================================================
-   RTL NEWS CONTENT
-================================================= */
+/* =========================
+   RTL CONTENT
+========================= */
 
 .news-card,
 .news-content,
 .news-headline,
 .news-detail,
 .section-title{
-
   direction:rtl;
-
 }
 
 </style>
@@ -961,20 +831,20 @@ a{
 <body>
 
 
-<!-- =================================================
+<!-- =========================
      TOP BAR
-================================================= -->
+========================= -->
 
 <div class="topbar">
 
-  🌍 پاکستان اور دنیا بھر کی تازہ ترین خبریں
+🌍 پاکستان اور دنیا بھر کی تازہ ترین خبریں
 
 </div>
 
 
-<!-- =================================================
+<!-- =========================
      HEADER
-================================================= -->
+========================= -->
 
 <header class="header">
 
@@ -1003,8 +873,6 @@ a{
   </div>
 
 
-  <!-- ADMIN -->
-
   <a
     class="admin-link"
     href="admin.html">
@@ -1016,23 +884,14 @@ a{
 </header>
 
 
-<!-- =================================================
+<!-- =========================
      BREAKING NEWS
-================================================= -->
+========================= -->
 
 <div class="breaking">
 
 
-  <!-- RIGHT FIXED LABEL -->
-
-  <div class="breaking-label">
-
-    🔴 بریکنگ نیوز
-
-  </div>
-
-
-  <!-- TICKER -->
+  <!-- خبر والا حصہ -->
 
   <div class="ticker-window">
 
@@ -1047,19 +906,27 @@ a{
 
   </div>
 
+
+  <!-- دائیں طرف فکس -->
+
+  <div class="breaking-label">
+
+    🔴 بریکنگ نیوز
+
+  </div>
+
+
 </div>
 
 
-<!-- =================================================
+<!-- =========================
      MAIN
-================================================= -->
+========================= -->
 
 <main class="container">
 
 
-  <!-- =================================================
-       LIVE VIDEO
-  ================================================= -->
+  <!-- LIVE -->
 
   <section
     id="liveSection"
@@ -1102,13 +969,10 @@ a{
 
     </iframe>
 
-
   </section>
 
 
-  <!-- =================================================
-       NEWS
-  ================================================= -->
+  <!-- NEWS -->
 
   <section>
 
@@ -1134,9 +998,7 @@ a{
   </section>
 
 
-  <!-- =================================================
-       SOCIAL
-  ================================================= -->
+  <!-- SOCIAL -->
 
   <section
     id="socialSection"
@@ -1145,9 +1007,7 @@ a{
 
 
     <h2>
-
       🌐 ہمارے سوشل میڈیا سے جڑیں
-
     </h2>
 
 
@@ -1184,9 +1044,9 @@ a{
 </main>
 
 
-<!-- =================================================
+<!-- =========================
      FOOTER
-================================================= -->
+========================= -->
 
 <footer class="footer">
 
@@ -1203,9 +1063,9 @@ a{
 
 <script>
 
-/* =================================================
+/* =========================
    SUPABASE
-================================================= */
+========================= */
 
 const SUPABASE_URL =
   "https://mlydxfrsjnnbbaampqan.supabase.co";
@@ -1221,22 +1081,21 @@ const supabaseClient =
   );
 
 
-/* =================================================
-   YOUTUBE URL CONVERTER
-================================================= */
+/* =========================
+   YOUTUBE
+========================= */
 
 function youtubeEmbedUrl(url){
 
   if(!url){
-
     return "";
-
   }
 
   try{
 
     url =
       String(url).trim();
+
 
     if(
       /^[A-Za-z0-9_-]{6,20}$/.test(url)
@@ -1250,13 +1109,16 @@ function youtubeEmbedUrl(url){
 
     }
 
+
     const parsed =
       new URL(url);
+
 
     const host =
       parsed.hostname
         .replace(/^www\./,"")
         .toLowerCase();
+
 
     let id = "";
 
@@ -1269,6 +1131,7 @@ function youtubeEmbedUrl(url){
           .filter(Boolean)[0] || "";
 
     }
+
 
     else if(
 
@@ -1289,6 +1152,7 @@ function youtubeEmbedUrl(url){
           parsed.pathname
             .split("/")
             .filter(Boolean);
+
 
         if(
           [
@@ -1346,29 +1210,30 @@ function youtubeEmbedUrl(url){
 
 
 /* =================================================
-   BREAKING NEWS TICKER
-   RIGHT → LEFT
+   BREAKING NEWS
+   LEFT → RIGHT
 ================================================= */
 
-let tickerAnimationId = null;
+let tickerAnimation = null;
 
 
 function startBreakingTicker(){
 
-  const windowEl =
+  const windowBox =
     document.querySelector(
       ".ticker-window"
     );
 
-  const textEl =
+
+  const text =
     document.getElementById(
       "breakingText"
     );
 
 
   if(
-    !windowEl ||
-    !textEl
+    !windowBox ||
+    !text
   ){
 
     return;
@@ -1376,87 +1241,85 @@ function startBreakingTicker(){
   }
 
 
-  if(tickerAnimationId){
+  if(tickerAnimation){
 
     cancelAnimationFrame(
-      tickerAnimationId
+      tickerAnimation
     );
-
-    tickerAnimationId = null;
 
   }
 
 
   /*
-     Text کو window کے بالکل دائیں
-     سے شروع کروایا جائے گا
+     خبر پہلے مکمل طور پر
+     بائیں طرف ہوگی
   */
 
   let x =
-    windowEl.clientWidth;
+    -text.offsetWidth;
 
 
   /*
-     Mobile پر رفتار تھوڑی کم
-     Desktop پر مناسب رفتار
+     رفتار
   */
 
   const speed =
     window.innerWidth <= 550
-      ? 0.85
-      : 1.25;
+      ? 0.9
+      : 1.3;
 
 
-  function move(){
+  function animate(){
 
     /*
-       دائیں → بائیں
+       LEFT → RIGHT
     */
 
-    x -= speed;
+    x += speed;
 
 
-    textEl.style.transform =
-      `translate3d(${x}px,-50%,0)`;
+    text.style.transform =
+      "translate3d(" +
+      x +
+      "px,-50%,0)";
 
 
     /*
-       جب مکمل خبر بائیں طرف
-       نکل جائے تو دوبارہ دائیں
-       سے شروع
+       جب خبر دائیں طرف
+       مکمل پہنچ جائے
     */
 
     if(
-      x <
-      -textEl.offsetWidth
+      x >
+      windowBox.clientWidth
     ){
 
+      /*
+         دوبارہ بائیں سے شروع
+      */
+
       x =
-        windowEl.clientWidth;
+        -text.offsetWidth;
 
     }
 
 
-    tickerAnimationId =
+    tickerAnimation =
       requestAnimationFrame(
-        move
+        animate
       );
 
   }
 
 
-  /*
-     فوراً animation شروع
-  */
-
-  move();
+  animate();
 
 }
 
 
-/* =================================================
-   LOAD BREAKING NEWS
-================================================= */
+/* =========================
+   LOAD BREAKING
+========================= */
 
 async function loadBreaking(){
 
@@ -1484,16 +1347,6 @@ async function loadBreaking(){
         .maybeSingle();
 
 
-    if(error){
-
-      console.error(
-        "Breaking Error:",
-        error
-      );
-
-    }
-
-
     const element =
       document.getElementById(
         "breakingText"
@@ -1503,6 +1356,16 @@ async function loadBreaking(){
     if(!element){
 
       return;
+
+    }
+
+
+    if(error){
+
+      console.error(
+        "Breaking Error:",
+        error
+      );
 
     }
 
@@ -1519,9 +1382,7 @@ async function loadBreaking(){
       element.textContent =
         text;
 
-    }
-
-    else{
+    }else{
 
       element.textContent =
         "WORLD NEWS HD — تازہ ترین خبریں";
@@ -1529,17 +1390,8 @@ async function loadBreaking(){
     }
 
 
-    /*
-       نئی خبر آنے کے بعد
-       ticker دوبارہ دائیں سے شروع
-    */
-
     requestAnimationFrame(
-      () => {
-
-        startBreakingTicker();
-
-      }
+      startBreakingTicker
     );
 
 
@@ -1571,9 +1423,9 @@ async function loadBreaking(){
 }
 
 
-/* =================================================
-   WINDOW RESIZE
-================================================= */
+/* =========================
+   RESIZE
+========================= */
 
 window.addEventListener(
   "resize",
@@ -1585,9 +1437,9 @@ window.addEventListener(
 );
 
 
-/* =================================================
-   LIVE VIDEO
-================================================= */
+/* =========================
+   LIVE
+========================= */
 
 async function loadLive(){
 
@@ -1626,25 +1478,12 @@ async function loadLive(){
         .maybeSingle();
 
 
-    console.log(
-      "WORLD NEWS HD LIVE DATA:",
-      data
-    );
-
-
-    console.log(
-      "WORLD NEWS HD LIVE ERROR:",
-      error
-    );
-
-
     if(error){
 
       console.error(
-        "Live Video Supabase Error:",
+        "Live Video Error:",
         error
       );
-
 
       frame.removeAttribute(
         "src"
@@ -1660,10 +1499,6 @@ async function loadLive(){
 
 
     if(!data){
-
-      frame.removeAttribute(
-        "src"
-      );
 
       section.classList.add(
         "live-off"
@@ -1682,10 +1517,6 @@ async function loadLive(){
 
     if(!youtubeUrl){
 
-      frame.removeAttribute(
-        "src"
-      );
-
       section.classList.add(
         "live-off"
       );
@@ -1703,10 +1534,6 @@ async function loadLive(){
 
     if(!embed){
 
-      frame.removeAttribute(
-        "src"
-      );
-
       section.classList.add(
         "live-off"
       );
@@ -1714,14 +1541,6 @@ async function loadLive(){
       return;
 
     }
-
-
-    frame.removeAttribute(
-      "src"
-    );
-
-
-    void frame.offsetWidth;
 
 
     frame.src =
@@ -1736,13 +1555,8 @@ async function loadLive(){
   }catch(error){
 
     console.error(
-      "Live Video Error:",
+      "Live Error:",
       error
-    );
-
-
-    frame.removeAttribute(
-      "src"
     );
 
     section.classList.add(
@@ -1754,9 +1568,9 @@ async function loadLive(){
 }
 
 
-/* =================================================
-   SOCIAL URL
-================================================= */
+/* =========================
+   NORMALIZE URL
+========================= */
 
 function normalizeUrl(url){
 
@@ -1769,13 +1583,6 @@ function normalizeUrl(url){
 
   url =
     String(url).trim();
-
-
-  if(!url){
-
-    return "";
-
-  }
 
 
   if(
@@ -1794,9 +1601,9 @@ function normalizeUrl(url){
 }
 
 
-/* =================================================
+/* =========================
    SOCIAL
-================================================= */
+========================= */
 
 async function loadSocial(){
 
@@ -1887,9 +1694,7 @@ async function loadSocial(){
 
       visible = true;
 
-    }
-
-    else{
+    }else{
 
       fb.style.display =
         "none";
@@ -1907,9 +1712,7 @@ async function loadSocial(){
 
       visible = true;
 
-    }
-
-    else{
+    }else{
 
       ig.style.display =
         "none";
@@ -1935,9 +1738,9 @@ async function loadSocial(){
 }
 
 
-/* =================================================
+/* =========================
    NEWS
-================================================= */
+========================= */
 
 async function loadNews(){
 
@@ -2141,9 +1944,9 @@ async function loadNews(){
 }
 
 
-/* =================================================
-   HTML SECURITY
-================================================= */
+/* =========================
+   ESCAPE HTML
+========================= */
 
 function escapeHtml(value){
 
@@ -2151,37 +1954,37 @@ function escapeHtml(value){
     value ?? ""
   )
 
-    .replace(
-      /&/g,
-      "&amp;"
-    )
+  .replace(
+    /&/g,
+    "&amp;"
+  )
 
-    .replace(
-      /</g,
-      "&lt;"
-    )
+  .replace(
+    /</g,
+    "&lt;"
+  )
 
-    .replace(
-      />/g,
-      "&gt;"
-    )
+  .replace(
+    />/g,
+    "&gt;"
+  )
 
-    .replace(
-      /"/g,
-      "&quot;"
-    )
+  .replace(
+    /"/g,
+    "&quot;"
+  )
 
-    .replace(
-      /'/g,
-      "&#039;"
-    );
+  .replace(
+    /'/g,
+    "&#039;"
+  );
 
 }
 
 
-/* =================================================
+/* =========================
    START
-================================================= */
+========================= */
 
 loadBreaking();
 
@@ -2192,9 +1995,9 @@ loadSocial();
 loadNews();
 
 
-/* =================================================
-   AUTO REFRESH
-================================================= */
+/* =========================
+   AUTO UPDATE
+========================= */
 
 setInterval(
   loadBreaking,
