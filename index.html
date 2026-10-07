@@ -12,7 +12,134 @@ content="width=device-width, initial-scale=1.0">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<style>
+/* =========================
+   ANIMATED WORLD NEWS HD LOGO
+========================= */
+
+.brand-logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  direction:ltr;
+}
+
+.globe{
+  width:62px;
+  height:62px;
+  border-radius:50%;
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 35% 30%,
+    #ffffff 0%,
+    #55c8ff 8%,
+    #0879d1 38%,
+    #003c82 75%,
+    #001d45 100%);
+
+  border:3px solid #fff;
+
+  box-shadow:
+    0 0 8px #fff,
+    0 0 20px #00aaff,
+    inset -8px -8px 15px rgba(0,0,0,.55);
+
+  animation:globeSpin 5s linear infinite;
+}
+
+.globe::before{
+  content:"";
+  position:absolute;
+  width:80px;
+  height:28px;
+  left:-9px;
+  top:16px;
+  border:2px solid rgba(255,255,255,.65);
+  border-radius:50%;
+}
+
+.globe::after{
+  content:"";
+  position:absolute;
+  width:25px;
+  height:68px;
+  left:16px;
+  top:-5px;
+  border-left:2px solid rgba(255,255,255,.65);
+  border-right:2px solid rgba(255,255,255,.65);
+  border-radius:50%;
+}
+
+@keyframes globeSpin{
+  0%{
+    transform:rotateY(0deg);
+  }
+
+  50%{
+    transform:rotateY(180deg);
+  }
+
+  100%{
+    transform:rotateY(360deg);
+  }
+}
+
+.brand-name{
+  line-height:1;
+}
+
+.world-text{
+  font-size:25px;
+  font-weight:900;
+  letter-spacing:2px;
+  color:#fff;
+  text-shadow:0 2px 5px #000;
+}
+
+.news-text{
+  font-size:24px;
+  font-weight:900;
+  letter-spacing:1px;
+  color:#fff;
+  margin-top:3px;
+}
+
+.news-text span{
+  color:#ffd000;
+}
+
+.brand-tagline{
+  font-size:11px;
+  color:#eee;
+  margin-top:6px;
+  font-weight:bold;
+}
+
+@media(max-width:600px){
+
+  .brand-logo{
+    gap:8px;
+  }
+
+  .globe{
+    width:48px;
+    height:48px;
+  }
+
+  .world-text{
+    font-size:19px;
+  }
+
+  .news-text{
+    font-size:19px;
+  }
+
+  .brand-tagline{
+    font-size:9px;
+  }
+
+}
+  <style>
 
 *{
 box-sizing:border-box;
@@ -377,19 +504,26 @@ font-size:19px;
 
 <!-- HEADER -->
 
-<header>
+<div class="brand-logo">
 
-<div class="header-top">
+  <div class="globe">
+  </div>
 
-<div>
+  <div class="brand-name">
 
-<div class="logo">
-WORLD <span>NEWS HD</span>
-</div>
+    <div class="world-text">
+      WORLD
+    </div>
 
-<div class="tagline">
-دنیا بھر کی خبریں سب سے پہلے
-</div>
+    <div class="news-text">
+      NEWS <span>HD</span>
+    </div>
+
+    <div class="brand-tagline">
+      دنیا بھر کی خبریں سب سے پہلے
+    </div>
+
+  </div>
 
 </div>
 
