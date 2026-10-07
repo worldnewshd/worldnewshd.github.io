@@ -1,45 +1,41 @@
 <!DOCTYPE html>
 <html lang="ur" dir="rtl">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>WORLD NEWS HD - دنیا بھر کی خبریں</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
-  font-family:Arial,Tahoma,sans-serif;
-  background:#f1f5f9;
-  color:#172033;
+  font-family:Arial,"Noto Nastaliq Urdu",sans-serif;
+  background:#f2f4f7;
+  color:#111;
 }
 
-a{
-  text-decoration:none;
+a{text-decoration:none;color:inherit}
+
+.topbar{
+  background:#071d36;
+  color:#fff;
+  padding:10px 15px;
+  text-align:center;
+  font-size:14px;
 }
 
 .header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  background:linear-gradient(135deg,#071b3a,#075985,#0ea5e9);
-  color:white;
-  box-shadow:0 4px 18px #0003;
+  background:linear-gradient(45deg,#061b33,#0d4b7c);
+  color:#fff;
+  padding:18px 15px;
+  box-shadow:0 3px 12px #0003;
 }
 
 .header-inner{
   max-width:1200px;
   margin:auto;
-  padding:12px 15px;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -49,163 +45,129 @@ a{
 .brand{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:12px;
 }
 
 .logo-mark{
-  width:55px;
-  height:55px;
+  width:62px;
+  height:62px;
   border-radius:50%;
-  background:white;
+  background:#fff;
   display:flex;
   align-items:center;
   justify-content:center;
-  box-shadow:0 2px 10px #0004;
-  overflow:hidden;
+  font-size:38px;
+  box-shadow:0 3px 10px #0005;
 }
 
-.logo-mark::before{
-  content:"🌍";
-  font-size:36px;
+.brand h1{
+  font-size:28px;
+  font-weight:900;
 }
 
-.brand-text{
-  line-height:1.1;
-}
-
-.brand-text strong{
-  display:block;
-  font-size:24px;
-  letter-spacing:1px;
-}
-
-.brand-text span{
-  font-size:12px;
-  opacity:.9;
-}
-
-.admin-btn{
-  background:#fff;
-  color:#075985;
-  padding:10px 15px;
-  border-radius:8px;
-  font-weight:bold;
-  border:0;
-}
-
-.nav{
-  max-width:1200px;
-  margin:auto;
-  display:flex;
-  gap:7px;
-  padding:0 15px 10px;
-  overflow-x:auto;
-}
-
-.nav a{
-  color:white;
-  padding:7px 12px;
-  border-radius:6px;
-  background:#ffffff18;
-  white-space:nowrap;
+.brand p{
   font-size:14px;
+  opacity:.9;
+  margin-top:3px;
+}
+
+.admin-link{
+  background:#e51d2a;
+  color:#fff;
+  padding:10px 17px;
+  border-radius:7px;
+  font-weight:bold;
 }
 
 .breaking{
-  background:#111827;
-  color:white;
+  max-width:1200px;
+  margin:12px auto;
+  background:#fff;
+  border-radius:8px;
+  overflow:hidden;
   display:flex;
   align-items:center;
-  min-height:43px;
-  overflow:hidden;
+  box-shadow:0 2px 8px #0002;
+  direction:ltr;
 }
 
 .breaking-label{
-  background:#dc2626;
-  padding:12px 18px;
+  flex:none;
+  background:#d71920;
+  color:#fff;
   font-weight:bold;
+  padding:12px 15px;
+  direction:rtl;
   white-space:nowrap;
+}
+
+.ticker-window{
+  flex:1;
+  overflow:hidden;
+  height:46px;
+  display:flex;
+  align-items:center;
+  direction:ltr;
+  position:relative;
 }
 
 .breaking-text{
-  padding:0 15px;
-  font-size:15px;
+  display:inline-block;
   white-space:nowrap;
-  animation:ticker 25s linear infinite;
+  font-size:17px;
+  font-weight:bold;
+  direction:rtl;
+  padding-left:20px;
+  animation:breakingMove 40s linear infinite;
 }
 
-@keyframes ticker{
-  from{transform:translateX(-100%);}
-  to{transform:translateX(100%);}
+@keyframes breakingMove{
+  0%{transform:translateX(100%)}
+  100%{transform:translateX(-100%)}
 }
 
 .container{
   max-width:1200px;
-  margin:auto;
-  padding:20px 15px;
-}
-
-.hero{
-  background:linear-gradient(135deg,#0f172a,#075985);
-  color:white;
-  border-radius:14px;
-  padding:35px 25px;
-  margin-bottom:20px;
-  text-align:center;
-}
-
-.hero h1{
-  font-size:32px;
-  margin-bottom:10px;
-}
-
-.hero p{
-  opacity:.9;
+  margin:15px auto;
+  padding:0 10px;
 }
 
 .live-box{
-  display:none;
-  background:white;
-  border-radius:14px;
-  padding:15px;
-  margin-bottom:25px;
-  box-shadow:0 3px 15px #0001;
+  background:#050505;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:20px;
+  box-shadow:0 3px 12px #0004;
 }
 
 .live-title{
-  background:#111827;
-  color:white;
-  padding:13px;
-  border-radius:8px;
-  margin-bottom:12px;
-  font-weight:bold;
+  background:#d71920;
+  color:#fff;
+  padding:12px 15px;
   font-size:19px;
+  font-weight:bold;
+  text-align:right;
 }
 
-.live-frame-wrap{
-  position:relative;
+.live-frame{
   width:100%;
-  padding-bottom:56.25%;
-  overflow:hidden;
-  border-radius:10px;
-  background:#000;
-}
-
-.live-frame-wrap iframe{
-  position:absolute;
-  width:100%;
-  height:100%;
+  aspect-ratio:16/9;
   border:0;
-  left:0;
-  top:0;
+  display:block;
+}
+
+.live-off{
+  display:none;
 }
 
 .section-title{
-  background:#075985;
-  color:white;
+  background:#0b3559;
+  color:#fff;
   padding:12px 15px;
-  border-radius:8px;
+  border-right:6px solid #e21b23;
   margin-bottom:15px;
+  font-size:22px;
+  font-weight:bold;
 }
 
 .news-grid{
@@ -215,287 +177,238 @@ a{
 }
 
 .news-card{
-  background:white;
-  border-radius:12px;
+  background:#fff;
+  border-radius:9px;
   overflow:hidden;
-  box-shadow:0 3px 14px #0001;
+  box-shadow:0 2px 9px #0002;
+  transition:.2s;
+}
+
+.news-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 5px 14px #0003;
 }
 
 .news-img{
   width:100%;
-  height:190px;
+  height:210px;
   object-fit:cover;
   display:block;
+  background:#ddd;
 }
 
-.news-body{
-  padding:15px;
+.news-content{
+  padding:14px;
 }
 
 .category{
   display:inline-block;
-  background:#e0f2fe;
-  color:#0369a1;
-  padding:5px 8px;
-  border-radius:5px;
+  background:#d71920;
+  color:#fff;
+  padding:4px 9px;
+  border-radius:4px;
   font-size:12px;
   margin-bottom:8px;
 }
 
-.news-body h2{
-  font-size:19px;
-  margin-bottom:9px;
+.news-headline{
+  font-size:20px;
   line-height:1.5;
+  margin-bottom:8px;
 }
 
-.news-body p{
-  color:#64748b;
+.news-detail{
+  color:#555;
+  font-size:15px;
   line-height:1.8;
-  font-size:14px;
+  white-space:pre-line;
 }
 
-.video-btn{
-  display:inline-block;
-  margin-top:12px;
-  background:#dc2626;
-  color:white;
-  padding:8px 12px;
-  border-radius:6px;
-  font-size:13px;
+.news-video{
+  width:100%;
+  aspect-ratio:16/9;
+  border:0;
+  margin-top:10px;
 }
 
 .social{
-  margin-top:30px;
-  background:#0f172a;
-  color:white;
-  padding:25px 15px;
+  margin-top:25px;
+  background:#fff;
+  border-radius:9px;
+  padding:18px;
+  box-shadow:0 2px 8px #0002;
   text-align:center;
-  border-radius:12px;
 }
 
 .social h2{
   margin-bottom:15px;
+  color:#0b3559;
 }
 
 .social-links{
   display:flex;
   justify-content:center;
+  gap:12px;
   flex-wrap:wrap;
-  gap:10px;
 }
 
-.social-links a{
-  color:white;
-  padding:10px 17px;
-  border-radius:7px;
-  background:#075985;
+.social-btn{
+  color:#fff;
+  padding:11px 20px;
+  border-radius:6px;
+  font-weight:bold;
 }
 
-.social-links a.facebook{
-  background:#1877f2;
-}
-
-.social-links a.instagram{
-  background:#c13584;
-}
+.facebook{background:#1877f2}
+.instagram{background:#c13584}
 
 .footer{
-  background:#07111f;
-  color:#aaa;
+  margin-top:30px;
+  background:#071d36;
+  color:#fff;
   text-align:center;
-  padding:20px;
-  margin-top:25px;
+  padding:20px 10px;
+  line-height:1.8;
+}
+
+.empty{
+  background:#fff;
+  padding:25px;
+  text-align:center;
+  border-radius:8px;
+  color:#777;
 }
 
 @media(max-width:800px){
-  .news-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .hero h1{
-    font-size:25px;
-  }
+  .news-grid{grid-template-columns:repeat(2,1fr)}
+  .brand h1{font-size:22px}
+  .logo-mark{width:52px;height:52px;font-size:31px}
 }
 
 @media(max-width:550px){
   .header-inner{
-    align-items:flex-start;
+    flex-direction:column;
+    text-align:center;
   }
 
-  .brand-text strong{
-    font-size:19px;
-  }
+  .news-grid{grid-template-columns:1fr}
 
-  .logo-mark{
-    width:48px;
-    height:48px;
-  }
-
-  .logo-mark::before{
-    font-size:30px;
-  }
-
-  .admin-btn{
-    font-size:12px;
-    padding:8px 10px;
-  }
-
-  .news-grid{
-    grid-template-columns:1fr;
+  .breaking{
+    margin:8px;
   }
 
   .breaking-label{
-    padding:12px 10px;
+    padding:11px 8px;
     font-size:13px;
   }
-}
 
+  .breaking-text{
+    font-size:15px;
+    animation-duration:45s;
+  }
+
+  .news-img{
+    height:220px;
+  }
+}
 </style>
 </head>
 
 <body>
 
-<header class="header">
-
-  <div class="header-inner">
-
-    <div class="brand">
-
-      <div class="logo-mark"></div>
-
-      <div class="brand-text">
-        <strong>WORLD NEWS HD</strong>
-        <span>دنیا بھر کی تازہ ترین خبریں</span>
-      </div>
-
-    </div>
-
-    <a class="admin-btn" href="admin.html">
-      ⚙ Admin Panel
-    </a>
-
-  </div>
-
-  <nav class="nav">
-    <a href="#home">صفحۂ اول</a>
-    <a href="#pakistan">پاکستان</a>
-    <a href="#world">دنیا</a>
-    <a href="#politics">سیاست</a>
-    <a href="#business">کاروبار</a>
-    <a href="#sports">کھیل</a>
-    <a href="#entertainment">انٹرٹینمنٹ</a>
-    <a href="#crime">جرائم</a>
-  </nav>
-
-</header>
-
-<div class="breaking">
-
-  <div class="breaking-label">
-    🔴 بریکنگ نیوز
-  </div>
-
-  <div id="breakingText" class="breaking-text">
-    WORLD NEWS HD
-  </div>
-
+<div class="topbar">
+  🌍 پاکستان اور دنیا بھر کی تازہ ترین خبریں
 </div>
 
-<main class="container" id="home">
+<header class="header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="logo-mark">🌍</div>
+      <div>
+        <h1>WORLD NEWS HD</h1>
+        <p>دنیا بھر کی خبریں آپ کے موبائل پر</p>
+      </div>
+    </div>
 
-  <section class="hero">
-    <h1>🌍 WORLD NEWS HD</h1>
-    <p>دنیا بھر کی اہم اور تازہ ترین خبریں ایک ہی جگہ</p>
-  </section>
+    <a class="admin-link" href="admin.html">🔐 Admin</a>
+  </div>
+</header>
 
+<!-- BREAKING NEWS -->
+<div class="breaking">
+  <div class="breaking-label">🔴 بریکنگ نیوز</div>
+  <div class="ticker-window">
+    <div id="breakingText" class="breaking-text">
+      تازہ ترین خبریں حاصل کرنے کے لیے WORLD NEWS HD دیکھتے رہیے
+    </div>
+  </div>
+</div>
 
-  <!-- LIVE VIDEO -->
+<main class="container">
 
-  <section id="liveSection" class="live-box">
-
+  <!-- LIVE -->
+  <section id="liveSection" class="live-box live-off">
     <div class="live-title">
       🔴 LIVE VIDEO — WORLD NEWS HD
     </div>
 
-    <div class="live-frame-wrap">
-
-      <iframe
-        id="liveFrame"
-        allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-        allowfullscreen>
-      </iframe>
-
-    </div>
-
+    <iframe
+      id="liveFrame"
+      class="live-frame"
+      allow="autoplay; encrypted-media; picture-in-picture"
+      allowfullscreen>
+    </iframe>
   </section>
 
-
+  <!-- NEWS -->
   <section>
+    <div class="section-title">📰 تازہ ترین خبریں</div>
 
-    <div class="section-title">
-      📰 تازہ ترین خبریں
+    <div id="newsGrid" class="news-grid">
+      <div class="empty">خبریں لوڈ ہو رہی ہیں...</div>
     </div>
-
-    <div id="newsGrid" class="news-grid"></div>
-
   </section>
 
-
-  <!-- SOCIAL MEDIA -->
-
-  <section class="social">
-
-    <h2>🌐 WORLD NEWS HD سوشل میڈیا</h2>
+  <!-- SOCIAL -->
+  <section id="socialSection" class="social" style="display:none">
+    <h2>🌐 ہمارے سوشل میڈیا سے جڑیں</h2>
 
     <div class="social-links">
-
-      <a
-        id="facebookLink"
-        class="facebook"
-        href="#"
-        target="_blank"
-        rel="noopener"
-        style="display:none;">
-        👍 Facebook
+      <a id="facebookLink"
+         class="social-btn facebook"
+         target="_blank"
+         rel="noopener">
+         📘 Facebook
       </a>
 
-      <a
-        id="instagramLink"
-        class="instagram"
-        href="#"
-        target="_blank"
-        rel="noopener"
-        style="display:none;">
-        📸 Instagram
+      <a id="instagramLink"
+         class="social-btn instagram"
+         target="_blank"
+         rel="noopener">
+         📸 Instagram
       </a>
-
     </div>
-
   </section>
 
 </main>
 
-
 <footer class="footer">
-  © <span id="year"></span> WORLD NEWS HD — All Rights Reserved
+  <strong>WORLD NEWS HD</strong><br>
+  پاکستان اور دنیا بھر کی تازہ ترین خبریں
 </footer>
 
-
 <script>
+const SUPABASE_URL = "https://mlydxfrsjnnbbaampqan.supabase.co";
+const SUPABASE_KEY = "sb_publishable_4xh2rkJSLqWX2UwC4eHHRA_WpujFv2w";
 
-const SUPABASE_URL =
-"https://mlydxfrsjnnbbaampqan.supabase.co";
+const supabaseClient = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
-const SUPABASE_KEY =
-"sb_publishable_4xh2rkJSLqWX2UwC4eHHRA_WpujFv2w";
-
-const supabaseClient =
-supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-
-
-/* =========================
-   YOUTUBE URL SYSTEM
-========================= */
+/* ===============================
+   YOUTUBE LINK CONVERTER
+================================ */
 
 function youtubeEmbedUrl(url){
 
@@ -503,74 +416,53 @@ function youtubeEmbedUrl(url){
 
   try{
 
-    url=String(url).trim();
+    url = String(url).trim();
 
-    /*
-      Raw YouTube video ID بھی قبول کرے گا
-    */
-
+    /* Raw YouTube ID */
     if(/^[A-Za-z0-9_-]{6,20}$/.test(url)){
-      return "https://www.youtube-nocookie.com/embed/"
-        + url
-        + "?autoplay=1&mute=1&playsinline=1&rel=0";
+      return "https://www.youtube-nocookie.com/embed/" +
+        url +
+        "?autoplay=1&mute=1&playsinline=1&rel=0";
     }
 
-    const parsed=new URL(url);
+    const parsed = new URL(url);
 
-    const host=parsed.hostname
+    const host = parsed.hostname
       .replace(/^www\./,"")
       .toLowerCase();
 
-    let id="";
+    let id = "";
 
-    /* youtu.be */
+    if(host === "youtu.be"){
 
-    if(host==="youtu.be"){
-
-      const parts=parsed.pathname
+      id = parsed.pathname
         .split("/")
-        .filter(Boolean);
+        .filter(Boolean)[0] || "";
 
-      id=parts[0] || "";
-
-    }
-
-    /* YouTube websites */
-
-    else if(
-      host==="youtube.com" ||
-      host==="m.youtube.com" ||
-      host==="music.youtube.com" ||
-      host==="youtube-nocookie.com"
+    }else if(
+      host === "youtube.com" ||
+      host === "m.youtube.com" ||
+      host === "music.youtube.com" ||
+      host === "youtube-nocookie.com"
     ){
 
-      /* watch?v= */
-
-      id=parsed.searchParams.get("v") || "";
-
-      /* /live/ID */
+      id = parsed.searchParams.get("v") || "";
 
       if(!id){
 
-        const parts=parsed.pathname
+        const parts = parsed.pathname
           .split("/")
           .filter(Boolean);
 
         if(
-          parts[0]==="live" ||
-          parts[0]==="embed" ||
-          parts[0]==="shorts"
+          ["live","embed","shorts"].includes(parts[0])
         ){
-
-          id=parts[1] || "";
-
+          id = parts[1] || "";
         }
-
       }
-
     }
 
-    id=String(id)
+    id = String(id)
       .split("?")[0]
       .split("&")[0]
       .trim();
@@ -579,258 +471,359 @@ function youtubeEmbedUrl(url){
       return "";
     }
 
-    return "https://www.youtube-nocookie.com/embed/"
-      + id
-      + "?autoplay=1&mute=1&playsinline=1&rel=0";
+    return "https://www.youtube-nocookie.com/embed/" +
+      id +
+      "?autoplay=1&mute=1&playsinline=1&rel=0";
 
   }catch(error){
 
+    console.error(error);
     return "";
-
   }
-
 }
 
 
-/* =========================
+/* ===============================
    BREAKING NEWS
-========================= */
+================================ */
 
 async function loadBreaking(){
 
-  const {data,error}=await supabaseClient
-    .from("breaking_news")
-    .select("text")
-    .eq("id",1)
-    .maybeSingle();
+  try{
 
-  if(!error && data && data.text){
+    const {data,error} = await supabaseClient
+      .from("world_news_breaking")
+      .select("breaking_text")
+      .eq("id",1)
+      .maybeSingle();
 
-    document.getElementById("breakingText").textContent=
-      data.text;
+    if(error){
+      console.error("Breaking error:",error);
+      return;
+    }
+
+    const text =
+      data && data.breaking_text
+        ? data.breaking_text.trim()
+        : "";
+
+    const element =
+      document.getElementById("breakingText");
+
+    if(text){
+
+      element.textContent = text;
+
+      /* Animation restart */
+      element.style.animation = "none";
+      void element.offsetWidth;
+      element.style.animation =
+        "breakingMove 40s linear infinite";
+
+    }else{
+
+      element.textContent =
+        "WORLD NEWS HD — تازہ ترین خبریں";
+
+    }
+
+  }catch(error){
+
+    console.error(error);
 
   }
-
 }
 
 
-/* =========================
+/* ===============================
    LIVE VIDEO
-========================= */
+================================ */
 
 async function loadLive(){
 
-  const {data,error}=await supabaseClient
-    .from("live_status")
-    .select("url,enabled")
-    .eq("id",1)
-    .maybeSingle();
+  try{
 
-  const section=
-    document.getElementById("liveSection");
+    const {data,error} = await supabaseClient
+      .from("world_news_live")
+      .select("youtube_url,enabled")
+      .eq("id",1)
+      .maybeSingle();
 
-  const frame=
-    document.getElementById("liveFrame");
+    if(error){
+
+      console.error("Live error:",error);
+      return;
+    }
+
+    const section =
+      document.getElementById("liveSection");
+
+    const frame =
+      document.getElementById("liveFrame");
+
+    if(
+      data &&
+      data.enabled === true &&
+      data.youtube_url
+    ){
+
+      const embed =
+        youtubeEmbedUrl(data.youtube_url);
+
+      if(embed){
+
+        frame.src = embed;
+        section.classList.remove("live-off");
+
+      }else{
+
+        frame.removeAttribute("src");
+        section.classList.add("live-off");
+      }
+
+    }else{
+
+      frame.removeAttribute("src");
+      section.classList.add("live-off");
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+}
+
+
+/* ===============================
+   SOCIAL MEDIA
+================================ */
+
+function normalizeUrl(url){
+
+  if(!url) return "";
+
+  url = String(url).trim();
+
+  if(!url) return "";
 
   if(
-    error ||
-    !data ||
-    !data.enabled ||
-    !data.url
+    !url.startsWith("http://") &&
+    !url.startsWith("https://")
   ){
-
-    section.style.display="none";
-    return;
-
+    url = "https://" + url;
   }
 
-  const embed=
-    youtubeEmbedUrl(data.url);
+  return url;
+}
 
-  if(!embed){
+async function loadSocial(){
 
-    section.style.display="none";
-    return;
+  try{
+
+    const {data,error} = await supabaseClient
+      .from("world_news_social")
+      .select("facebook_url,instagram_url")
+      .eq("id",1)
+      .maybeSingle();
+
+    if(error){
+
+      console.error("Social error:",error);
+      return;
+    }
+
+    if(!data) return;
+
+    const fb =
+      normalizeUrl(data.facebook_url);
+
+    const ig =
+      normalizeUrl(data.instagram_url);
+
+    const section =
+      document.getElementById("socialSection");
+
+    const fbLink =
+      document.getElementById("facebookLink");
+
+    const igLink =
+      document.getElementById("instagramLink");
+
+    let visible = false;
+
+    if(fb){
+
+      fbLink.href = fb;
+      fbLink.style.display = "inline-block";
+      visible = true;
+
+    }else{
+
+      fbLink.style.display = "none";
+    }
+
+    if(ig){
+
+      igLink.href = ig;
+      igLink.style.display = "inline-block";
+      visible = true;
+
+    }else{
+
+      igLink.style.display = "none";
+    }
+
+    section.style.display =
+      visible ? "block" : "none";
+
+  }catch(error){
+
+    console.error(error);
 
   }
-
-  frame.src=embed;
-
-  section.style.display="block";
-
 }
 
 
-/* =========================
+/* ===============================
    NEWS
-========================= */
-
-function defaultImage(){
-
-  return "data:image/svg+xml;charset=UTF-8," +
-  encodeURIComponent(`
-  <svg xmlns="http://www.w3.org/2000/svg"
-       width="800"
-       height="450">
-
-    <rect width="100%" height="100%" fill="#075985"/>
-
-    <text x="50%"
-          y="50%"
-          dominant-baseline="middle"
-          text-anchor="middle"
-          fill="white"
-          font-size="45">
-      WORLD NEWS HD
-    </text>
-
-  </svg>`);
-
-}
-
+================================ */
 
 async function loadNews(){
 
-  const {data,error}=await supabaseClient
-    .from("news")
-    .select("*")
-    .order("created_at",{ascending:false})
-    .limit(30);
-
-  const grid=
+  const grid =
     document.getElementById("newsGrid");
 
-  grid.innerHTML="";
+  try{
 
-  if(error || !data || !data.length){
+    const {data,error} = await supabaseClient
+      .from("news")
+      .select("*")
+      .order("created_at",{ascending:false});
 
-    grid.innerHTML=
-      `<div style="background:white;padding:25px;border-radius:10px;">
-        ابھی کوئی خبر موجود نہیں۔
-      </div>`;
+    if(error){
 
-    return;
+      console.error("News error:",error);
 
-  }
+      grid.innerHTML =
+        '<div class="empty">خبری لوڈ نہیں ہو سکی۔</div>';
 
-  data.forEach(item=>{
+      return;
+    }
 
-    const card=document.createElement("article");
+    if(!data || data.length === 0){
 
-    card.className="news-card";
+      grid.innerHTML =
+        '<div class="empty">ابھی کوئی خبر موجود نہیں۔</div>';
 
-    const image=
-      item.image_url || defaultImage();
+      return;
+    }
 
-    card.innerHTML=`
+    grid.innerHTML = "";
 
-      <img
-        class="news-img"
-        src="${image}"
-        onerror="this.src='${defaultImage()}'">
+    data.forEach(news => {
 
-      <div class="news-body">
+      const card =
+        document.createElement("article");
 
-        <span class="category">
-          ${item.category || "خبریں"}
-        </span>
+      card.className = "news-card";
 
-        <h2>
-          ${escapeHtml(item.headline || "")}
-        </h2>
+      let imageHtml = "";
 
-        <p>
-          ${escapeHtml(item.detail || "")}
-        </p>
+      if(news.image_url){
 
-        ${
-          item.video_url
-          ?
-          `<a
-             class="video-btn"
-             href="${item.video_url}"
-             target="_blank"
-             rel="noopener">
-             ▶ ویڈیو دیکھیں
-           </a>`
-          :
-          ""
+        imageHtml =
+          `<img class="news-img"
+                src="${escapeHtml(news.image_url)}"
+                alt="خبر کی تصویر"
+                onerror="this.style.display='none'">`;
+      }
+
+      let videoHtml = "";
+
+      if(news.video_url){
+
+        const video =
+          youtubeEmbedUrl(news.video_url);
+
+        if(video){
+
+          videoHtml =
+            `<iframe
+              class="news-video"
+              src="${video}"
+              allow="autoplay; encrypted-media; picture-in-picture"
+              allowfullscreen></iframe>`;
         }
+      }
 
-      </div>
-    `;
+      card.innerHTML = `
+        ${imageHtml}
 
-    grid.appendChild(card);
+        <div class="news-content">
 
-  });
+          ${
+            news.category
+            ? `<span class="category">${escapeHtml(news.category)}</span>`
+            : ""
+          }
 
-}
+          <h2 class="news-headline">
+            ${escapeHtml(news.headline || "")}
+          </h2>
 
+          <div class="news-detail">
+            ${escapeHtml(news.detail || "")}
+          </div>
 
-function escapeHtml(text){
+          ${videoHtml}
 
-  const div=document.createElement("div");
+        </div>
+      `;
 
-  div.textContent=text;
+      grid.appendChild(card);
 
-  return div.innerHTML;
+    });
 
-}
+  }catch(error){
 
+    console.error(error);
 
-/* =========================
-   SOCIAL LINKS
-========================= */
-
-async function loadSocialLinks(){
-
-  const {data,error}=await supabaseClient
-    .from("site_settings")
-    .select("facebook_url,instagram_url")
-    .eq("id",1)
-    .maybeSingle();
-
-  if(error || !data) return;
-
-
-  const facebook=
-    document.getElementById("facebookLink");
-
-  const instagram=
-    document.getElementById("instagramLink");
-
-
-  if(data.facebook_url){
-
-    facebook.href=data.facebook_url;
-
-    facebook.style.display="inline-block";
-
+    grid.innerHTML =
+      '<div class="empty">خبر لوڈ کرنے میں مسئلہ پیش آیا۔</div>';
   }
-
-
-  if(data.instagram_url){
-
-    instagram.href=data.instagram_url;
-
-    instagram.style.display="inline-block";
-
-  }
-
 }
 
 
-/* =========================
+/* ===============================
+   SECURITY
+================================ */
+
+function escapeHtml(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+/* ===============================
    START
-========================= */
-
-document.getElementById("year").textContent=
-  new Date().getFullYear();
+================================ */
 
 loadBreaking();
 loadLive();
+loadSocial();
 loadNews();
-loadSocialLinks();
+
+/* ہر 30 سیکنڈ بعد تازہ ڈیٹا */
+setInterval(loadBreaking,30000);
+setInterval(loadLive,30000);
+setInterval(loadSocial,30000);
 
 </script>
 
