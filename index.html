@@ -5,141 +5,13 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>WORLD NEWS HD - دنیا بھر کی خبریں</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-/* =========================
-   ANIMATED WORLD NEWS HD LOGO
-========================= */
-
-.brand-logo{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  direction:ltr;
-}
-
-.globe{
-  width:62px;
-  height:62px;
-  border-radius:50%;
-  position:relative;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 35% 30%,
-    #ffffff 0%,
-    #55c8ff 8%,
-    #0879d1 38%,
-    #003c82 75%,
-    #001d45 100%);
-
-  border:3px solid #fff;
-
-  box-shadow:
-    0 0 8px #fff,
-    0 0 20px #00aaff,
-    inset -8px -8px 15px rgba(0,0,0,.55);
-
-  animation:globeSpin 5s linear infinite;
-}
-
-.globe::before{
-  content:"";
-  position:absolute;
-  width:80px;
-  height:28px;
-  left:-9px;
-  top:16px;
-  border:2px solid rgba(255,255,255,.65);
-  border-radius:50%;
-}
-
-.globe::after{
-  content:"";
-  position:absolute;
-  width:25px;
-  height:68px;
-  left:16px;
-  top:-5px;
-  border-left:2px solid rgba(255,255,255,.65);
-  border-right:2px solid rgba(255,255,255,.65);
-  border-radius:50%;
-}
-
-@keyframes globeSpin{
-  0%{
-    transform:rotateY(0deg);
-  }
-
-  50%{
-    transform:rotateY(180deg);
-  }
-
-  100%{
-    transform:rotateY(360deg);
-  }
-}
-
-.brand-name{
-  line-height:1;
-}
-
-.world-text{
-  font-size:25px;
-  font-weight:900;
-  letter-spacing:2px;
-  color:#fff;
-  text-shadow:0 2px 5px #000;
-}
-
-.news-text{
-  font-size:24px;
-  font-weight:900;
-  letter-spacing:1px;
-  color:#fff;
-  margin-top:3px;
-}
-
-.news-text span{
-  color:#ffd000;
-}
-
-.brand-tagline{
-  font-size:11px;
-  color:#eee;
-  margin-top:6px;
-  font-weight:bold;
-}
-
-@media(max-width:600px){
-
-  .brand-logo{
-    gap:8px;
-  }
-
-  .globe{
-    width:48px;
-    height:48px;
-  }
-
-  .world-text{
-    font-size:19px;
-  }
-
-  .news-text{
-    font-size:19px;
-  }
-
-  .brand-tagline{
-    font-size:9px;
-  }
-
-}
-  <style>
+<style>
 
 *{
 box-sizing:border-box;
@@ -152,7 +24,117 @@ background:#f3f3f3;
 color:#222;
 }
 
-/* HEADER */
+/* =========================
+   ANIMATED LOGO
+========================= */
+
+.brand-logo{
+display:flex;
+align-items:center;
+gap:12px;
+direction:ltr;
+}
+
+.globe{
+width:62px;
+height:62px;
+border-radius:50%;
+position:relative;
+overflow:hidden;
+
+background:
+radial-gradient(
+circle at 35% 30%,
+#ffffff 0%,
+#55c8ff 8%,
+#0879d1 38%,
+#003c82 75%,
+#001d45 100%
+);
+
+border:3px solid #fff;
+
+box-shadow:
+0 0 8px #fff,
+0 0 20px #00aaff,
+inset -8px -8px 15px rgba(0,0,0,.55);
+
+animation:globeSpin 5s linear infinite;
+}
+
+.globe::before{
+content:"";
+position:absolute;
+width:80px;
+height:28px;
+left:-9px;
+top:16px;
+border:2px solid rgba(255,255,255,.65);
+border-radius:50%;
+}
+
+.globe::after{
+content:"";
+position:absolute;
+width:25px;
+height:68px;
+left:16px;
+top:-5px;
+border-left:2px solid rgba(255,255,255,.65);
+border-right:2px solid rgba(255,255,255,.65);
+border-radius:50%;
+}
+
+@keyframes globeSpin{
+
+0%{
+transform:rotateY(0deg);
+}
+
+50%{
+transform:rotateY(180deg);
+}
+
+100%{
+transform:rotateY(360deg);
+}
+
+}
+
+.brand-name{
+line-height:1;
+}
+
+.world-text{
+font-size:25px;
+font-weight:900;
+letter-spacing:2px;
+color:#fff;
+text-shadow:0 2px 5px #000;
+}
+
+.news-text{
+font-size:24px;
+font-weight:900;
+letter-spacing:1px;
+color:#fff;
+margin-top:3px;
+}
+
+.news-text span{
+color:#ffd000;
+}
+
+.brand-tagline{
+font-size:11px;
+color:#eee;
+margin-top:6px;
+font-weight:bold;
+}
+
+/* =========================
+   HEADER
+========================= */
 
 header{
 background:linear-gradient(135deg,#850000,#d90000);
@@ -170,21 +152,6 @@ justify-content:space-between;
 gap:15px;
 }
 
-.logo{
-font-size:34px;
-font-weight:900;
-white-space:nowrap;
-}
-
-.logo span{
-color:#ffd400;
-}
-
-.tagline{
-font-size:14px;
-color:#fff;
-}
-
 .admin-btn{
 background:#fff;
 color:#b00000;
@@ -194,7 +161,9 @@ text-decoration:none;
 font-weight:bold;
 }
 
-/* NAV */
+/* =========================
+   NAVIGATION
+========================= */
 
 nav{
 background:#222;
@@ -220,7 +189,9 @@ nav a:hover{
 background:#b00000;
 }
 
-/* BREAKING NEWS */
+/* =========================
+   BREAKING NEWS
+========================= */
 
 .breaking{
 display:flex;
@@ -268,7 +239,9 @@ transform:translateX(100%);
 
 }
 
-/* MAIN */
+/* =========================
+   MAIN
+========================= */
 
 .container{
 max-width:1200px;
@@ -276,7 +249,9 @@ margin:20px auto;
 padding:0 12px;
 }
 
-/* LIVE */
+/* =========================
+   LIVE
+========================= */
 
 .live-box{
 display:none;
@@ -312,7 +287,9 @@ font-weight:bold;
 margin-bottom:12px;
 }
 
-/* SECTION */
+/* =========================
+   SECTION
+========================= */
 
 .section-title{
 background:#b00000;
@@ -324,12 +301,13 @@ border-radius:7px;
 margin-bottom:15px;
 }
 
-/* NEWS GRID */
+/* =========================
+   NEWS GRID
+========================= */
 
 .news-grid{
 display:grid;
-grid-template-columns:
-repeat(3,1fr);
+grid-template-columns:repeat(3,1fr);
 gap:18px;
 }
 
@@ -406,7 +384,9 @@ border-radius:5px;
 text-decoration:none;
 }
 
-/* EMPTY */
+/* =========================
+   EMPTY
+========================= */
 
 .empty{
 background:#fff;
@@ -416,7 +396,9 @@ border-radius:8px;
 color:#777;
 }
 
-/* FOOTER */
+/* =========================
+   FOOTER
+========================= */
 
 footer{
 margin-top:35px;
@@ -435,13 +417,14 @@ font-weight:bold;
 color:#ffd400;
 }
 
-/* MOBILE */
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:850px){
 
 .news-grid{
-grid-template-columns:
-repeat(2,1fr);
+grid-template-columns:repeat(2,1fr);
 }
 
 }
@@ -452,12 +435,21 @@ repeat(2,1fr);
 padding:14px 10px;
 }
 
-.logo{
-font-size:24px;
+.globe{
+width:48px;
+height:48px;
 }
 
-.tagline{
-display:none;
+.world-text{
+font-size:19px;
+}
+
+.news-text{
+font-size:19px;
+}
+
+.brand-tagline{
+font-size:9px;
 }
 
 .admin-btn{
@@ -498,32 +490,37 @@ font-size:19px;
 
 </head>
 
-
 <body>
 
+<!-- =========================
+     HEADER
+========================= -->
 
-<!-- HEADER -->
+<header>
+
+<div class="header-top">
 
 <div class="brand-logo">
 
-  <div class="globe">
-  </div>
+<div class="globe">
 
-  <div class="brand-name">
+</div>
 
-    <div class="world-text">
-      WORLD
-    </div>
+<div class="brand-name">
 
-    <div class="news-text">
-      NEWS <span>HD</span>
-    </div>
+<div class="world-text">
+WORLD
+</div>
 
-    <div class="brand-tagline">
-      دنیا بھر کی خبریں سب سے پہلے
-    </div>
+<div class="news-text">
+NEWS <span>HD</span>
+</div>
 
-  </div>
+<div class="brand-tagline">
+دنیا بھر کی خبریں سب سے پہلے
+</div>
+
+</div>
 
 </div>
 
@@ -538,7 +535,9 @@ class="admin-btn">
 </header>
 
 
-<!-- NAVIGATION -->
+<!-- =========================
+     NAVIGATION
+========================= -->
 
 <nav>
 
@@ -585,7 +584,9 @@ class="admin-btn">
 </nav>
 
 
-<!-- BREAKING NEWS -->
+<!-- =========================
+     BREAKING NEWS
+========================= -->
 
 <div
 class="breaking"
@@ -608,7 +609,9 @@ id="breakingText">
 </div>
 
 
-<!-- MAIN -->
+<!-- =========================
+     MAIN
+========================= -->
 
 <div class="container">
 
@@ -665,7 +668,9 @@ id="newsGrid">
 </div>
 
 
-<!-- FOOTER -->
+<!-- =========================
+     FOOTER
+========================= -->
 
 <footer>
 
@@ -687,7 +692,7 @@ WORLD <span>NEWS HD</span>
 <script>
 
 /* =========================
-SUPABASE
+   SUPABASE
 ========================= */
 
 const SUPABASE_URL =
@@ -704,7 +709,7 @@ SUPABASE_KEY
 
 
 /* =========================
-BREAKING NEWS
+   BREAKING NEWS
 ========================= */
 
 async function loadBreaking(){
@@ -717,27 +722,20 @@ await supabaseClient
 .single();
 
 if(error || !data){
-
 return;
 }
 
 const box =
-document.getElementById(
-"breakingBox"
-);
+document.getElementById("breakingBox");
 
 const text =
-document.getElementById(
-"breakingText"
-);
+document.getElementById("breakingText");
 
-if(data.is_active &&
-data.text){
+if(data.is_active && data.text){
 
 box.style.display="flex";
 
-text.textContent =
-data.text;
+text.textContent=data.text;
 
 }else{
 
@@ -749,7 +747,7 @@ box.style.display="none";
 
 
 /* =========================
-LIVE
+   LIVE
 ========================= */
 
 async function loadLive(){
@@ -762,20 +760,18 @@ await supabaseClient
 .single();
 
 if(error || !data){
-
 return;
 }
 
 const box =
-document.getElementById(
-"liveBox"
-);
+document.getElementById("liveBox");
 
 if(!data.is_live){
 
 box.style.display="none";
 
 return;
+
 }
 
 if(!data.video_url){
@@ -783,27 +779,20 @@ if(!data.video_url){
 box.style.display="none";
 
 return;
+
 }
 
 box.style.display="block";
 
-document.getElementById(
-"liveTitle"
-).textContent =
-data.title ||
-"WORLD NEWS HD LIVE";
-
+document.getElementById("liveTitle").textContent =
+data.title || "WORLD NEWS HD LIVE";
 
 const video =
-convertYoutubeUrl(
-data.video_url
-);
+convertYoutubeUrl(data.video_url);
 
 if(video){
 
-document.getElementById(
-"liveVideo"
-).src=video;
+document.getElementById("liveVideo").src=video;
 
 }
 
@@ -811,15 +800,13 @@ document.getElementById(
 
 
 /* =========================
-NEWS
+   NEWS
 ========================= */
 
 async function loadNews(){
 
 const grid =
-document.getElementById(
-"newsGrid"
-);
+document.getElementById("newsGrid");
 
 const {data,error} =
 await supabaseClient
@@ -836,28 +823,26 @@ grid.innerHTML=
 '<div class="empty">❌ خبریں لوڈ نہیں ہو سکیں۔</div>';
 
 return;
+
 }
 
-if(!data ||
-data.length===0){
+if(!data || data.length===0){
 
 grid.innerHTML=
 '<div class="empty">ابھی کوئی خبر شائع نہیں ہوئی۔</div>';
 
 return;
+
 }
 
 grid.innerHTML="";
-
 
 data.forEach(function(item){
 
 const card =
 document.createElement("article");
 
-card.className=
-"news-card";
-
+card.className="news-card";
 
 let imageHTML="";
 
@@ -914,9 +899,7 @@ if(item.created_at){
 
 date =
 new Date(item.created_at)
-.toLocaleString(
-"ur-PK"
-);
+.toLocaleString("ur-PK");
 
 }
 
@@ -928,21 +911,15 @@ ${imageHTML}
 <div class="news-content">
 
 <div class="category">
-${escapeHtml(
-item.category || "تازہ خبریں"
-)}
+${escapeHtml(item.category || "تازہ خبریں")}
 </div>
 
 <div class="news-title">
-${escapeHtml(
-item.title || ""
-)}
+${escapeHtml(item.title || "")}
 </div>
 
 <div class="news-body">
-${escapeHtml(
-item.body || ""
-)}
+${escapeHtml(item.body || "")}
 </div>
 
 ${videoHTML}
@@ -963,52 +940,46 @@ grid.appendChild(card);
 
 
 /* =========================
-YOUTUBE
+   YOUTUBE
 ========================= */
 
 function convertYoutubeUrl(url){
 
 try{
 
-const u =
-new URL(url);
+const u=new URL(url);
 
 let id="";
 
-
-if(u.hostname.includes(
-"youtube.com"
-)){
+if(u.hostname.includes("youtube.com")){
 
 id=u.searchParams.get("v");
 
-if(!id &&
-u.pathname.includes("/live/")
-){
+if(!id && u.pathname.includes("/live/")){
 
-id=u.pathname.split("/live/")[1]
+id=
+u.pathname
+.split("/live/")[1]
 .split("/")[0];
 
 }
 
-if(!id &&
-u.pathname.includes("/embed/")
-){
+if(!id && u.pathname.includes("/embed/")){
 
-id=u.pathname.split("/embed/")[1]
+id=
+u.pathname
+.split("/embed/")[1]
 .split("/")[0];
 
 }
 
 }
-
 
 if(u.hostname==="youtu.be"){
 
 id=u.pathname.substring(1);
 
 }
-
 
 if(!id){
 
@@ -1031,7 +1002,7 @@ return url;
 
 
 /* =========================
-SECURITY
+   SECURITY
 ========================= */
 
 function escapeHtml(text){
@@ -1047,7 +1018,7 @@ return String(text || "")
 
 
 /* =========================
-START
+   START
 ========================= */
 
 loadBreaking();
@@ -1058,13 +1029,14 @@ loadNews();
 
 
 /* =========================
-AUTO REFRESH
+   AUTO REFRESH
 ========================= */
 
 setInterval(
 function(){
 
 loadBreaking();
+
 loadLive();
 
 },
@@ -1075,4 +1047,4 @@ loadLive();
 
 </body>
 
-</html> 
+</html>
