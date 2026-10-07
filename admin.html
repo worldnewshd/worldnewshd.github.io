@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+content="width=device-width,initial-scale=1.0">
 
 <title>WORLD NEWS HD - Admin Panel</title>
 
@@ -22,57 +22,81 @@ padding:0;
 
 body{
 font-family:Arial,"Noto Nastaliq Urdu",sans-serif;
-background:#eef2f6;
-color:#111;
+background:#eef3f7;
+color:#111827;
+line-height:1.8;
 }
 
 .top{
-background:#07111f;
+background:
+linear-gradient(135deg,#020617,#075985,#087f5b);
 color:#fff;
-padding:18px;
-box-shadow:0 3px 12px #0004;
+padding:14px 18px;
+box-shadow:0 4px 18px #0004;
 }
 
 .top-inner{
-max-width:1000px;
+max-width:1050px;
 margin:auto;
 display:flex;
 align-items:center;
 justify-content:space-between;
+gap:12px;
+}
+
+.brand{
+display:flex;
+align-items:center;
 gap:10px;
 }
 
-.logo{
-font-size:27px;
-font-weight:900;
+.brand-mark{
+width:52px;
+height:52px;
+border-radius:50%;
+background:linear-gradient(135deg,#ffd000,#ff8a00);
+color:#071b35;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:1000;
+border:3px solid #fff;
 }
 
-.logo span{
-color:#e31b23;
+.logo{
+font-size:25px;
+font-weight:1000;
+}
+
+.logo small{
+display:block;
+font-size:11px;
+color:#dbeafe;
 }
 
 .status{
 font-size:13px;
-color:#bbb;
+color:#e2e8f0;
 }
 
 .container{
-max-width:1000px;
+max-width:1050px;
 margin:auto;
 padding:18px;
 }
 
 .box{
 background:#fff;
-border-radius:15px;
-padding:20px;
+border-radius:16px;
+padding:21px;
 margin-bottom:18px;
-box-shadow:0 3px 15px #0001;
+box-shadow:0 4px 18px #00000012;
+border:1px solid #e2e8f0;
 }
 
 h2{
 margin-bottom:15px;
-border-right:5px solid #d71920;
+border-right:5px solid #087f5b;
 padding-right:10px;
 }
 
@@ -82,7 +106,7 @@ margin-bottom:10px;
 
 label{
 display:block;
-font-weight:bold;
+font-weight:900;
 margin-bottom:5px;
 }
 
@@ -91,18 +115,20 @@ textarea,
 select{
 width:100%;
 padding:12px;
-border:1px solid #ccd3dc;
+border:1px solid #cbd5e1;
 border-radius:9px;
 font-size:15px;
 margin-bottom:13px;
 font-family:inherit;
 outline:none;
+background:#fff;
 }
 
 input:focus,
 textarea:focus,
 select:focus{
-border-color:#d71920;
+border-color:#087f5b;
+box-shadow:0 0 0 3px #087f5b18;
 }
 
 textarea{
@@ -120,10 +146,10 @@ button{
 border:0;
 border-radius:9px;
 padding:11px 17px;
-background:#d71920;
-color:white;
+background:#087f5b;
+color:#fff;
 font-size:15px;
-font-weight:bold;
+font-weight:900;
 cursor:pointer;
 margin:3px;
 }
@@ -136,20 +162,24 @@ opacity:.9;
 background:#17263a;
 }
 
+.btn-red{
+background:#d71920;
+}
+
 .btn-green{
-background:#14833b;
+background:#087f5b;
 }
 
 .btn-danger{
-background:#9d0005;
+background:#991b1b;
 }
 
 .btn-gray{
-background:#6c757d;
+background:#64748b;
 }
 
 .hidden{
-display:none !important;
+display:none!important;
 }
 
 .message{
@@ -158,6 +188,7 @@ border-radius:8px;
 margin-top:10px;
 background:#eaf7ed;
 color:#176b2c;
+font-weight:700;
 }
 
 .error{
@@ -165,40 +196,21 @@ background:#fff0f0;
 color:#a00000;
 }
 
-.news-item{
-border-top:1px solid #ddd;
-padding:15px 0;
-}
-
-.news-item:first-child{
-border-top:0;
-}
-
-.news-title{
-font-size:19px;
-font-weight:bold;
-margin-bottom:5px;
-}
-
-.news-meta{
-color:#777;
+.help{
 font-size:13px;
-margin-bottom:8px;
-}
-
-.news-detail{
-color:#444;
-line-height:1.7;
-margin-bottom:8px;
+color:#64748b;
+line-height:1.8;
+margin-bottom:10px;
 }
 
 .breaking-preview{
-background:#d71920;
-color:white;
-border-radius:8px;
-padding:12px;
+background:#111827;
+border-right:6px solid #e11d48;
+color:#fff;
+border-radius:9px;
+padding:13px;
 margin:10px 0 15px;
-font-weight:bold;
+font-weight:900;
 }
 
 .checkbox-row{
@@ -213,30 +225,76 @@ width:auto;
 margin:0;
 }
 
-.help{
-font-size:13px;
-color:#777;
-line-height:1.7;
-margin-bottom:10px;
-}
-
-.login-logo{
-text-align:center;
-font-size:32px;
-font-weight:900;
-margin-bottom:8px;
-}
-
-.login-logo span{
-color:#d71920;
-}
-
 .logout{
 float:left;
 }
 
 .clear{
 clear:both;
+}
+
+/* LIVE PREVIEW */
+
+.live-preview{
+display:none;
+margin-top:15px;
+background:#000;
+border-radius:12px;
+overflow:hidden;
+}
+
+.live-preview iframe{
+width:100%;
+height:350px;
+border:0;
+display:block;
+}
+
+.live-preview-title{
+background:#dc2626;
+color:#fff;
+padding:8px 12px;
+font-weight:900;
+}
+
+/* NEWS LIST */
+
+.news-item{
+border-top:1px solid #e2e8f0;
+padding:15px 0;
+}
+
+.news-item:first-child{
+border-top:0;
+}
+
+.news-title{
+font-size:19px;
+font-weight:900;
+margin-bottom:5px;
+}
+
+.news-meta{
+color:#64748b;
+font-size:13px;
+margin-bottom:8px;
+}
+
+.news-detail{
+color:#374151;
+line-height:1.7;
+margin-bottom:8px;
+}
+
+.login-logo{
+text-align:center;
+font-size:31px;
+font-weight:1000;
+margin-bottom:8px;
+}
+
+.login-logo span{
+color:#087f5b;
 }
 
 @media(max-width:700px){
@@ -246,8 +304,12 @@ display:block;
 text-align:center;
 }
 
+.brand{
+justify-content:center;
+}
+
 .status{
-margin-top:5px;
+margin-top:7px;
 }
 
 .grid{
@@ -263,7 +325,11 @@ padding:15px;
 }
 
 .logo{
-font-size:24px;
+font-size:21px;
+}
+
+.live-preview iframe{
+height:250px;
 }
 
 }
@@ -272,31 +338,34 @@ font-size:24px;
 
 </head>
 
-
 <body>
-
 
 <header class="top">
 
 <div class="top-inner">
 
+<div class="brand">
+
+<div class="brand-mark">
+WN
+</div>
+
 <div class="logo">
-WORLD NEWS <span>HD</span>
+WORLD NEWS HD
+<small>ADMIN PANEL</small>
+</div>
+
 </div>
 
 <div class="status">
-ADMIN PANEL
+کنٹرول پینل
 </div>
 
 </div>
 
 </header>
 
-
 <main class="container">
-
-
-<!-- LOGIN -->
 
 <section id="loginBox" class="box">
 
@@ -304,34 +373,28 @@ ADMIN PANEL
 WORLD NEWS <span>HD</span>
 </div>
 
-<h2>ایڈمن لاگ اِن</h2>
+<h2>🔐 ایڈمن لاگ اِن</h2>
 
 <p class="help">
-اپنے Supabase Auth اکاؤنٹ سے لاگ اِن کریں۔
-لاگ اِن کے بعد آپ بریکنگ نیوز، نئی خبریں اور Live نشریات کنٹرول کر سکیں گے۔
+Supabase Auth اکاؤنٹ سے لاگ اِن کریں۔
+لاگ اِن کے بعد آپ Breaking News، خبریں اور Live نشریات کنٹرول کر سکتے ہیں۔
 </p>
 
-<label>
-Email
-</label>
+<label>Email</label>
 
 <input
 id="email"
 type="email"
 placeholder="Admin Email"
-autocomplete="email"
->
+autocomplete="email">
 
-<label>
-Password
-</label>
+<label>Password</label>
 
 <input
 id="password"
 type="password"
 placeholder="Password"
-autocomplete="current-password"
->
+autocomplete="current-password">
 
 <button onclick="login()">
 🔐 لاگ اِن
@@ -341,43 +404,31 @@ autocomplete="current-password"
 
 </section>
 
-
-
-<!-- ADMIN PANEL -->
-
 <div id="adminPanel" class="hidden">
 
-
-<div class="box">
+<section class="box">
 
 <button
 class="btn-dark logout"
-onclick="logout()"
->
+onclick="logout()">
 Logout
 </button>
 
-<h2>
-ایڈمن ڈیش بورڈ
-</h2>
+<h2>📊 ایڈمن ڈیش بورڈ</h2>
 
 <div class="clear"></div>
 
 <p class="help">
-یہاں سے آپ اپنی ویب سائٹ کی خبریں آسانی سے چلا سکتے ہیں۔
+یہاں سے WORLD NEWS HD کی Breaking News، خبریں اور Live نشریات آسانی سے کنٹرول کریں۔
 </p>
 
-</div>
+</section>
 
-
-
-<!-- BREAKING NEWS -->
+<!-- BREAKING -->
 
 <section class="box">
 
-<h2>
-🔴 بریکنگ نیوز
-</h2>
+<h2>🔴 بریکنگ نیوز</h2>
 
 <label>
 بریکنگ نیوز کی خبر
@@ -385,26 +436,23 @@ Logout
 
 <textarea
 id="breakingText"
-placeholder="مثال: کراچی میں اہم کارروائی، مزید تفصیلات سامنے آگئیں..."
-></textarea>
+placeholder="مثال: کراچی میں اہم کارروائی، مزید تفصیلات سامنے آگئیں..."></textarea>
 
 <div
 id="breakingPreview"
-class="breaking-preview"
->
+class="breaking-preview">
 بریکنگ نیوز یہاں نظر آئے گی۔
 </div>
 
 <button
-onclick="saveBreaking()"
->
+class="btn-red"
+onclick="saveBreaking()">
 📢 بریکنگ نیوز چلائیں
 </button>
 
 <button
 class="btn-gray"
-onclick="clearBreaking()"
->
+onclick="clearBreaking()">
 🗑 پٹی خالی کریں
 </button>
 
@@ -412,15 +460,11 @@ onclick="clearBreaking()"
 
 </section>
 
-
-
-<!-- NEW NEWS -->
+<!-- NEWS -->
 
 <section class="box">
 
-<h2>
-📰 نئی خبر شائع کریں
-</h2>
+<h2>📰 نئی خبر شائع کریں</h2>
 
 <label>
 خبر کی سرخی *
@@ -429,8 +473,7 @@ onclick="clearBreaking()"
 <input
 id="headline"
 type="text"
-placeholder="خبر کی اہم سرخی لکھیں"
->
+placeholder="خبر کی اہم سرخی لکھیں">
 
 <label>
 خبر کی مکمل تفصیل *
@@ -438,49 +481,26 @@ placeholder="خبر کی اہم سرخی لکھیں"
 
 <textarea
 id="detail"
-placeholder="خبر کی مکمل تفصیل یہاں لکھیں..."
-></textarea>
-
+placeholder="خبر کی مکمل تفصیل یہاں لکھیں..."></textarea>
 
 <div class="grid">
 
-
 <div>
 
-<label>
-کیٹیگری *
-</label>
+<label>کیٹیگری *</label>
 
 <select id="category">
 
-<option value="پاکستان">
-پاکستان
-</option>
-
-<option value="دنیا">
-دنیا
-</option>
-
-<option value="کراچی">
-کراچی
-</option>
-
-<option value="کھیل">
-کھیل
-</option>
-
-<option value="کاروبار">
-کاروبار
-</option>
-
-<option value="دیگر">
-دیگر
-</option>
+<option value="پاکستان">پاکستان</option>
+<option value="دنیا">دنیا</option>
+<option value="کراچی">کراچی</option>
+<option value="کھیل">کھیل</option>
+<option value="کاروبار">کاروبار</option>
+<option value="دیگر">دیگر</option>
 
 </select>
 
 </div>
-
 
 <div>
 
@@ -491,13 +511,11 @@ placeholder="خبر کی مکمل تفصیل یہاں لکھیں..."
 <input
 id="imageUrl"
 type="url"
-placeholder="https://example.com/image.jpg"
->
+placeholder="https://example.com/image.jpg">
 
 </div>
 
 </div>
-
 
 <label>
 ویڈیو URL
@@ -506,9 +524,11 @@ placeholder="https://example.com/image.jpg"
 <input
 id="videoUrl"
 type="url"
-placeholder="https://youtube.com/..."
->
+placeholder="https://youtu.be/xxxxxxxxxxx">
 
+<p class="help">
+YouTube ویڈیو کا لنک بھی یہاں دیا جا سکتا ہے۔
+</p>
 
 <button onclick="publishNews()">
 🚀 خبر شائع کریں
@@ -516,8 +536,7 @@ placeholder="https://youtube.com/..."
 
 <button
 class="btn-gray"
-onclick="clearNewsForm()"
->
+onclick="clearNewsForm()">
 صاف کریں
 </button>
 
@@ -525,37 +544,41 @@ onclick="clearNewsForm()"
 
 </section>
 
-
-
 <!-- LIVE -->
 
 <section class="box">
 
-<h2>
-🔴 Live نشریات
-</h2>
+<h2>🔴 YouTube Live نشریات</h2>
+
+<p class="help">
+صرف YouTube کا لنک Paste کریں۔ مثال:
+<br>
+<strong>
+https://youtu.be/tW-CPIDLx0Q
+</strong>
+<br><br>
+آپ YouTube کے watch، youtu.be، live یا shorts format کا لنک بھی استعمال کر سکتے ہیں۔
+</p>
 
 <label>
-Live URL
+YouTube Live URL
 </label>
 
 <input
 id="liveUrl"
 type="url"
-placeholder="https://youtube.com/..."
->
+placeholder="https://youtu.be/tW-CPIDLx0Q">
 
 <div class="checkbox-row">
 
 <input
 id="liveEnabled"
 type="checkbox"
->
+onchange="previewLive()">
 
 <label
 for="liveEnabled"
-style="margin:0"
->
+style="margin:0">
 Live آن کریں
 </label>
 
@@ -563,31 +586,46 @@ Live آن کریں
 
 <button
 class="btn-green"
-onclick="saveLive()"
->
+onclick="previewLive()">
+👁 Preview
+</button>
+
+<button
+class="btn-green"
+onclick="saveLive()">
 ▶ Live Save کریں
 </button>
 
 <button
 class="btn-gray"
-onclick="disableLive()"
->
+onclick="disableLive()">
 ⛔ Live بند کریں
 </button>
 
 <div id="liveMessage"></div>
 
+<div id="livePreview" class="live-preview">
+
+<div class="live-preview-title">
+🔴 Live Preview
+</div>
+
+<iframe
+id="livePreviewFrame"
+src=""
+allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+allowfullscreen>
+</iframe>
+
+</div>
+
 </section>
-
-
 
 <!-- RECENT NEWS -->
 
 <section class="box">
 
-<h2>
-📋 حالیہ خبریں
-</h2>
+<h2>📋 حالیہ خبریں</h2>
 
 <div id="newsList">
 
@@ -599,19 +637,11 @@ onclick="disableLive()"
 
 </section>
 
-
 </div>
 
 </main>
 
-
-
 <script>
-
-
-/* =====================================
-   SUPABASE CONFIGURATION
-===================================== */
 
 const SUPABASE_URL =
 "https://mlydxfrsjnnbbaampqan.supabase.co";
@@ -619,18 +649,13 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_4xh2rkJSLqWX2UwC4eHHRA_WpujFv2w";
 
-
 const supabaseClient =
 supabase.createClient(
 SUPABASE_URL,
 SUPABASE_KEY
 );
 
-
-
-/* =====================================
-   HTML ESCAPE
-===================================== */
+/* ESCAPE */
 
 function escapeHTML(value){
 
@@ -643,11 +668,7 @@ return String(value || "")
 
 }
 
-
-
-/* =====================================
-   MESSAGE
-===================================== */
+/* MESSAGE */
 
 function showMessage(
 elementId,
@@ -658,32 +679,128 @@ error=false
 const element =
 document.getElementById(elementId);
 
-element.innerHTML =
-`
-<div class="message ${error ? "error" : ""}">
+if(!element){
+return;
+}
+
+element.innerHTML=`
+<div class="message ${error ? "error":""}">
 ${escapeHTML(message)}
 </div>
 `;
 
 }
 
+/* YOUTUBE */
 
+function youtubeEmbedUrl(url){
 
-/* =====================================
-   LOGIN
-===================================== */
+if(!url){
+return "";
+}
+
+try{
+
+const clean =
+String(url).trim();
+
+const parsed =
+new URL(clean);
+
+const host =
+parsed.hostname
+.replace("www.","")
+.toLowerCase();
+
+let id="";
+
+if(host==="youtu.be"){
+
+id =
+parsed.pathname
+.replace("/","")
+.trim();
+
+}
+
+else if(
+host==="youtube.com" ||
+host==="m.youtube.com"
+){
+
+if(parsed.searchParams.get("v")){
+
+id =
+parsed.searchParams.get("v");
+
+}
+
+else if(
+parsed.pathname.startsWith("/live/")
+){
+
+id =
+parsed.pathname.split("/")[2];
+
+}
+
+else if(
+parsed.pathname.startsWith("/embed/")
+){
+
+id =
+parsed.pathname.split("/")[2];
+
+}
+
+else if(
+parsed.pathname.startsWith("/shorts/")
+){
+
+id =
+parsed.pathname.split("/")[2];
+
+}
+
+}
+
+if(!id){
+return "";
+}
+
+id =
+id.split("?")[0]
+.split("&")[0]
+.trim();
+
+if(!/^[A-Za-z0-9_-]{6,}$/.test(id)){
+return "";
+}
+
+return
+"https://www.youtube-nocookie.com/embed/" +
+id +
+"?autoplay=1&rel=0";
+
+}catch(error){
+
+return "";
+
+}
+
+}
+
+/* LOGIN */
 
 async function login(){
 
 const email =
 document.getElementById("email")
-.value
-.trim();
+.value.trim();
 
 const password =
 document.getElementById("password")
 .value;
-
 
 if(!email || !password){
 
@@ -694,9 +811,7 @@ true
 );
 
 return;
-
 }
-
 
 const {
 data,
@@ -705,13 +820,9 @@ error
 await supabaseClient
 .auth
 .signInWithPassword({
-
-email:email,
-
-password:password
-
+email,
+password
 });
-
 
 if(error){
 
@@ -722,9 +833,7 @@ true
 );
 
 return;
-
 }
-
 
 if(data && data.session){
 
@@ -734,11 +843,7 @@ showAdminPanel();
 
 }
 
-
-
-/* =====================================
-   CHECK LOGIN SESSION
-===================================== */
+/* SESSION */
 
 async function checkSession(){
 
@@ -749,11 +854,7 @@ await supabaseClient
 .auth
 .getSession();
 
-
-if(
-data &&
-data.session
-){
+if(data && data.session){
 
 showAdminPanel();
 
@@ -761,39 +862,25 @@ showAdminPanel();
 
 }
 
-
-
-/* =====================================
-   SHOW ADMIN PANEL
-===================================== */
+/* PANEL */
 
 async function showAdminPanel(){
 
 document
 .getElementById("loginBox")
-.classList
-.add("hidden");
-
+.classList.add("hidden");
 
 document
 .getElementById("adminPanel")
-.classList
-.remove("hidden");
-
+.classList.remove("hidden");
 
 await loadBreaking();
-
 await loadLive();
-
 await loadNewsList();
 
 }
 
-
-
-/* =====================================
-   LOGOUT
-===================================== */
+/* LOGOUT */
 
 async function logout(){
 
@@ -805,11 +892,7 @@ location.reload();
 
 }
 
-
-
-/* =====================================
-   BREAKING NEWS LOAD
-===================================== */
+/* BREAKING LOAD */
 
 async function loadBreaking(){
 
@@ -823,11 +906,7 @@ await supabaseClient
 .eq("id",1)
 .maybeSingle();
 
-
-if(
-!error &&
-data
-){
+if(!error && data){
 
 document
 .getElementById("breakingText")
@@ -840,11 +919,7 @@ updateBreakingPreview();
 
 }
 
-
-
-/* =====================================
-   BREAKING PREVIEW
-===================================== */
+/* BREAKING PREVIEW */
 
 document
 .getElementById("breakingText")
@@ -853,15 +928,12 @@ document
 updateBreakingPreview
 );
 
-
 function updateBreakingPreview(){
 
 const text =
 document
 .getElementById("breakingText")
-.value
-.trim();
-
+.value.trim();
 
 document
 .getElementById("breakingPreview")
@@ -871,20 +943,14 @@ text ||
 
 }
 
-
-
-/* =====================================
-   SAVE BREAKING NEWS
-===================================== */
+/* SAVE BREAKING */
 
 async function saveBreaking(){
 
 const text =
 document
 .getElementById("breakingText")
-.value
-.trim();
-
+.value.trim();
 
 if(!text){
 
@@ -895,9 +961,7 @@ true
 );
 
 return;
-
 }
-
 
 const {
 error
@@ -905,16 +969,10 @@ error
 await supabaseClient
 .from("breaking_news")
 .upsert({
-
 id:1,
-
 text:text,
-
-updated_at:
-new Date().toISOString()
-
+updated_at:new Date().toISOString()
 });
-
 
 if(error){
 
@@ -925,9 +983,7 @@ true
 );
 
 return;
-
 }
-
 
 showMessage(
 "breakingMessage",
@@ -936,11 +992,7 @@ showMessage(
 
 }
 
-
-
-/* =====================================
-   CLEAR BREAKING
-===================================== */
+/* CLEAR BREAKING */
 
 async function clearBreaking(){
 
@@ -950,16 +1002,10 @@ error
 await supabaseClient
 .from("breaking_news")
 .upsert({
-
 id:1,
-
 text:"",
-
-updated_at:
-new Date().toISOString()
-
+updated_at:new Date().toISOString()
 });
-
 
 if(error){
 
@@ -970,17 +1016,13 @@ true
 );
 
 return;
-
 }
-
 
 document
 .getElementById("breakingText")
 .value="";
 
-
 updateBreakingPreview();
-
 
 showMessage(
 "breakingMessage",
@@ -989,47 +1031,34 @@ showMessage(
 
 }
 
-
-
-/* =====================================
-   PUBLISH NEWS
-===================================== */
+/* PUBLISH NEWS */
 
 async function publishNews(){
 
 const headline =
 document
 .getElementById("headline")
-.value
-.trim();
-
+.value.trim();
 
 const detail =
 document
 .getElementById("detail")
-.value
-.trim();
-
+.value.trim();
 
 const category =
 document
 .getElementById("category")
 .value;
 
-
 const imageUrl =
 document
 .getElementById("imageUrl")
-.value
-.trim();
-
+.value.trim();
 
 const videoUrl =
 document
 .getElementById("videoUrl")
-.value
-.trim();
-
+.value.trim();
 
 if(!headline){
 
@@ -1040,9 +1069,7 @@ true
 );
 
 return;
-
 }
-
 
 if(!detail){
 
@@ -1053,9 +1080,7 @@ true
 );
 
 return;
-
 }
-
 
 const {
 error
@@ -1064,11 +1089,9 @@ await supabaseClient
 .from("news")
 .insert({
 
-headline:headline,
-
-detail:detail,
-
-category:category,
+headline,
+detail,
+category,
 
 image_url:
 imageUrl || null,
@@ -1077,7 +1100,6 @@ video_url:
 videoUrl || null
 
 });
-
 
 if(error){
 
@@ -1088,28 +1110,20 @@ true
 );
 
 return;
-
 }
-
 
 showMessage(
 "newsMessage",
 "✅ خبر کامیابی سے شائع ہوگئی۔"
 );
 
-
 clearNewsForm();
-
 
 await loadNewsList();
 
 }
 
-
-
-/* =====================================
-   CLEAR NEWS FORM
-===================================== */
+/* CLEAR NEWS */
 
 function clearNewsForm(){
 
@@ -1117,29 +1131,21 @@ document
 .getElementById("headline")
 .value="";
 
-
 document
 .getElementById("detail")
 .value="";
-
 
 document
 .getElementById("imageUrl")
 .value="";
 
-
 document
 .getElementById("videoUrl")
 .value="";
 
-
 }
 
-
-
-/* =====================================
-   LOAD LIVE
-===================================== */
+/* LOAD LIVE */
 
 async function loadLive(){
 
@@ -1153,63 +1159,120 @@ await supabaseClient
 .eq("id",1)
 .maybeSingle();
 
-
-if(
-!error &&
-data
-){
+if(!error && data){
 
 document
 .getElementById("liveUrl")
 .value =
 data.url || "";
 
-
 document
 .getElementById("liveEnabled")
 .checked =
 data.enabled === true;
 
-}
+previewLive();
 
 }
 
+}
 
+/* PREVIEW LIVE */
 
-/* =====================================
-   SAVE LIVE
-===================================== */
-
-async function saveLive(){
+function previewLive(){
 
 const url =
 document
 .getElementById("liveUrl")
-.value
-.trim();
-
+.value.trim();
 
 const enabled =
 document
 .getElementById("liveEnabled")
 .checked;
 
+const preview =
+document.getElementById("livePreview");
 
-if(
-enabled &&
-!url
-){
+const frame =
+document.getElementById("livePreviewFrame");
+
+if(!url){
+
+preview.style.display="none";
+frame.src="";
+return;
+}
+
+const embed =
+youtubeEmbedUrl(url);
+
+if(!embed){
+
+preview.style.display="none";
+frame.src="";
+
+if(enabled){
 
 showMessage(
 "liveMessage",
-"Live آن کرنے کے لیے Live URL درج کریں۔",
+"❌ YouTube کا درست لنک درج کریں۔",
+true
+);
+
+}
+
+return;
+}
+
+frame.src=embed;
+
+preview.style.display="block";
+
+}
+
+/* SAVE LIVE */
+
+async function saveLive(){
+
+const url =
+document
+.getElementById("liveUrl")
+.value.trim();
+
+const enabled =
+document
+.getElementById("liveEnabled")
+.checked;
+
+if(enabled && !url){
+
+showMessage(
+"liveMessage",
+"Live آن کرنے کے لیے YouTube URL درج کریں۔",
 true
 );
 
 return;
-
 }
 
+if(enabled){
+
+const embed =
+youtubeEmbedUrl(url);
+
+if(!embed){
+
+showMessage(
+"liveMessage",
+"❌ YouTube URL درست نہیں ہے۔",
+true
+);
+
+return;
+}
+
+}
 
 const {
 error
@@ -1220,7 +1283,8 @@ await supabaseClient
 
 id:1,
 
-url:url || null,
+url:
+url || null,
 
 enabled:enabled,
 
@@ -1228,7 +1292,6 @@ updated_at:
 new Date().toISOString()
 
 });
-
 
 if(error){
 
@@ -1239,26 +1302,22 @@ true
 );
 
 return;
-
 }
-
 
 showMessage(
 "liveMessage",
 enabled
 ?
-"🔴 Live کامیابی سے آن ہوگیا۔"
+"🔴 Live کامیابی سے ON ہوگیا۔ ویب سائٹ پر ویڈیو چلنی چاہیے۔"
 :
 "Live status محفوظ ہوگیا۔"
 );
 
+previewLive();
+
 }
 
-
-
-/* =====================================
-   DISABLE LIVE
-===================================== */
+/* DISABLE LIVE */
 
 async function disableLive(){
 
@@ -1274,8 +1333,7 @@ id:1,
 url:
 document
 .getElementById("liveUrl")
-.value
-.trim() || null,
+.value.trim() || null,
 
 enabled:false,
 
@@ -1283,7 +1341,6 @@ updated_at:
 new Date().toISOString()
 
 });
-
 
 if(error){
 
@@ -1294,14 +1351,20 @@ true
 );
 
 return;
-
 }
-
 
 document
 .getElementById("liveEnabled")
 .checked=false;
 
+const preview =
+document.getElementById("livePreview");
+
+const frame =
+document.getElementById("livePreviewFrame");
+
+frame.src="";
+preview.style.display="none";
 
 showMessage(
 "liveMessage",
@@ -1310,26 +1373,18 @@ showMessage(
 
 }
 
-
-
-/* =====================================
-   LOAD NEWS LIST
-===================================== */
+/* NEWS LIST */
 
 async function loadNewsList(){
 
 const list =
-document
-.getElementById("newsList");
+document.getElementById("newsList");
 
-
-list.innerHTML =
-`
+list.innerHTML=`
 <div class="help">
 خبریں لوڈ ہو رہی ہیں...
 </div>
 `;
-
 
 const {
 data,
@@ -1346,41 +1401,30 @@ ascending:false
 )
 .limit(30);
 
-
 if(error){
 
-list.innerHTML =
-`
+list.innerHTML=`
 <div class="message error">
 ${escapeHTML(error.message)}
 </div>
 `;
 
 return;
-
 }
 
+if(!data || data.length===0){
 
-if(
-!data ||
-data.length===0
-){
-
-list.innerHTML =
-`
+list.innerHTML=`
 <div class="help">
 ابھی کوئی خبر شائع نہیں ہوئی۔
 </div>
 `;
 
 return;
-
 }
 
-
 list.innerHTML =
-data
-.map(function(news){
+data.map(news=>{
 
 let date="";
 
@@ -1389,30 +1433,19 @@ if(news.created_at){
 try{
 
 date =
-new Date(
-news.created_at
-)
-.toLocaleString(
-"ur-PK"
-);
+new Date(news.created_at)
+.toLocaleString("ur-PK");
 
-}catch(e){
-
-date="";
+}catch(e){}
 
 }
 
-}
-
-
-return `
+return`
 
 <div class="news-item">
 
 <div class="news-title">
-${escapeHTML(
-news.headline
-)}
+${escapeHTML(news.headline)}
 </div>
 
 <div class="news-meta">
@@ -1421,20 +1454,17 @@ news.headline
 news.category || "خبر"
 )}
 
-${date ? " · 🕒 " + escapeHTML(date) : ""}
+${date ? " · 🕒 "+escapeHTML(date):""}
 
 </div>
 
 <div class="news-detail">
-${escapeHTML(
-news.detail || ""
-)}
+${escapeHTML(news.detail || "")}
 </div>
 
 <button
 class="btn-danger"
-onclick="deleteNews('${escapeHTML(news.id)}')"
->
+onclick="deleteNews('${escapeHTML(news.id)}')">
 🗑 خبر حذف کریں
 </button>
 
@@ -1442,31 +1472,20 @@ onclick="deleteNews('${escapeHTML(news.id)}')"
 
 `;
 
-})
-.join("");
+}).join("");
 
 }
 
-
-
-/* =====================================
-   DELETE NEWS
-===================================== */
+/* DELETE */
 
 async function deleteNews(id){
 
-const confirmDelete =
-confirm(
+if(!confirm(
 "کیا آپ واقعی یہ خبر حذف کرنا چاہتے ہیں؟"
-);
-
-
-if(!confirmDelete){
+)){
 
 return;
-
 }
-
 
 const {
 error
@@ -1476,33 +1495,26 @@ await supabaseClient
 .delete()
 .eq("id",id);
 
-
 if(error){
 
 alert(
-"خبر حذف نہیں ہوئی: " +
+"خبر حذف نہیں ہوئی: "+
 error.message
 );
 
 return;
-
 }
-
 
 await loadNewsList();
 
 }
 
-
-
-/* =====================================
-   AUTH STATE
-===================================== */
+/* AUTH */
 
 supabaseClient
 .auth
 .onAuthStateChange(
-function(event,session){
+(event,session)=>{
 
 if(session){
 
@@ -1512,16 +1524,11 @@ showAdminPanel();
 
 });
 
-
-
-/* =====================================
-   START
-===================================== */
+/* START */
 
 checkSession();
 
 </script>
 
 </body>
-
 </html>
