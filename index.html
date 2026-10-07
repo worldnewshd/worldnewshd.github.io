@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <html lang="ur" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
 <title>WORLD NEWS HD - دنیا بھر کی خبریں</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+
+/* =================================================
+   BASIC
+================================================= */
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
 body{
   font-family:Arial,"Noto Nastaliq Urdu",sans-serif;
@@ -16,15 +30,28 @@ body{
   color:#111;
 }
 
-a{text-decoration:none;color:inherit}
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+
+/* =================================================
+   TOP BAR
+================================================= */
 
 .topbar{
   background:#071d36;
   color:#fff;
-  padding:10px 15px;
+  padding:9px 15px;
   text-align:center;
   font-size:14px;
 }
+
+
+/* =================================================
+   HEADER
+================================================= */
 
 .header{
   background:linear-gradient(45deg,#061b33,#0d4b7c);
@@ -36,9 +63,11 @@ a{text-decoration:none;color:inherit}
 .header-inner{
   max-width:1200px;
   margin:auto;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
+
   gap:15px;
 }
 
@@ -51,12 +80,17 @@ a{text-decoration:none;color:inherit}
 .logo-mark{
   width:62px;
   height:62px;
+
   border-radius:50%;
+
   background:#fff;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   font-size:38px;
+
   box-shadow:0 3px 10px #0005;
 }
 
@@ -74,451 +108,1094 @@ a{text-decoration:none;color:inherit}
 .admin-link{
   background:#e51d2a;
   color:#fff;
+
   padding:10px 17px;
+
   border-radius:7px;
+
   font-weight:bold;
+
+  transition:.2s;
 }
+
+.admin-link:hover{
+  background:#b90f18;
+}
+
+
+/* =================================================
+   BREAKING NEWS
+================================================= */
 
 .breaking{
   max-width:1200px;
+
+  height:46px;
+
   margin:12px auto;
+
   background:#fff;
-  border-radius:8px;
+
+  border-radius:7px;
+
   overflow:hidden;
+
   display:flex;
   align-items:center;
+
   box-shadow:0 2px 8px #0002;
-  direction:ltr;
+
+  direction:rtl;
 }
+
+
+/* سرخ لیبل */
 
 .breaking-label{
-  flex:none;
-  background:#d71920;
-  color:#fff;
-  font-weight:bold;
-  padding:12px 15px;
-  direction:rtl;
-  white-space:nowrap;
-}
 
-.ticker-window{
-  flex:1;
-  overflow:hidden;
+  flex:none;
+
   height:46px;
+
   display:flex;
   align-items:center;
-  direction:ltr;
+  justify-content:center;
+
+  background:#d71920;
+
+  color:#fff;
+
+  padding:0 14px;
+
+  font-size:16px;
+
+  font-weight:900;
+
+  white-space:nowrap;
+
+  direction:rtl;
+
+  order:1;
+
   position:relative;
+
+  z-index:2;
 }
+
+
+/* چھوٹا blinking dot */
+
+.breaking-label::before{
+
+  content:"";
+
+  width:7px;
+  height:7px;
+
+  background:#fff;
+
+  border-radius:50%;
+
+  margin-left:7px;
+
+  animation:breakingDot 1.2s infinite;
+}
+
+@keyframes breakingDot{
+
+  0%,100%{
+    opacity:1;
+    transform:scale(1);
+  }
+
+  50%{
+    opacity:.35;
+    transform:scale(.65);
+  }
+
+}
+
+
+/* خبر چلنے والی جگہ */
+
+.ticker-window{
+
+  flex:1;
+
+  height:46px;
+
+  overflow:hidden;
+
+  position:relative;
+
+  background:#fff;
+
+  direction:rtl;
+
+  order:2;
+}
+
+
+/* خبر */
 
 .breaking-text{
-  display:inline-block;
+
+  position:absolute;
+
+  right:-100%;
+
+  top:50%;
+
+  transform:translateY(-50%);
+
   white-space:nowrap;
-  font-size:17px;
-  font-weight:bold;
+
+  color:#111;
+
+  font-size:16px;
+
+  font-weight:700;
+
+  line-height:46px;
+
   direction:rtl;
-  padding-left:20px;
-  animation:breakingMove 40s linear infinite;
+
+  unicode-bidi:plaintext;
+
+  animation:
+    breakingMove 35s linear infinite;
 }
+
+
+/* دائیں سے بائیں */
 
 @keyframes breakingMove{
-  0%{transform:translateX(100%)}
-  100%{transform:translateX(-100%)}
+
+  0%{
+    right:-100%;
+  }
+
+  100%{
+    right:100%;
+  }
+
 }
 
+
+/* =================================================
+   MAIN
+================================================= */
+
 .container{
+
   max-width:1200px;
+
   margin:15px auto;
+
   padding:0 10px;
 }
 
+
+/* =================================================
+   LIVE VIDEO
+================================================= */
+
 .live-box{
+
   background:#050505;
+
   border-radius:10px;
+
   overflow:hidden;
+
   margin-bottom:20px;
+
   box-shadow:0 3px 12px #0004;
 }
 
 .live-title{
+
   background:#d71920;
+
   color:#fff;
+
   padding:12px 15px;
+
   font-size:19px;
+
   font-weight:bold;
+
   text-align:right;
 }
 
 .live-frame{
+
   width:100%;
+
   aspect-ratio:16/9;
+
   border:0;
+
   display:block;
+
+  background:#000;
 }
 
 .live-off{
   display:none;
 }
 
-.section-title{
-  background:#0b3559;
+
+/* =================================================
+   LIVE LOADING
+================================================= */
+
+.live-loading{
+
   color:#fff;
+
+  text-align:center;
+
+  padding:30px 10px;
+
+  font-size:15px;
+
+}
+
+
+/* =================================================
+   SECTION TITLE
+================================================= */
+
+.section-title{
+
+  background:#0b3559;
+
+  color:#fff;
+
   padding:12px 15px;
+
   border-right:6px solid #e21b23;
+
   margin-bottom:15px;
+
   font-size:22px;
+
   font-weight:bold;
 }
 
+
+/* =================================================
+   NEWS GRID
+================================================= */
+
 .news-grid{
+
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+
+  grid-template-columns:
+    repeat(3,1fr);
+
   gap:18px;
 }
 
+
+/* =================================================
+   NEWS CARD
+================================================= */
+
 .news-card{
+
   background:#fff;
+
   border-radius:9px;
+
   overflow:hidden;
+
   box-shadow:0 2px 9px #0002;
+
   transition:.2s;
 }
 
 .news-card:hover{
+
   transform:translateY(-3px);
+
   box-shadow:0 5px 14px #0003;
 }
 
+
+/* =================================================
+   NEWS IMAGE
+================================================= */
+
 .news-img{
+
   width:100%;
+
   height:210px;
+
   object-fit:cover;
+
   display:block;
+
   background:#ddd;
 }
 
+
+/* =================================================
+   NEWS CONTENT
+================================================= */
+
 .news-content{
+
   padding:14px;
 }
 
 .category{
+
   display:inline-block;
+
   background:#d71920;
+
   color:#fff;
+
   padding:4px 9px;
+
   border-radius:4px;
+
   font-size:12px;
+
   margin-bottom:8px;
 }
 
 .news-headline{
+
   font-size:20px;
+
   line-height:1.5;
+
   margin-bottom:8px;
 }
 
 .news-detail{
+
   color:#555;
+
   font-size:15px;
+
   line-height:1.8;
+
   white-space:pre-line;
 }
 
+
+/* =================================================
+   NEWS VIDEO
+================================================= */
+
 .news-video{
+
   width:100%;
+
   aspect-ratio:16/9;
+
   border:0;
+
   margin-top:10px;
+
+  display:block;
 }
 
+
+/* =================================================
+   SOCIAL
+================================================= */
+
 .social{
+
   margin-top:25px;
+
   background:#fff;
+
   border-radius:9px;
+
   padding:18px;
+
   box-shadow:0 2px 8px #0002;
+
   text-align:center;
 }
 
 .social h2{
+
   margin-bottom:15px;
+
   color:#0b3559;
 }
 
 .social-links{
+
   display:flex;
+
   justify-content:center;
+
   gap:12px;
+
   flex-wrap:wrap;
 }
 
 .social-btn{
+
   color:#fff;
+
   padding:11px 20px;
+
   border-radius:6px;
+
   font-weight:bold;
 }
 
-.facebook{background:#1877f2}
-.instagram{background:#c13584}
+.facebook{
+  background:#1877f2;
+}
+
+.instagram{
+  background:#c13584;
+}
+
+
+/* =================================================
+   FOOTER
+================================================= */
 
 .footer{
+
   margin-top:30px;
+
   background:#071d36;
+
   color:#fff;
+
   text-align:center;
+
   padding:20px 10px;
+
   line-height:1.8;
 }
 
+
+/* =================================================
+   EMPTY
+================================================= */
+
 .empty{
+
   background:#fff;
+
   padding:25px;
+
   text-align:center;
+
   border-radius:8px;
+
   color:#777;
 }
 
+
+/* =================================================
+   TABLET
+================================================= */
+
 @media(max-width:800px){
-  .news-grid{grid-template-columns:repeat(2,1fr)}
-  .brand h1{font-size:22px}
-  .logo-mark{width:52px;height:52px;font-size:31px}
+
+  .news-grid{
+
+    grid-template-columns:
+      repeat(2,1fr);
+  }
+
+  .brand h1{
+
+    font-size:22px;
+  }
+
+  .logo-mark{
+
+    width:52px;
+
+    height:52px;
+
+    font-size:31px;
+  }
+
 }
 
+
+/* =================================================
+   MOBILE
+================================================= */
+
 @media(max-width:550px){
+
   .header-inner{
+
     flex-direction:column;
+
     text-align:center;
   }
 
-  .news-grid{grid-template-columns:1fr}
+  .news-grid{
+
+    grid-template-columns:1fr;
+  }
 
   .breaking{
+
+    height:43px;
+
     margin:8px;
   }
 
   .breaking-label{
-    padding:11px 8px;
+
+    height:43px;
+
+    padding:0 9px;
+
     font-size:13px;
   }
 
+  .breaking-label::before{
+
+    width:6px;
+
+    height:6px;
+
+    margin-left:5px;
+  }
+
+  .ticker-window{
+
+    height:43px;
+  }
+
   .breaking-text{
-    font-size:15px;
-    animation-duration:45s;
+
+    font-size:14px;
+
+    line-height:43px;
+
+    animation-duration:40s;
   }
 
   .news-img{
+
     height:220px;
   }
+
+  .live-title{
+
+    font-size:17px;
+
+    padding:10px 12px;
+  }
+
 }
+
 </style>
+
 </head>
+
 
 <body>
 
+
+<!-- =================================================
+     TOP BAR
+================================================= -->
+
 <div class="topbar">
+
   🌍 پاکستان اور دنیا بھر کی تازہ ترین خبریں
+
 </div>
+
+
+
+<!-- =================================================
+     HEADER
+================================================= -->
 
 <header class="header">
+
   <div class="header-inner">
+
+
     <div class="brand">
-      <div class="logo-mark">🌍</div>
-      <div>
-        <h1>WORLD NEWS HD</h1>
-        <p>دنیا بھر کی خبریں آپ کے موبائل پر</p>
+
+      <div class="logo-mark">
+        🌍
       </div>
+
+      <div>
+
+        <h1>
+          WORLD NEWS HD
+        </h1>
+
+        <p>
+          دنیا بھر کی خبریں آپ کے موبائل پر
+        </p>
+
+      </div>
+
     </div>
 
-    <a class="admin-link" href="admin.html">🔐 Admin</a>
+
+    <a
+      class="admin-link"
+      href="admin.html">
+
+      🔐 Admin
+
+    </a>
+
+
   </div>
+
 </header>
 
-<!-- BREAKING NEWS -->
+
+
+<!-- =================================================
+     BREAKING NEWS
+================================================= -->
+
 <div class="breaking">
-  <div class="breaking-label">🔴 بریکنگ نیوز</div>
-  <div class="ticker-window">
-    <div id="breakingText" class="breaking-text">
-      تازہ ترین خبریں حاصل کرنے کے لیے WORLD NEWS HD دیکھتے رہیے
-    </div>
+
+
+  <div class="breaking-label">
+
+    🔴 بریکنگ نیوز
+
   </div>
+
+
+  <div class="ticker-window">
+
+    <div
+      id="breakingText"
+      class="breaking-text">
+
+      تازہ ترین خبریں حاصل کرنے کے لیے
+      WORLD NEWS HD دیکھتے رہیے
+
+    </div>
+
+  </div>
+
 </div>
+
+
+
+<!-- =================================================
+     MAIN
+================================================= -->
 
 <main class="container">
 
-  <!-- LIVE -->
-  <section id="liveSection" class="live-box live-off">
+
+  <!-- =================================================
+       LIVE VIDEO
+  ================================================= -->
+
+  <section
+    id="liveSection"
+    class="live-box live-off">
+
+
     <div class="live-title">
+
       🔴 LIVE VIDEO — WORLD NEWS HD
+
     </div>
+
 
     <iframe
+
       id="liveFrame"
+
       class="live-frame"
-      allow="autoplay; encrypted-media; picture-in-picture"
+
+      title="WORLD NEWS HD Live Video"
+
+      allow="
+        autoplay;
+        encrypted-media;
+        picture-in-picture;
+        fullscreen
+      "
+
+      referrerpolicy="
+        strict-origin-when-cross-origin
+      "
+
       allowfullscreen>
+
     </iframe>
+
+
   </section>
 
-  <!-- NEWS -->
+
+
+  <!-- =================================================
+       NEWS
+  ================================================= -->
+
   <section>
-    <div class="section-title">📰 تازہ ترین خبریں</div>
 
-    <div id="newsGrid" class="news-grid">
-      <div class="empty">خبریں لوڈ ہو رہی ہیں...</div>
+
+    <div class="section-title">
+
+      📰 تازہ ترین خبریں
+
     </div>
+
+
+    <div
+      id="newsGrid"
+      class="news-grid">
+
+
+      <div class="empty">
+
+        خبریں لوڈ ہو رہی ہیں...
+
+      </div>
+
+
+    </div>
+
+
   </section>
 
-  <!-- SOCIAL -->
-  <section id="socialSection" class="social" style="display:none">
-    <h2>🌐 ہمارے سوشل میڈیا سے جڑیں</h2>
+
+
+  <!-- =================================================
+       SOCIAL
+  ================================================= -->
+
+  <section
+    id="socialSection"
+    class="social"
+    style="display:none">
+
+
+    <h2>
+
+      🌐 ہمارے سوشل میڈیا سے جڑیں
+
+    </h2>
+
 
     <div class="social-links">
-      <a id="facebookLink"
-         class="social-btn facebook"
-         target="_blank"
-         rel="noopener">
-         📘 Facebook
+
+
+      <a
+        id="facebookLink"
+        class="social-btn facebook"
+        target="_blank"
+        rel="noopener">
+
+        📘 Facebook
+
       </a>
 
-      <a id="instagramLink"
-         class="social-btn instagram"
-         target="_blank"
-         rel="noopener">
-         📸 Instagram
+
+      <a
+        id="instagramLink"
+        class="social-btn instagram"
+        target="_blank"
+        rel="noopener">
+
+        📸 Instagram
+
       </a>
+
+
     </div>
+
   </section>
+
 
 </main>
 
+
+
+<!-- =================================================
+     FOOTER
+================================================= -->
+
 <footer class="footer">
-  <strong>WORLD NEWS HD</strong><br>
+
+  <strong>
+    WORLD NEWS HD
+  </strong>
+
+  <br>
+
   پاکستان اور دنیا بھر کی تازہ ترین خبریں
+
 </footer>
 
+
+
 <script>
-const SUPABASE_URL = "https://mlydxfrsjnnbbaampqan.supabase.co";
-const SUPABASE_KEY = "sb_publishable_4xh2rkJSLqWX2UwC4eHHRA_WpujFv2w";
 
-const supabaseClient = supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
 
-/* ===============================
-   YOUTUBE LINK CONVERTER
-================================ */
+/* =================================================
+   SUPABASE
+================================================= */
+
+const SUPABASE_URL =
+  "https://mlydxfrsjnnbbaampqan.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_4xh2rkJSLqWX2UwC4eHHRA_WpujFv2w";
+
+
+const supabaseClient =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+
+/* =================================================
+   YOUTUBE URL CONVERTER
+================================================= */
 
 function youtubeEmbedUrl(url){
 
-  if(!url) return "";
+  if(!url){
+    return "";
+  }
 
   try{
 
-    url = String(url).trim();
+    url =
+      String(url).trim();
 
-    /* Raw YouTube ID */
-    if(/^[A-Za-z0-9_-]{6,20}$/.test(url)){
-      return "https://www.youtube-nocookie.com/embed/" +
+
+    /*
+      صرف YouTube Video ID
+    */
+
+    if(
+      /^[A-Za-z0-9_-]{6,20}$/.test(url)
+    ){
+
+      return (
+        "https://www.youtube-nocookie.com/embed/" +
         url +
-        "?autoplay=1&mute=1&playsinline=1&rel=0";
+        "?autoplay=1&mute=1&playsinline=1&rel=0"
+      );
+
     }
 
-    const parsed = new URL(url);
 
-    const host = parsed.hostname
-      .replace(/^www\./,"")
-      .toLowerCase();
+    const parsed =
+      new URL(url);
+
+
+    const host =
+      parsed.hostname
+        .replace(/^www\./,"")
+        .toLowerCase();
+
 
     let id = "";
 
-    if(host === "youtu.be"){
 
-      id = parsed.pathname
-        .split("/")
-        .filter(Boolean)[0] || "";
+    /*
+      youtu.be
+    */
 
-    }else if(
-      host === "youtube.com" ||
-      host === "m.youtube.com" ||
-      host === "music.youtube.com" ||
-      host === "youtube-nocookie.com"
+    if(
+      host === "youtu.be"
     ){
 
-      id = parsed.searchParams.get("v") || "";
+      id =
+        parsed.pathname
+          .split("/")
+          .filter(Boolean)[0] || "";
+
+    }
+
+
+    /*
+      YouTube domains
+    */
+
+    else if(
+
+      host === "youtube.com" ||
+
+      host === "m.youtube.com" ||
+
+      host === "music.youtube.com" ||
+
+      host === "youtube-nocookie.com"
+
+    ){
+
+      /*
+        watch?v=
+      */
+
+      id =
+        parsed.searchParams.get("v") || "";
+
+
+      /*
+        /live/
+        /embed/
+        /shorts/
+      */
 
       if(!id){
 
-        const parts = parsed.pathname
-          .split("/")
-          .filter(Boolean);
+        const parts =
+          parsed.pathname
+            .split("/")
+            .filter(Boolean);
+
 
         if(
-          ["live","embed","shorts"].includes(parts[0])
+
+          [
+            "live",
+            "embed",
+            "shorts"
+          ].includes(parts[0])
+
         ){
-          id = parts[1] || "";
+
+          id =
+            parts[1] || "";
+
         }
+
       }
+
     }
 
-    id = String(id)
-      .split("?")[0]
-      .split("&")[0]
-      .trim();
 
-    if(!/^[A-Za-z0-9_-]{6,20}$/.test(id)){
+    id =
+      String(id)
+
+        .split("?")[0]
+
+        .split("&")[0]
+
+        .trim();
+
+
+    if(
+
+      !/^[A-Za-z0-9_-]{6,20}$/.test(id)
+
+    ){
+
       return "";
+
     }
 
-    return "https://www.youtube-nocookie.com/embed/" +
+
+    return (
+      "https://www.youtube-nocookie.com/embed/" +
       id +
-      "?autoplay=1&mute=1&playsinline=1&rel=0";
+      "?autoplay=1&mute=1&playsinline=1&rel=0"
+    );
+
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "YouTube URL Error:",
+      error
+    );
+
     return "";
+
   }
+
 }
 
 
-/* ===============================
+
+/* =================================================
    BREAKING NEWS
-================================ */
+================================================= */
 
 async function loadBreaking(){
 
   try{
 
-    const {data,error} = await supabaseClient
-      .from("world_news_breaking")
-      .select("breaking_text")
-      .eq("id",1)
-      .maybeSingle();
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+
+        .from(
+          "world_news_breaking"
+        )
+
+        .select(
+          "breaking_text"
+        )
+
+        .eq(
+          "id",
+          1
+        )
+
+        .maybeSingle();
+
 
     if(error){
-      console.error("Breaking error:",error);
+
+      console.error(
+        "Breaking Error:",
+        error
+      );
+
       return;
+
     }
 
+
+    const element =
+      document.getElementById(
+        "breakingText"
+      );
+
+
     const text =
-      data && data.breaking_text
+      data &&
+      data.breaking_text
         ? data.breaking_text.trim()
         : "";
 
-    const element =
-      document.getElementById("breakingText");
 
     if(text){
 
-      element.textContent = text;
-
-      /* Animation restart */
-      element.style.animation = "none";
-      void element.offsetWidth;
-      element.style.animation =
-        "breakingMove 40s linear infinite";
+      element.textContent =
+        text;
 
     }else{
 
@@ -527,303 +1204,713 @@ async function loadBreaking(){
 
     }
 
+
+    /*
+      Animation restart
+    */
+
+    element.style.animation =
+      "none";
+
+    void element.offsetWidth;
+
+    element.style.animation =
+      "breakingMove 35s linear infinite";
+
+
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "Breaking Error:",
+      error
+    );
 
   }
+
 }
 
 
-/* ===============================
-   LIVE VIDEO
-================================ */
+
+/* =================================================
+   LIVE VIDEO — FIXED
+================================================= */
 
 async function loadLive(){
 
+  const section =
+    document.getElementById(
+      "liveSection"
+    );
+
+
+  const frame =
+    document.getElementById(
+      "liveFrame"
+    );
+
+
   try{
 
-    const {data,error} = await supabaseClient
-      .from("world_news_live")
-      .select("youtube_url,enabled")
-      .eq("id",1)
-      .maybeSingle();
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+
+        .from(
+          "world_news_live"
+        )
+
+        .select(
+          "youtube_url,enabled"
+        )
+
+        .eq(
+          "id",
+          1
+        )
+
+        .maybeSingle();
+
+
+    console.log(
+      "WORLD NEWS HD LIVE DATA:",
+      data
+    );
+
+
+    console.log(
+      "WORLD NEWS HD LIVE ERROR:",
+      error
+    );
+
 
     if(error){
 
-      console.error("Live error:",error);
+      console.error(
+        "Live Video Supabase Error:",
+        error
+      );
+
+      frame.removeAttribute(
+        "src"
+      );
+
+      section.classList.add(
+        "live-off"
+      );
+
       return;
-    }
-
-    const section =
-      document.getElementById("liveSection");
-
-    const frame =
-      document.getElementById("liveFrame");
-
-    if(
-      data &&
-      data.enabled === true &&
-      data.youtube_url
-    ){
-
-      const embed =
-        youtubeEmbedUrl(data.youtube_url);
-
-      if(embed){
-
-        frame.src = embed;
-        section.classList.remove("live-off");
-
-      }else{
-
-        frame.removeAttribute("src");
-        section.classList.add("live-off");
-      }
-
-    }else{
-
-      frame.removeAttribute("src");
-      section.classList.add("live-off");
 
     }
+
+
+    if(!data){
+
+      console.warn(
+        "world_news_live میں id=1 کا record نہیں ملا"
+      );
+
+      frame.removeAttribute(
+        "src"
+      );
+
+      section.classList.add(
+        "live-off"
+      );
+
+      return;
+
+    }
+
+
+    const youtubeUrl =
+      String(
+        data.youtube_url || ""
+      ).trim();
+
+
+    /*
+      اہم:
+
+      اب صرف enabled پر depend نہیں کرے گا۔
+
+      اگر URL موجود ہے تو Live دکھائی جائے گی۔
+    */
+
+    if(!youtubeUrl){
+
+      frame.removeAttribute(
+        "src"
+      );
+
+      section.classList.add(
+        "live-off"
+      );
+
+      return;
+
+    }
+
+
+    const embed =
+      youtubeEmbedUrl(
+        youtubeUrl
+      );
+
+
+    if(!embed){
+
+      console.error(
+        "Invalid YouTube URL:",
+        youtubeUrl
+      );
+
+      frame.removeAttribute(
+        "src"
+      );
+
+      section.classList.add(
+        "live-off"
+      );
+
+      return;
+
+    }
+
+
+    /*
+      پہلے پرانا video ختم
+    */
+
+    frame.removeAttribute(
+      "src"
+    );
+
+
+    /*
+      browser reflow
+    */
+
+    void frame.offsetWidth;
+
+
+    /*
+      نیا video
+    */
+
+    frame.src =
+      embed;
+
+
+    /*
+      Live section show
+    */
+
+    section.classList.remove(
+      "live-off"
+    );
+
+
+    console.log(
+      "WORLD NEWS HD LIVE VIDEO LOADED:",
+      embed
+    );
+
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "Live Video Error:",
+      error
+    );
+
+
+    frame.removeAttribute(
+      "src"
+    );
+
+
+    section.classList.add(
+      "live-off"
+    );
 
   }
+
 }
 
 
-/* ===============================
-   SOCIAL MEDIA
-================================ */
+
+/* =================================================
+   SOCIAL URL
+================================================= */
 
 function normalizeUrl(url){
 
-  if(!url) return "";
-
-  url = String(url).trim();
-
-  if(!url) return "";
-
-  if(
-    !url.startsWith("http://") &&
-    !url.startsWith("https://")
-  ){
-    url = "https://" + url;
+  if(!url){
+    return "";
   }
 
+
+  url =
+    String(url).trim();
+
+
+  if(!url){
+    return "";
+  }
+
+
+  if(
+
+    !url.startsWith("http://") &&
+
+    !url.startsWith("https://")
+
+  ){
+
+    url =
+      "https://" + url;
+
+  }
+
+
   return url;
+
 }
+
+
+
+/* =================================================
+   SOCIAL
+================================================= */
 
 async function loadSocial(){
 
   try{
 
-    const {data,error} = await supabaseClient
-      .from("world_news_social")
-      .select("facebook_url,instagram_url")
-      .eq("id",1)
-      .maybeSingle();
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+
+        .from(
+          "world_news_social"
+        )
+
+        .select(
+          "facebook_url,instagram_url"
+        )
+
+        .eq(
+          "id",
+          1
+        )
+
+        .maybeSingle();
+
 
     if(error){
 
-      console.error("Social error:",error);
+      console.error(
+        "Social Error:",
+        error
+      );
+
+      return;
+
+    }
+
+
+    if(!data){
       return;
     }
 
-    if(!data) return;
 
-    const fb =
-      normalizeUrl(data.facebook_url);
+    const facebook =
+      normalizeUrl(
+        data.facebook_url
+      );
 
-    const ig =
-      normalizeUrl(data.instagram_url);
+
+    const instagram =
+      normalizeUrl(
+        data.instagram_url
+      );
+
 
     const section =
-      document.getElementById("socialSection");
+      document.getElementById(
+        "socialSection"
+      );
 
-    const fbLink =
-      document.getElementById("facebookLink");
 
-    const igLink =
-      document.getElementById("instagramLink");
+    const fb =
+      document.getElementById(
+        "facebookLink"
+      );
 
-    let visible = false;
 
-    if(fb){
+    const ig =
+      document.getElementById(
+        "instagramLink"
+      );
 
-      fbLink.href = fb;
-      fbLink.style.display = "inline-block";
-      visible = true;
+
+    let visible =
+      false;
+
+
+    if(facebook){
+
+      fb.href =
+        facebook;
+
+      fb.style.display =
+        "inline-block";
+
+      visible =
+        true;
 
     }else{
 
-      fbLink.style.display = "none";
+      fb.style.display =
+        "none";
+
     }
 
-    if(ig){
 
-      igLink.href = ig;
-      igLink.style.display = "inline-block";
-      visible = true;
+    if(instagram){
+
+      ig.href =
+        instagram;
+
+      ig.style.display =
+        "inline-block";
+
+      visible =
+        true;
 
     }else{
 
-      igLink.style.display = "none";
+      ig.style.display =
+        "none";
+
     }
+
 
     section.style.display =
-      visible ? "block" : "none";
+      visible
+        ? "block"
+        : "none";
+
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "Social Error:",
+      error
+    );
 
   }
+
 }
 
 
-/* ===============================
+
+/* =================================================
    NEWS
-================================ */
+================================================= */
 
 async function loadNews(){
 
   const grid =
-    document.getElementById("newsGrid");
+    document.getElementById(
+      "newsGrid"
+    );
+
 
   try{
 
-    const {data,error} = await supabaseClient
-      .from("news")
-      .select("*")
-      .order("created_at",{ascending:false});
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+
+        .from(
+          "news"
+        )
+
+        .select("*")
+
+        .order(
+          "created_at",
+          {
+            ascending:false
+          }
+        );
+
 
     if(error){
 
-      console.error("News error:",error);
+      console.error(
+        "News Error:",
+        error
+      );
+
 
       grid.innerHTML =
-        '<div class="empty">خبری لوڈ نہیں ہو سکی۔</div>';
+        `
+        <div class="empty">
+          خبریں لوڈ نہیں ہو سکیں۔
+        </div>
+        `;
 
       return;
+
     }
 
-    if(!data || data.length === 0){
+
+    if(
+      !data ||
+      data.length === 0
+    ){
 
       grid.innerHTML =
-        '<div class="empty">ابھی کوئی خبر موجود نہیں۔</div>';
+        `
+        <div class="empty">
+          ابھی کوئی خبر موجود نہیں۔
+        </div>
+        `;
 
       return;
+
     }
 
-    grid.innerHTML = "";
 
-    data.forEach(news => {
+    grid.innerHTML =
+      "";
 
-      const card =
-        document.createElement("article");
 
-      card.className = "news-card";
+    data.forEach(
+      news => {
 
-      let imageHtml = "";
 
-      if(news.image_url){
+        const card =
+          document.createElement(
+            "article"
+          );
 
-        imageHtml =
-          `<img class="news-img"
-                src="${escapeHtml(news.image_url)}"
-                alt="خبر کی تصویر"
-                onerror="this.style.display='none'">`;
-      }
 
-      let videoHtml = "";
+        card.className =
+          "news-card";
 
-      if(news.video_url){
 
-        const video =
-          youtubeEmbedUrl(news.video_url);
+        let imageHtml =
+          "";
 
-        if(video){
 
-          videoHtml =
-            `<iframe
-              class="news-video"
-              src="${video}"
-              allow="autoplay; encrypted-media; picture-in-picture"
-              allowfullscreen></iframe>`;
+        if(news.image_url){
+
+          imageHtml =
+            `
+            <img
+              class="news-img"
+              src="${escapeHtml(news.image_url)}"
+              alt="خبر کی تصویر"
+              onerror="this.style.display='none'">
+            `;
+
         }
-      }
 
-      card.innerHTML = `
-        ${imageHtml}
 
-        <div class="news-content">
+        let videoHtml =
+          "";
 
-          ${
-            news.category
-            ? `<span class="category">${escapeHtml(news.category)}</span>`
-            : ""
+
+        if(news.video_url){
+
+          const video =
+            youtubeEmbedUrl(
+              news.video_url
+            );
+
+
+          if(video){
+
+            videoHtml =
+              `
+              <iframe
+                class="news-video"
+                src="${video}"
+                title="WORLD NEWS HD News Video"
+                allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen>
+              </iframe>
+              `;
+
           }
 
-          <h2 class="news-headline">
-            ${escapeHtml(news.headline || "")}
-          </h2>
+        }
 
-          <div class="news-detail">
-            ${escapeHtml(news.detail || "")}
+
+        card.innerHTML =
+          `
+
+          ${imageHtml}
+
+          <div class="news-content">
+
+
+            ${
+              news.category
+
+              ?
+
+              `
+              <span class="category">
+                ${escapeHtml(
+                  news.category
+                )}
+              </span>
+              `
+
+              :
+
+              ""
+            }
+
+
+            <h2 class="news-headline">
+
+              ${escapeHtml(
+                news.headline || ""
+              )}
+
+            </h2>
+
+
+            <div class="news-detail">
+
+              ${escapeHtml(
+                news.detail || ""
+              )}
+
+            </div>
+
+
+            ${videoHtml}
+
+
           </div>
 
-          ${videoHtml}
+          `;
 
-        </div>
-      `;
 
-      grid.appendChild(card);
+        grid.appendChild(
+          card
+        );
 
-    });
+
+      }
+    );
+
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "News Error:",
+      error
+    );
+
 
     grid.innerHTML =
-      '<div class="empty">خبر لوڈ کرنے میں مسئلہ پیش آیا۔</div>';
+      `
+      <div class="empty">
+        خبر لوڈ کرنے میں مسئلہ پیش آیا۔
+      </div>
+      `;
+
   }
+
 }
 
 
-/* ===============================
-   SECURITY
-================================ */
+
+/* =================================================
+   HTML SECURITY
+================================================= */
 
 function escapeHtml(value){
 
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+  return String(
+    value ?? ""
+  )
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
 }
 
 
-/* ===============================
+
+/* =================================================
    START
-================================ */
+================================================= */
 
 loadBreaking();
+
 loadLive();
+
 loadSocial();
+
 loadNews();
 
-/* ہر 30 سیکنڈ بعد تازہ ڈیٹا */
-setInterval(loadBreaking,30000);
-setInterval(loadLive,30000);
-setInterval(loadSocial,30000);
+
+/*
+  ہر 30 سیکنڈ بعد
+  تازہ data
+*/
+
+setInterval(
+  loadBreaking,
+  30000
+);
+
+setInterval(
+  loadLive,
+  30000
+);
+
+setInterval(
+  loadSocial,
+  30000
+);
 
 </script>
 
