@@ -114,14 +114,21 @@ a{
   position:absolute;
   left:12px;
   top:10px;
+
   background:#e51d2a;
   color:#fff;
+
   padding:7px 11px;
+
   border-radius:5px;
+
   font-size:12px;
   font-weight:bold;
+
   box-shadow:0 2px 6px #0005;
-  z-index:10;
+
+  z-index:50;
+
   transition:.2s;
 }
 
@@ -132,12 +139,15 @@ a{
 
 
 /* =================================================
-   BREAKING NEWS
+   BREAKING NEWS MAIN BOX
 ================================================= */
 
 .breaking{
+
   max-width:1200px;
+
   height:46px;
+
   margin:12px auto;
 
   background:#fff;
@@ -147,27 +157,35 @@ a{
   overflow:hidden;
 
   display:flex;
+
   align-items:center;
 
   direction:ltr;
 
   box-shadow:0 2px 8px #0002;
+
 }
 
 
 /* =================================================
    BREAKING LABEL
+   RIGHT SIDE FIXED
 ================================================= */
 
 .breaking-label{
+
   order:2;
 
   flex:0 0 auto;
 
+  width:auto;
+
   height:46px;
 
   display:flex;
+
   align-items:center;
+
   justify-content:center;
 
   background:#d71920;
@@ -193,12 +211,16 @@ a{
   position:relative;
 
   z-index:20;
+
 }
 
 
-/* سفید blinking dot */
+/* =================================================
+   BREAKING LABEL BLINKING DOT
+================================================= */
 
 .breaking-label::before{
+
   content:"";
 
   width:8px;
@@ -213,8 +235,8 @@ a{
   margin-left:7px;
 
   animation:breakingDot 1.2s infinite;
-}
 
+}
 
 @keyframes breakingDot{
 
@@ -250,6 +272,7 @@ a{
   background:#fff;
 
   direction:ltr;
+
 }
 
 
@@ -261,19 +284,13 @@ a{
 
   position:absolute;
 
-  top:0;
+  top:50%;
 
-  right:-100%;
+  left:0;
 
-  left:auto;
+  right:auto;
 
-  height:46px;
-
-  display:flex;
-
-  align-items:center;
-
-  width:max-content;
+  transform:translate3d(100vw,-50%,0);
 
   white-space:nowrap;
 
@@ -289,30 +306,13 @@ a{
 
   font-weight:700;
 
-  line-height:1;
+  line-height:46px;
 
   direction:rtl;
 
   unicode-bidi:plaintext;
 
-  animation:
-    breakingMove 28s linear infinite;
-}
-
-
-/* =================================================
-   RIGHT TO LEFT TICKER
-================================================= */
-
-@keyframes breakingMove{
-
-  from{
-    right:-100%;
-  }
-
-  to{
-    right:100%;
-  }
+  will-change:transform;
 
 }
 
@@ -346,7 +346,9 @@ a{
 ================================================= */
 
 .live-title{
+
   background:#111;
+
   color:#fff;
 
   padding:9px 12px;
@@ -354,14 +356,20 @@ a{
   min-height:46px;
 
   display:flex;
+
   align-items:center;
+
   justify-content:flex-start;
+
 }
 
 
-/* LIVE */
+/* =================================================
+   LIVE BADGE
+================================================= */
 
 .live-badge{
+
   display:inline-flex;
 
   align-items:center;
@@ -385,12 +393,16 @@ a{
   direction:ltr;
 
   box-shadow:0 2px 7px #0006;
+
 }
 
 
-/* LIVE dot */
+/* =================================================
+   LIVE DOT
+================================================= */
 
 .live-dot{
+
   width:8px;
   height:8px;
 
@@ -399,8 +411,8 @@ a{
   border-radius:50%;
 
   animation:liveBlink 1s infinite;
-}
 
+}
 
 @keyframes liveBlink{
 
@@ -422,6 +434,7 @@ a{
 ================================================= */
 
 .live-frame{
+
   width:100%;
 
   aspect-ratio:16/9;
@@ -431,6 +444,7 @@ a{
   display:block;
 
   background:#000;
+
 }
 
 .live-off{
@@ -443,6 +457,7 @@ a{
 ================================================= */
 
 .live-loading{
+
   color:#fff;
 
   text-align:center;
@@ -450,6 +465,7 @@ a{
   padding:30px 10px;
 
   font-size:15px;
+
 }
 
 
@@ -458,6 +474,7 @@ a{
 ================================================= */
 
 .section-title{
+
   background:#0b3559;
 
   color:#fff;
@@ -471,6 +488,7 @@ a{
   font-size:22px;
 
   font-weight:bold;
+
 }
 
 
@@ -479,12 +497,13 @@ a{
 ================================================= */
 
 .news-grid{
+
   display:grid;
 
-  grid-template-columns:
-    repeat(3,1fr);
+  grid-template-columns:repeat(3,1fr);
 
   gap:18px;
+
 }
 
 
@@ -493,6 +512,7 @@ a{
 ================================================= */
 
 .news-card{
+
   background:#fff;
 
   border-radius:9px;
@@ -502,13 +522,15 @@ a{
   box-shadow:0 2px 9px #0002;
 
   transition:.2s;
+
 }
 
-
 .news-card:hover{
+
   transform:translateY(-3px);
 
   box-shadow:0 5px 14px #0003;
+
 }
 
 
@@ -517,6 +539,7 @@ a{
 ================================================= */
 
 .news-img{
+
   width:100%;
 
   height:210px;
@@ -526,6 +549,7 @@ a{
   display:block;
 
   background:#ddd;
+
 }
 
 
@@ -534,11 +558,13 @@ a{
 ================================================= */
 
 .news-content{
+
   padding:14px;
+
 }
 
-
 .category{
+
   display:inline-block;
 
   background:#d71920;
@@ -552,19 +578,21 @@ a{
   font-size:12px;
 
   margin-bottom:8px;
+
 }
 
-
 .news-headline{
+
   font-size:20px;
 
   line-height:1.5;
 
   margin-bottom:8px;
+
 }
 
-
 .news-detail{
+
   color:#555;
 
   font-size:15px;
@@ -572,6 +600,7 @@ a{
   line-height:1.8;
 
   white-space:pre-line;
+
 }
 
 
@@ -580,6 +609,7 @@ a{
 ================================================= */
 
 .news-video{
+
   width:100%;
 
   aspect-ratio:16/9;
@@ -589,6 +619,7 @@ a{
   margin-top:10px;
 
   display:block;
+
 }
 
 
@@ -597,6 +628,7 @@ a{
 ================================================= */
 
 .social{
+
   margin-top:25px;
 
   background:#fff;
@@ -608,17 +640,19 @@ a{
   box-shadow:0 2px 8px #0002;
 
   text-align:center;
+
 }
 
-
 .social h2{
+
   margin-bottom:15px;
 
   color:#0b3559;
+
 }
 
-
 .social-links{
+
   display:flex;
 
   justify-content:center;
@@ -626,10 +660,11 @@ a{
   gap:12px;
 
   flex-wrap:wrap;
+
 }
 
-
 .social-btn{
+
   color:#fff;
 
   padding:11px 20px;
@@ -637,16 +672,19 @@ a{
   border-radius:6px;
 
   font-weight:bold;
-}
 
+}
 
 .facebook{
+
   background:#1877f2;
+
 }
 
-
 .instagram{
+
   background:#c13584;
+
 }
 
 
@@ -655,6 +693,7 @@ a{
 ================================================= */
 
 .footer{
+
   margin-top:30px;
 
   background:#071d36;
@@ -666,6 +705,7 @@ a{
   padding:20px 10px;
 
   line-height:1.8;
+
 }
 
 
@@ -674,6 +714,7 @@ a{
 ================================================= */
 
 .empty{
+
   background:#fff;
 
   padding:25px;
@@ -683,6 +724,7 @@ a{
   border-radius:8px;
 
   color:#777;
+
 }
 
 
@@ -693,18 +735,25 @@ a{
 @media(max-width:800px){
 
   .news-grid{
-    grid-template-columns:
-      repeat(2,1fr);
+
+    grid-template-columns:repeat(2,1fr);
+
   }
 
   .brand h1{
+
     font-size:24px;
+
   }
 
   .logo-mark{
+
     width:58px;
+
     height:58px;
+
     font-size:32px;
+
   }
 
 }
@@ -717,35 +766,41 @@ a{
 @media(max-width:550px){
 
   .header{
+
     padding:17px 10px;
+
   }
 
-
   .header-inner{
+
     min-height:65px;
 
     flex-direction:column;
 
     text-align:center;
-  }
 
+  }
 
   .brand{
-    gap:9px;
-  }
 
+    gap:9px;
+
+  }
 
   .brand h1{
-    font-size:21px;
-  }
 
+    font-size:21px;
+
+  }
 
   .brand p{
+
     font-size:11px;
+
   }
 
-
   .logo-mark{
+
     width:52px;
 
     height:52px;
@@ -753,10 +808,11 @@ a{
     font-size:29px;
 
     border-width:2px;
+
   }
 
-
   .admin-link{
+
     left:7px;
 
     top:7px;
@@ -764,17 +820,11 @@ a{
     padding:6px 8px;
 
     font-size:10px;
+
   }
 
 
-  .news-grid{
-    grid-template-columns:1fr;
-  }
-
-
-  /* ===============================
-     BREAKING MOBILE
-  =============================== */
+  /* BREAKING MOBILE */
 
   .breaking{
 
@@ -783,7 +833,6 @@ a{
     margin:8px;
 
   }
-
 
   .breaking-label{
 
@@ -795,7 +844,6 @@ a{
 
   }
 
-
   .breaking-label::before{
 
     width:6px;
@@ -806,27 +854,32 @@ a{
 
   }
 
-
   .ticker-window{
 
     height:43px;
 
   }
 
-
   .breaking-text{
-
-    height:43px;
 
     font-size:14px;
 
+    line-height:43px;
+
   }
 
+
+  .news-grid{
+
+    grid-template-columns:1fr;
+
+  }
 
   .news-img{
-    height:220px;
-  }
 
+    height:220px;
+
+  }
 
   .live-title{
 
@@ -835,7 +888,6 @@ a{
     padding:8px 10px;
 
   }
-
 
   .live-badge{
 
@@ -855,23 +907,26 @@ a{
 @media(max-width:360px){
 
   .brand h1{
-    font-size:18px;
-  }
 
+    font-size:18px;
+
+  }
 
   .brand p{
+
     display:none;
+
   }
 
-
   .logo-mark{
+
     width:47px;
 
     height:47px;
 
     font-size:25px;
-  }
 
+  }
 
   .breaking-label{
 
@@ -948,7 +1003,7 @@ a{
   </div>
 
 
-  <!-- Admin -->
+  <!-- ADMIN -->
 
   <a
     class="admin-link"
@@ -968,7 +1023,7 @@ a{
 <div class="breaking">
 
 
-  <!-- دائیں طرف فکس Label -->
+  <!-- RIGHT FIXED LABEL -->
 
   <div class="breaking-label">
 
@@ -977,7 +1032,7 @@ a{
   </div>
 
 
-  <!-- خبر چلنے کی جگہ -->
+  <!-- TICKER -->
 
   <div class="ticker-window">
 
@@ -1148,14 +1203,12 @@ a{
 
 <script>
 
-
 /* =================================================
    SUPABASE
 ================================================= */
 
 const SUPABASE_URL =
   "https://mlydxfrsjnnbbaampqan.supabase.co";
-
 
 const SUPABASE_KEY =
   "sb_publishable_4xh2rkJSLqWX2UwC4eHHRA_WpujFv2w";
@@ -1180,12 +1233,10 @@ function youtubeEmbedUrl(url){
 
   }
 
-
   try{
 
     url =
       String(url).trim();
-
 
     if(
       /^[A-Za-z0-9_-]{6,20}$/.test(url)
@@ -1199,16 +1250,13 @@ function youtubeEmbedUrl(url){
 
     }
 
-
     const parsed =
       new URL(url);
-
 
     const host =
       parsed.hostname
         .replace(/^www\./,"")
         .toLowerCase();
-
 
     let id = "";
 
@@ -1221,7 +1269,6 @@ function youtubeEmbedUrl(url){
           .filter(Boolean)[0] || "";
 
     }
-
 
     else if(
 
@@ -1242,7 +1289,6 @@ function youtubeEmbedUrl(url){
           parsed.pathname
             .split("/")
             .filter(Boolean);
-
 
         if(
           [
@@ -1300,7 +1346,116 @@ function youtubeEmbedUrl(url){
 
 
 /* =================================================
-   BREAKING NEWS
+   BREAKING NEWS TICKER
+   RIGHT → LEFT
+================================================= */
+
+let tickerAnimationId = null;
+
+
+function startBreakingTicker(){
+
+  const windowEl =
+    document.querySelector(
+      ".ticker-window"
+    );
+
+  const textEl =
+    document.getElementById(
+      "breakingText"
+    );
+
+
+  if(
+    !windowEl ||
+    !textEl
+  ){
+
+    return;
+
+  }
+
+
+  if(tickerAnimationId){
+
+    cancelAnimationFrame(
+      tickerAnimationId
+    );
+
+    tickerAnimationId = null;
+
+  }
+
+
+  /*
+     Text کو window کے بالکل دائیں
+     سے شروع کروایا جائے گا
+  */
+
+  let x =
+    windowEl.clientWidth;
+
+
+  /*
+     Mobile پر رفتار تھوڑی کم
+     Desktop پر مناسب رفتار
+  */
+
+  const speed =
+    window.innerWidth <= 550
+      ? 0.85
+      : 1.25;
+
+
+  function move(){
+
+    /*
+       دائیں → بائیں
+    */
+
+    x -= speed;
+
+
+    textEl.style.transform =
+      `translate3d(${x}px,-50%,0)`;
+
+
+    /*
+       جب مکمل خبر بائیں طرف
+       نکل جائے تو دوبارہ دائیں
+       سے شروع
+    */
+
+    if(
+      x <
+      -textEl.offsetWidth
+    ){
+
+      x =
+        windowEl.clientWidth;
+
+    }
+
+
+    tickerAnimationId =
+      requestAnimationFrame(
+        move
+      );
+
+  }
+
+
+  /*
+     فوراً animation شروع
+  */
+
+  move();
+
+}
+
+
+/* =================================================
+   LOAD BREAKING NEWS
 ================================================= */
 
 async function loadBreaking(){
@@ -1336,8 +1491,6 @@ async function loadBreaking(){
         error
       );
 
-      return;
-
     }
 
 
@@ -1345,6 +1498,13 @@ async function loadBreaking(){
       document.getElementById(
         "breakingText"
       );
+
+
+    if(!element){
+
+      return;
+
+    }
 
 
     const text =
@@ -1359,7 +1519,9 @@ async function loadBreaking(){
       element.textContent =
         text;
 
-    }else{
+    }
+
+    else{
 
       element.textContent =
         "WORLD NEWS HD — تازہ ترین خبریں";
@@ -1367,22 +1529,18 @@ async function loadBreaking(){
     }
 
 
-    /* =============================================
-       BREAKING TICKER RESTART
-    ============================================= */
+    /*
+       نئی خبر آنے کے بعد
+       ticker دوبارہ دائیں سے شروع
+    */
 
-    element.style.animation =
-      "none";
+    requestAnimationFrame(
+      () => {
 
-    element.style.right =
-      "-100%";
+        startBreakingTicker();
 
-    void element.offsetWidth;
-
-    element.style.animation =
-      window.innerWidth <= 550
-        ? "breakingMove 32s linear infinite"
-        : "breakingMove 28s linear infinite";
+      }
+    );
 
 
   }catch(error){
@@ -1392,9 +1550,39 @@ async function loadBreaking(){
       error
     );
 
+
+    const element =
+      document.getElementById(
+        "breakingText"
+      );
+
+
+    if(element){
+
+      element.textContent =
+        "WORLD NEWS HD — تازہ ترین خبریں";
+
+      startBreakingTicker();
+
+    }
+
   }
 
 }
+
+
+/* =================================================
+   WINDOW RESIZE
+================================================= */
+
+window.addEventListener(
+  "resize",
+  function(){
+
+    startBreakingTicker();
+
+  }
+);
 
 
 /* =================================================
@@ -1407,7 +1595,6 @@ async function loadLive(){
     document.getElementById(
       "liveSection"
     );
-
 
   const frame =
     document.getElementById(
@@ -1458,7 +1645,10 @@ async function loadLive(){
         error
       );
 
-      frame.removeAttribute("src");
+
+      frame.removeAttribute(
+        "src"
+      );
 
       section.classList.add(
         "live-off"
@@ -1471,7 +1661,9 @@ async function loadLive(){
 
     if(!data){
 
-      frame.removeAttribute("src");
+      frame.removeAttribute(
+        "src"
+      );
 
       section.classList.add(
         "live-off"
@@ -1490,7 +1682,9 @@ async function loadLive(){
 
     if(!youtubeUrl){
 
-      frame.removeAttribute("src");
+      frame.removeAttribute(
+        "src"
+      );
 
       section.classList.add(
         "live-off"
@@ -1509,7 +1703,9 @@ async function loadLive(){
 
     if(!embed){
 
-      frame.removeAttribute("src");
+      frame.removeAttribute(
+        "src"
+      );
 
       section.classList.add(
         "live-off"
@@ -1520,9 +1716,13 @@ async function loadLive(){
     }
 
 
-    frame.removeAttribute("src");
+    frame.removeAttribute(
+      "src"
+    );
+
 
     void frame.offsetWidth;
+
 
     frame.src =
       embed;
@@ -1541,7 +1741,9 @@ async function loadLive(){
     );
 
 
-    frame.removeAttribute("src");
+    frame.removeAttribute(
+      "src"
+    );
 
     section.classList.add(
       "live-off"
@@ -1685,7 +1887,9 @@ async function loadSocial(){
 
       visible = true;
 
-    }else{
+    }
+
+    else{
 
       fb.style.display =
         "none";
@@ -1703,7 +1907,9 @@ async function loadSocial(){
 
       visible = true;
 
-    }else{
+    }
+
+    else{
 
       ig.style.display =
         "none";
@@ -1816,7 +2022,8 @@ async function loadNews(){
           "news-card";
 
 
-        let imageHtml = "";
+        let imageHtml =
+          "";
 
 
         if(news.image_url){
@@ -1833,7 +2040,8 @@ async function loadNews(){
         }
 
 
-        let videoHtml = "";
+        let videoHtml =
+          "";
 
 
         if(news.video_url){
@@ -1890,7 +2098,6 @@ async function loadNews(){
 
             </h2>
 
-
             <div class="news-detail">
 
               ${escapeHtml(
@@ -1898,7 +2105,6 @@ async function loadNews(){
               )}
 
             </div>
-
 
             ${videoHtml}
 
@@ -1995,12 +2201,10 @@ setInterval(
   30000
 );
 
-
 setInterval(
   loadLive,
   30000
 );
-
 
 setInterval(
   loadSocial,
