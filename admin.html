@@ -275,12 +275,6 @@ background:#333;
 color:#fff;
 }
 
-.divider{
-height:1px;
-background:#ddd;
-margin:18px 0;
-}
-
 .image-upload-box{
 border:2px dashed #0d4b7c;
 background:#f7fbff;
@@ -326,6 +320,27 @@ padding:8px 12px;
 text-align:center;
 padding:20px;
 color:#666;
+}
+
+.youtube-help{
+background:#f1f7fc;
+border:1px solid #c9dceb;
+border-radius:8px;
+padding:12px;
+margin-top:8px;
+font-size:14px;
+line-height:1.8;
+color:#234;
+}
+
+.youtube-ok{
+color:#168a3c;
+font-weight:bold;
+}
+
+.youtube-error{
+color:#d71920;
+font-weight:bold;
 }
 
 @media(max-width:650px){
@@ -467,7 +482,26 @@ YouTube Live / Video Link
 <input
 id="liveUrl"
 type="text"
-placeholder="https://www.youtube.com/watch?v=XXXXXXXXXXX">
+placeholder="YouTube کا کوئی بھی Video/Live Link"
+oninput="checkLiveUrl()">
+
+<div class="youtube-help">
+
+<b>مثال:</b><br>
+
+youtube.com/watch?v=XXXX<br>
+youtu.be/XXXX<br>
+youtube.com/live/XXXX<br>
+youtube.com/shorts/XXXX<br>
+youtube.com/embed/XXXX<br>
+YouTube Share Link بھی چلے گا۔
+
+</div>
+
+<div
+id="liveUrlCheck"
+style="margin-top:8px;">
+</div>
 
 
 <div class="checkbox">
@@ -624,9 +658,32 @@ placeholder="پاکستان، دنیا، کھیل وغیرہ">
 <input
 id="videoUrl"
 type="text"
-placeholder="https://www.youtube.com/watch?v=XXXXXXXXXXX">
+placeholder="YouTube کا کوئی بھی Video Link"
+oninput="checkNewsVideoUrl()">
 
 </div>
+
+</div>
+
+
+<div
+id="newsVideoCheck"
+style="margin-top:8px;">
+</div>
+
+
+<div class="youtube-help">
+
+<b>Supported YouTube Links:</b><br>
+
+✅ Watch Video<br>
+✅ youtu.be Share Link<br>
+✅ Live Video<br>
+✅ Shorts<br>
+✅ Embed<br>
+✅ YouTube Share Link with <b>?si=</b><br>
+✅ Extra parameters جیسے <b>&t=</b> بھی چلیں گے<br>
+✅ Playlist Link بھی support ہے
 
 </div>
 
@@ -659,7 +716,9 @@ alt="Image Preview">
 <div
 id="imageInfo"
 class="image-info">
+
 کوئی تصویر منتخب نہیں کی گئی۔
+
 </div>
 
 
@@ -725,9 +784,9 @@ onclick="logout()">
 <script>
 
 
-/* =========================
+/* =====================================================
 SUPABASE
-========================= */
+===================================================== */
 
 const SUPABASE_URL =
 "https://mlydxfrsjnnbbaampqan.supabase.co";
@@ -742,9 +801,9 @@ SUPABASE_KEY
 );
 
 
-/* =========================
+/* =====================================================
 STATUS
-========================= */
+===================================================== */
 
 function showStatus(id,message,type="success"){
 
@@ -770,9 +829,9 @@ box.style.display =
 }
 
 
-/* =========================
-URL
-========================= */
+/* =====================================================
+NORMALIZE URL
+===================================================== */
 
 function normalizeUrl(url){
 
@@ -796,27 +855,215 @@ return url;
 }
 
 
-/* =========================
-YOUTUBE
-========================= */
+/* =====================================================
+YOUTUBE VIDEO ID
+===================================================== */
 
-function youtubeEmbedUrl(url){
+function getYoutubeVideoId(input){
+
+if(!input) return "";
+
+let url =
+String(input).trim();
 
 if(!url) return "";
 
-try{
 
-url =
-String(url).trim();
+/* Add protocol */
 
 if(
-/^[A-Za-z0-9_-]{6,20}$/.test(url)
+!url.startsWith("http://") &&
+!url.startsWith("https://")
 ){
 
-return
-"https://www.youtube-nocookie.com/embed/" +
-url +
-"?autoplay=0&mute=0&playsinline=1&rel=0";
+url =
+"https://" + url;
+
+}
+
+
+/* Decode safely */
+
+try{
+
+const parsed =
+new URL(url);
+
+const host =
+parsed.hostname
+.replace(/^www\./,"")
+.toLowerCase();
+
+
+/* ---------------------------------
+youtu.be
+--------------------------------- */
+
+if(
+host === "youtu.be"
+){
+
+const parts =
+parsed.pathname
+.split("/")
+.filter(Boolean);
+
+if(parts.length){
+
+return cleanYoutubeId(parts[0]);
+
+}
+
+}
+
+
+/* ---------------------------------
+youtube domains
+--------------------------------- */
+
+if(
+host === "youtube.com" ||
+host === "m.youtube.com" ||
+host === "music.youtube.com" ||
+host === "youtube-nocookie.com"
+){
+
+/* watch?v= */
+
+let id =
+parsed.searchParams.get("v");
+
+if(id){
+
+return cleanYoutubeId(id);
+
+}
+
+
+/* shorts / live / embed / v */
+
+const parts =
+parsed.pathname
+.split("/")
+.filter(Boolean);
+
+
+if(parts.length >= 2){
+
+const type =
+parts[0].toLowerCase();
+
+if(
+type === "shorts" ||
+type === "live" ||
+type === "embed" ||
+type === "v"
+){
+
+return cleanYoutubeId(parts[1]);
+
+}
+
+}
+
+
+/* Sometimes /watch/VIDEO */
+
+if(
+parts.length >= 2 &&
+parts[0].toLowerCase() === "watch"
+){
+
+return cleanYoutubeId(parts[1]);
+
+}
+
+}
+
+}
+catch(error){
+
+console.log(
+"YouTube URL parser:",
+error
+);
+
+}
+
+
+/* ---------------------------------
+Fallback Regex
+--------------------------------- */
+
+const match =
+String(input).match(
+/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|live\/|embed\/|v\/))([A-Za-z0-9_-]{6,20})/i
+);
+
+
+if(match){
+
+return cleanYoutubeId(match[1]);
+
+}
+
+
+return "";
+
+}
+
+
+/* =====================================================
+CLEAN YOUTUBE ID
+===================================================== */
+
+function cleanYoutubeId(id){
+
+if(!id) return "";
+
+id =
+String(id)
+.split("?")[0]
+.split("&")[0]
+.split("#")[0]
+.split("/")[0]
+.trim();
+
+
+if(
+!/^[A-Za-z0-9_-]{6,20}$/.test(id)
+){
+
+return "";
+
+}
+
+
+return id;
+
+}
+
+
+/* =====================================================
+YOUTUBE PLAYLIST ID
+===================================================== */
+
+function getYoutubePlaylistId(input){
+
+if(!input) return "";
+
+try{
+
+let url =
+String(input).trim();
+
+if(
+!url.startsWith("http://") &&
+!url.startsWith("https://")
+){
+
+url =
+"https://" + url;
 
 }
 
@@ -828,80 +1075,251 @@ parsed.hostname
 .replace(/^www\./,"")
 .toLowerCase();
 
-let id = "";
-
-if(host === "youtu.be"){
-
-id =
-parsed.pathname
-.split("/")
-.filter(Boolean)[0] || "";
-
-}
-
-else if(
-host === "youtube.com" ||
-host === "m.youtube.com" ||
-host === "music.youtube.com" ||
-host === "youtube-nocookie.com"
-){
-
-id =
-parsed.searchParams.get("v") || "";
-
-if(!id){
-
-const parts =
-parsed.pathname
-.split("/")
-.filter(Boolean);
 
 if(
-["live","embed","shorts"].includes(parts[0])
-){
-
-id =
-parts[1] || "";
-
-}
-
-}
-
-}
-
-id =
-String(id)
-.split("?")[0]
-.split("&")[0]
-.trim();
-
-if(
-!/^[A-Za-z0-9_-]{6,20}$/.test(id)
+host !== "youtube.com" &&
+host !== "m.youtube.com" &&
+host !== "music.youtube.com"
 ){
 
 return "";
 
 }
+
+
+return (
+parsed.searchParams.get("list") ||
+""
+).trim();
+
+}
+catch(error){
+
+return "";
+
+}
+
+}
+
+
+/* =====================================================
+YOUTUBE EMBED URL
+===================================================== */
+
+function youtubeEmbedUrl(input){
+
+if(!input) return "";
+
+const original =
+String(input).trim();
+
+
+/* ---------------------------------
+Video ID directly
+--------------------------------- */
+
+if(
+/^[A-Za-z0-9_-]{6,20}$/.test(original)
+){
 
 return
 "https://www.youtube-nocookie.com/embed/" +
-id +
+original +
 "?autoplay=0&mute=0&playsinline=1&rel=0";
 
-}catch(error){
+}
 
-console.error(error);
+
+/* ---------------------------------
+Video ID
+--------------------------------- */
+
+const videoId =
+getYoutubeVideoId(original);
+
+
+/* ---------------------------------
+Video found
+--------------------------------- */
+
+if(videoId){
+
+return
+"https://www.youtube-nocookie.com/embed/" +
+videoId +
+"?autoplay=0&mute=0&playsinline=1&rel=0";
+
+}
+
+
+/* ---------------------------------
+Playlist
+--------------------------------- */
+
+const playlistId =
+getYoutubePlaylistId(original);
+
+if(playlistId){
+
+return
+"https://www.youtube-nocookie.com/embed/videoseries?list=" +
+encodeURIComponent(playlistId) +
+"&autoplay=0&rel=0";
+
+}
+
+
+/* Nothing found */
 
 return "";
 
 }
 
+
+/* =====================================================
+YOUTUBE VALIDATION
+===================================================== */
+
+function isYoutubeUrl(input){
+
+if(!input) return false;
+
+const text =
+String(input).trim()
+.toLowerCase();
+
+
+/* Direct ID */
+
+if(
+/^[a-z0-9_-]{6,20}$/i.test(text)
+){
+
+return true;
+
 }
 
 
-/* =========================
+/* Must contain YouTube domain */
+
+if(
+!text.includes("youtube.com") &&
+!text.includes("youtu.be")
+){
+
+return false;
+
+}
+
+
+/* Video */
+
+if(
+getYoutubeVideoId(input)
+){
+
+return true;
+
+}
+
+
+/* Playlist */
+
+if(
+getYoutubePlaylistId(input)
+){
+
+return true;
+
+}
+
+
+return false;
+
+}
+
+
+/* =====================================================
+LIVE URL CHECK
+===================================================== */
+
+function checkLiveUrl(){
+
+const input =
+document.getElementById("liveUrl")
+.value.trim();
+
+const box =
+document.getElementById("liveUrlCheck");
+
+
+if(!input){
+
+box.innerHTML="";
+
+return;
+
+}
+
+
+if(isYoutubeUrl(input)){
+
+box.innerHTML =
+'<span class="youtube-ok">✅ YouTube Link درست ہے</span>';
+
+}
+else{
+
+box.innerHTML =
+'<span class="youtube-error">❌ YouTube Video/Live/Playlist Link نہیں پہچانا گیا</span>';
+
+}
+
+}
+
+
+/* =====================================================
+NEWS VIDEO CHECK
+===================================================== */
+
+function checkNewsVideoUrl(){
+
+const input =
+document.getElementById("videoUrl")
+.value.trim();
+
+const box =
+document.getElementById("newsVideoCheck");
+
+
+if(!input){
+
+box.innerHTML="";
+
+return;
+
+}
+
+
+if(isYoutubeUrl(input)){
+
+box.innerHTML =
+'<span class="youtube-ok">✅ YouTube Link درست ہے</span>';
+
+}
+else{
+
+box.innerHTML =
+'<span class="youtube-error">❌ YouTube Video Link نہیں پہچانا گیا</span>';
+
+}
+
+}
+
+
+/* =====================================================
 LOGIN
-========================= */
+===================================================== */
 
 async function login(){
 
@@ -925,12 +1343,14 @@ return;
 
 }
 
+
 const loginBtn =
 document.getElementById("loginBtn");
 
 loginBtn.disabled=true;
 
-loginBtn.textContent="⏳ Login ہو رہا ہے...";
+loginBtn.textContent =
+"⏳ Login ہو رہا ہے...";
 
 
 const {
@@ -948,7 +1368,8 @@ password:password
 
 loginBtn.disabled=false;
 
-loginBtn.textContent="🔐 Login";
+loginBtn.textContent =
+"🔐 Login";
 
 
 if(error){
@@ -975,9 +1396,9 @@ await loadAdminData();
 }
 
 
-/* =========================
+/* =====================================================
 SESSION
-========================= */
+===================================================== */
 
 async function checkSession(){
 
@@ -1005,9 +1426,9 @@ await loadAdminData();
 }
 
 
-/* =========================
+/* =====================================================
 LOGOUT
-========================= */
+===================================================== */
 
 async function logout(){
 
@@ -1018,9 +1439,9 @@ location.reload();
 }
 
 
-/* =========================
+/* =====================================================
 BREAKING
-========================= */
+===================================================== */
 
 async function loadBreaking(){
 
@@ -1034,6 +1455,7 @@ await supabaseClient
 .eq("id",1)
 .maybeSingle();
 
+
 if(error){
 
 console.error(
@@ -1044,6 +1466,7 @@ error
 return;
 
 }
+
 
 document.getElementById("breakingInput")
 .value =
@@ -1058,6 +1481,7 @@ const text =
 document.getElementById("breakingInput")
 .value.trim();
 
+
 if(!text){
 
 showStatus(
@@ -1069,6 +1493,7 @@ showStatus(
 return;
 
 }
+
 
 const {
 error
@@ -1083,17 +1508,20 @@ updated_at:new Date().toISOString()
 
 });
 
+
 if(error){
 
 showStatus(
 "breakingStatus",
-"Save Error: " + error.message,
+"Save Error: " +
+error.message,
 "error"
 );
 
 return;
 
 }
+
 
 showStatus(
 "breakingStatus",
@@ -1103,9 +1531,9 @@ showStatus(
 }
 
 
-/* =========================
-LIVE
-========================= */
+/* =====================================================
+LIVE LOAD
+===================================================== */
 
 async function loadLive(){
 
@@ -1119,6 +1547,7 @@ await supabaseClient
 .eq("id",1)
 .maybeSingle();
 
+
 if(error){
 
 console.error(
@@ -1130,15 +1559,20 @@ return;
 
 }
 
+
 document.getElementById("liveUrl")
 .value =
 data?.video_url || "";
+
 
 document.getElementById("liveEnabled")
 .checked =
 data?.is_live === true;
 
+
 if(data?.video_url){
+
+checkLiveUrl();
 
 previewLive(false);
 
@@ -1147,39 +1581,50 @@ previewLive(false);
 }
 
 
+/* =====================================================
+LIVE PREVIEW
+===================================================== */
+
 function previewLive(showMessage=true){
 
 const url =
 document.getElementById("liveUrl")
 .value.trim();
 
+
 const embed =
 youtubeEmbedUrl(url);
+
 
 if(!embed){
 
 document.getElementById("livePreview")
 .style.display="none";
 
+
 if(showMessage){
 
 showStatus(
 "liveStatus",
-"صحیح YouTube URL ڈالیں۔",
+"YouTube کا درست Video / Live / Playlist Link ڈالیں۔",
 "error"
 );
 
 }
 
+
 return false;
 
 }
 
+
 document.getElementById("previewFrame")
 .src=embed;
 
+
 document.getElementById("livePreview")
 .style.display="block";
+
 
 if(showMessage){
 
@@ -1190,10 +1635,15 @@ showStatus(
 
 }
 
+
 return true;
 
 }
 
+
+/* =====================================================
+SAVE LIVE
+===================================================== */
 
 async function saveLive(){
 
@@ -1201,9 +1651,11 @@ const url =
 document.getElementById("liveUrl")
 .value.trim();
 
+
 const enabled =
 document.getElementById("liveEnabled")
 .checked;
+
 
 if(!url){
 
@@ -1217,20 +1669,23 @@ return;
 
 }
 
+
 const embed =
 youtubeEmbedUrl(url);
+
 
 if(!embed){
 
 showStatus(
 "liveStatus",
-"یہ YouTube URL درست نہیں ہے۔",
+"YouTube Video / Live / Playlist Link درست نہیں ہے۔",
 "error"
 );
 
 return;
 
 }
+
 
 const {
 error
@@ -1247,11 +1702,13 @@ updated_at:new Date().toISOString()
 
 });
 
+
 if(error){
 
 showStatus(
 "liveStatus",
-"Live Save Error: " + error.message,
+"Live Save Error: " +
+error.message,
 "error"
 );
 
@@ -1259,11 +1716,14 @@ return;
 
 }
 
+
 document.getElementById("previewFrame")
 .src=embed;
 
+
 document.getElementById("livePreview")
 .style.display="block";
+
 
 showStatus(
 "liveStatus",
@@ -1272,6 +1732,10 @@ showStatus(
 
 }
 
+
+/* =====================================================
+DISABLE LIVE
+===================================================== */
 
 async function disableLive(){
 
@@ -1289,6 +1753,7 @@ updated_at:new Date().toISOString()
 
 });
 
+
 if(error){
 
 showStatus(
@@ -1302,14 +1767,18 @@ return;
 
 }
 
+
 document.getElementById("liveEnabled")
 .checked=false;
+
 
 document.getElementById("livePreview")
 .style.display="none";
 
+
 document.getElementById("previewFrame")
 .src="";
+
 
 showStatus(
 "liveStatus",
@@ -1319,9 +1788,9 @@ showStatus(
 }
 
 
-/* =========================
+/* =====================================================
 SOCIAL
-========================= */
+===================================================== */
 
 async function loadSocial(){
 
@@ -1335,6 +1804,7 @@ await supabaseClient
 .eq("id",1)
 .maybeSingle();
 
+
 if(error){
 
 console.error(
@@ -1346,9 +1816,11 @@ return;
 
 }
 
+
 document.getElementById("facebookUrl")
 .value =
 data?.facebook_url || "";
+
 
 document.getElementById("instagramUrl")
 .value =
@@ -1364,10 +1836,12 @@ normalizeUrl(
 document.getElementById("facebookUrl").value
 );
 
+
 const instagram =
 normalizeUrl(
 document.getElementById("instagramUrl").value
 );
+
 
 const {
 error
@@ -1383,6 +1857,7 @@ updated_at:new Date().toISOString()
 
 });
 
+
 if(error){
 
 showStatus(
@@ -1396,6 +1871,7 @@ return;
 
 }
 
+
 showStatus(
 "socialStatus",
 "✅ Social Links محفوظ ہوگئے۔"
@@ -1404,20 +1880,23 @@ showStatus(
 }
 
 
-/* =========================
+/* =====================================================
 IMAGE PREVIEW
-========================= */
+===================================================== */
 
 function previewImage(event){
 
 const file =
 event.target.files[0];
 
+
 const preview =
 document.getElementById("imagePreview");
 
+
 const info =
 document.getElementById("imageInfo");
+
 
 const removeBtn =
 document.getElementById("removeImageBtn");
@@ -1439,9 +1918,11 @@ return;
 }
 
 
-/* Image check */
+/* Image type */
 
-if(!file.type.startsWith("image/")){
+if(
+!file.type.startsWith("image/")
+){
 
 event.target.value="";
 
@@ -1459,10 +1940,11 @@ return;
 }
 
 
-/* Size check - 10MB */
+/* Max 10 MB */
 
 const maxSize =
 10 * 1024 * 1024;
+
 
 if(file.size > maxSize){
 
@@ -1487,6 +1969,7 @@ return;
 const reader =
 new FileReader();
 
+
 reader.onload=function(e){
 
 preview.src=e.target.result;
@@ -1495,12 +1978,14 @@ preview.style.display="block";
 
 };
 
+
 reader.readAsDataURL(file);
 
 
 const sizeMB =
 (file.size / 1024 / 1024)
 .toFixed(2);
+
 
 info.textContent =
 "✅ " +
@@ -1515,20 +2000,23 @@ removeBtn.style.display="inline-block";
 }
 
 
-/* =========================
+/* =====================================================
 REMOVE IMAGE
-========================= */
+===================================================== */
 
 function removeSelectedImage(){
 
 const fileInput =
 document.getElementById("imageFile");
 
+
 const preview =
 document.getElementById("imagePreview");
 
+
 const info =
 document.getElementById("imageInfo");
+
 
 const removeBtn =
 document.getElementById("removeImageBtn");
@@ -1536,21 +2024,24 @@ document.getElementById("removeImageBtn");
 
 fileInput.value="";
 
+
 preview.src="";
 
 preview.style.display="none";
 
+
 info.textContent =
 "کوئی تصویر منتخب نہیں کی گئی۔";
+
 
 removeBtn.style.display="none";
 
 }
 
 
-/* =========================
+/* =====================================================
 UPLOAD IMAGE
-========================= */
+===================================================== */
 
 async function uploadNewsImage(file){
 
@@ -1564,7 +2055,9 @@ error:null
 }
 
 
-if(!file.type.startsWith("image/")){
+if(
+!file.type.startsWith("image/")
+){
 
 return {
 url:"",
@@ -1577,6 +2070,7 @@ error:"صرف تصویر فائل Upload کی جا سکتی ہے۔"
 const maxSize =
 10 * 1024 * 1024;
 
+
 if(file.size > maxSize){
 
 return {
@@ -1587,31 +2081,48 @@ error:"تصویر 10MB سے زیادہ نہیں ہونی چاہیے۔"
 }
 
 
-/* Safe unique filename */
-
-const extension =
-file.name.includes(".")
-?
-file.name.split(".").pop().toLowerCase()
-:
+let extension =
 "jpg";
 
 
-const safeExtension =
+if(
+file.name &&
+file.name.includes(".")
+){
+
+extension =
+file.name
+.split(".")
+.pop()
+.toLowerCase();
+
+}
+
+
+extension =
 extension.replace(
 /[^a-z0-9]/g,
 ""
-) || "jpg";
+);
 
 
-let uniquePart="";
+if(!extension){
+
+extension="jpg";
+
+}
+
+
+let uniquePart;
+
 
 try{
 
 uniquePart =
 crypto.randomUUID();
 
-}catch(e){
+}
+catch(error){
 
 uniquePart =
 Date.now() +
@@ -1629,10 +2140,8 @@ Date.now() +
 "-" +
 uniquePart +
 "." +
-safeExtension;
+extension;
 
-
-/* Upload */
 
 const {
 error:uploadError
@@ -1666,8 +2175,6 @@ error:uploadError.message
 }
 
 
-/* Public URL */
-
 const {
 data
 } =
@@ -1677,11 +2184,14 @@ supabaseClient
 .getPublicUrl(filePath);
 
 
-if(!data || !data.publicUrl){
+if(
+!data ||
+!data.publicUrl
+){
 
 return {
 url:"",
-error:"تصویر Upload ہوگئی لیکن Public URL نہیں بن سکا۔"
+error:"تصویر Upload ہوگئی لیکن URL نہیں بن سکا۔"
 };
 
 }
@@ -1689,16 +2199,15 @@ error:"تصویر Upload ہوگئی لیکن Public URL نہیں بن سکا۔"
 
 return {
 url:data.publicUrl,
-error:null,
-path:filePath
+error:null
 };
 
 }
 
 
-/* =========================
+/* =====================================================
 ADD NEWS
-========================= */
+===================================================== */
 
 async function addNews(){
 
@@ -1706,17 +2215,21 @@ const title =
 document.getElementById("headline")
 .value.trim();
 
+
 const body =
 document.getElementById("detail")
 .value.trim();
+
 
 const category =
 document.getElementById("category")
 .value.trim();
 
+
 const video_url =
 document.getElementById("videoUrl")
 .value.trim();
+
 
 const imageFile =
 document.getElementById("imageFile")
@@ -1736,22 +2249,19 @@ return;
 }
 
 
-/* Require at least text + image OR video is not mandatory.
-   Text-only news is also allowed. */
-
-
-/* Video URL check */
+/* Video */
 
 if(video_url){
 
-const video =
+const embed =
 youtubeEmbedUrl(video_url);
 
-if(!video){
+
+if(!embed){
 
 showStatus(
 "newsStatus",
-"YouTube Video URL درست نہیں ہے۔",
+"YouTube Video / Live / Shorts / Embed Link درست نہیں ہے۔",
 "error"
 );
 
@@ -1762,10 +2272,9 @@ return;
 }
 
 
-/* Disable button */
-
 const publishBtn =
 document.getElementById("publishBtn");
+
 
 publishBtn.disabled=true;
 
@@ -1776,7 +2285,7 @@ publishBtn.textContent =
 let image_url="";
 
 
-/* Upload selected image */
+/* Upload Image */
 
 if(imageFile){
 
@@ -1797,6 +2306,7 @@ publishBtn.disabled=false;
 publishBtn.textContent =
 "➕ خبر شائع کریں";
 
+
 showStatus(
 "newsStatus",
 "تصویر Upload نہیں ہو سکی: " +
@@ -1815,7 +2325,7 @@ uploadResult.url;
 }
 
 
-/* Insert news */
+/* Save News */
 
 const {
 error
@@ -1840,6 +2350,7 @@ console.error(
 error
 );
 
+
 publishBtn.disabled=false;
 
 publishBtn.textContent =
@@ -1863,14 +2374,22 @@ return;
 document.getElementById("headline")
 .value="";
 
+
 document.getElementById("detail")
 .value="";
+
 
 document.getElementById("category")
 .value="";
 
+
 document.getElementById("videoUrl")
 .value="";
+
+
+document.getElementById("newsVideoCheck")
+.innerHTML="";
+
 
 removeSelectedImage();
 
@@ -1892,14 +2411,15 @@ await loadNews();
 }
 
 
-/* =========================
+/* =====================================================
 NEWS LIST
-========================= */
+===================================================== */
 
 async function loadNews(){
 
 const list =
 document.getElementById("newsList");
+
 
 list.innerHTML =
 '<div class="loading">⏳ خبریں لوڈ ہو رہی ہیں...</div>';
@@ -1952,10 +2472,12 @@ data.forEach(function(news){
 const item =
 document.createElement("div");
 
+
 item.className="news-item";
 
 
 let imageHtml="";
+
 
 if(news.image_url){
 
@@ -1973,6 +2495,7 @@ onerror="this.style.display='none';">
 
 
 let videoText="";
+
 
 if(news.video_url){
 
@@ -2018,7 +2541,14 @@ ${escapeHtml(news.body)}
 ${videoText}
 
 <small>
-${news.created_at ? new Date(news.created_at).toLocaleString("ur-PK") : ""}
+${
+news.created_at
+?
+new Date(news.created_at)
+.toLocaleString("ur-PK")
+:
+""
+}
 </small>
 
 <button
@@ -2039,9 +2569,9 @@ list.appendChild(item);
 }
 
 
-/* =========================
-DELETE
-========================= */
+/* =====================================================
+DELETE NEWS
+===================================================== */
 
 async function deleteNews(id){
 
@@ -2082,9 +2612,9 @@ await loadNews();
 }
 
 
-/* =========================
-ESCAPE
-========================= */
+/* =====================================================
+ESCAPE HTML
+===================================================== */
 
 function escapeHtml(value){
 
@@ -2099,9 +2629,9 @@ return String(value ?? "")
 }
 
 
-/* =========================
+/* =====================================================
 LOAD ALL
-========================= */
+===================================================== */
 
 async function loadAdminData(){
 
@@ -2116,9 +2646,9 @@ await loadNews();
 }
 
 
-/* =========================
+/* =====================================================
 START
-========================= */
+===================================================== */
 
 checkSession();
 
