@@ -5,13 +5,10 @@
 
 <meta charset="UTF-8">
 
-<meta
-name="viewport"
+<meta name="viewport"
 content="width=device-width,initial-scale=1.0">
 
-<title>
-WORLD NEWS HD - دنیا بھر کی خبریں
-</title>
+<title>WORLD NEWS HD - دنیا بھر کی خبریں</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -24,11 +21,7 @@ padding:0;
 }
 
 body{
-font-family:
-Arial,
-"Noto Nastaliq Urdu",
-"Noto Naskh Arabic",
-sans-serif;
+font-family:Arial,"Noto Nastaliq Urdu","Noto Naskh Arabic",sans-serif;
 background:#f2f4f7;
 color:#111;
 }
@@ -39,7 +32,9 @@ color:inherit;
 }
 
 
-/* TOP */
+/* =========================
+TOP BAR
+========================= */
 
 .topbar{
 background:#071d36;
@@ -50,12 +45,13 @@ font-size:14px;
 }
 
 
-/* HEADER */
+/* =========================
+HEADER
+========================= */
 
 .header{
 position:relative;
-background:
-linear-gradient(
+background:linear-gradient(
 135deg,
 #061b33,
 #0d4b7c,
@@ -86,8 +82,7 @@ text-align:right;
 width:70px;
 height:70px;
 border-radius:50%;
-background:
-linear-gradient(
+background:linear-gradient(
 145deg,
 #fff,
 #e7f4ff
@@ -116,7 +111,9 @@ margin-top:4px;
 }
 
 
-/* ADMIN */
+/* =========================
+ADMIN
+========================= */
 
 .admin-link{
 position:absolute;
@@ -133,7 +130,9 @@ z-index:50;
 }
 
 
-/* BREAKING */
+/* =========================
+BREAKING
+========================= */
 
 .breaking{
 max-width:1200px;
@@ -157,11 +156,7 @@ justify-content:center;
 background:#d71920;
 color:#fff;
 padding:0 16px;
-font-family:
-"Noto Naskh Arabic",
-"Noto Nastaliq Urdu",
-Arial,
-sans-serif;
+font-family:"Noto Naskh Arabic","Noto Nastaliq Urdu",Arial,sans-serif;
 font-size:16px;
 font-weight:900;
 white-space:nowrap;
@@ -210,11 +205,7 @@ top:50%;
 left:0;
 white-space:nowrap;
 color:#111;
-font-family:
-"Noto Nastaliq Urdu",
-"Noto Naskh Arabic",
-Arial,
-sans-serif;
+font-family:"Noto Nastaliq Urdu","Noto Naskh Arabic",Arial,sans-serif;
 font-size:16px;
 font-weight:700;
 line-height:46px;
@@ -226,7 +217,9 @@ padding:0;
 }
 
 
-/* MAIN */
+/* =========================
+MAIN
+========================= */
 
 .container{
 max-width:1200px;
@@ -235,7 +228,9 @@ padding:0 10px;
 }
 
 
-/* LIVE */
+/* =========================
+LIVE
+========================= */
 
 .live-box{
 background:#050505;
@@ -304,7 +299,9 @@ background:#000;
 }
 
 
-/* SECTION */
+/* =========================
+SECTION
+========================= */
 
 .section-title{
 background:#0b3559;
@@ -317,7 +314,9 @@ font-weight:bold;
 }
 
 
-/* NEWS */
+/* =========================
+NEWS
+========================= */
 
 .news-grid{
 display:grid;
@@ -383,7 +382,9 @@ background:#000;
 }
 
 
-/* SOCIAL */
+/* =========================
+SOCIAL
+========================= */
 
 .social{
 margin-top:25px;
@@ -422,7 +423,9 @@ background:#c13584;
 }
 
 
-/* FOOTER */
+/* =========================
+FOOTER
+========================= */
 
 .footer{
 margin-top:30px;
@@ -434,7 +437,9 @@ line-height:1.8;
 }
 
 
-/* EMPTY */
+/* =========================
+EMPTY
+========================= */
 
 .empty{
 background:#fff;
@@ -446,7 +451,9 @@ grid-column:1/-1;
 }
 
 
-/* TABLET */
+/* =========================
+TABLET
+========================= */
 
 @media(max-width:800px){
 
@@ -467,7 +474,9 @@ font-size:32px;
 }
 
 
-/* MOBILE */
+/* =========================
+MOBILE
+========================= */
 
 @media(max-width:550px){
 
@@ -554,7 +563,9 @@ padding:5px 9px;
 }
 
 
-/* VERY SMALL */
+/* =========================
+VERY SMALL
+========================= */
 
 @media(max-width:360px){
 
@@ -580,7 +591,9 @@ padding:0 7px;
 }
 
 
-/* RTL */
+/* =========================
+RTL
+========================= */
 
 .news-card,
 .news-content,
@@ -597,7 +610,9 @@ direction:rtl;
 <body>
 
 
-<!-- TOP -->
+<!-- =========================
+TOP
+========================= -->
 
 <div class="topbar">
 
@@ -606,7 +621,9 @@ direction:rtl;
 </div>
 
 
-<!-- HEADER -->
+<!-- =========================
+HEADER
+========================= -->
 
 <header class="header">
 
@@ -646,7 +663,9 @@ href="admin.html">
 </header>
 
 
-<!-- BREAKING -->
+<!-- =========================
+BREAKING
+========================= -->
 
 <div class="breaking">
 
@@ -672,12 +691,16 @@ WORLD NEWS HD — تازہ ترین خبریں
 </div>
 
 
-<!-- MAIN -->
+<!-- =========================
+MAIN
+========================= -->
 
 <main class="container">
 
 
-<!-- LIVE -->
+<!-- =========================
+LIVE
+========================= -->
 
 <section
 id="liveSection"
@@ -707,7 +730,9 @@ allowfullscreen>
 </section>
 
 
-<!-- NEWS -->
+<!-- =========================
+NEWS
+========================= -->
 
 <section>
 
@@ -733,7 +758,9 @@ class="news-grid">
 </section>
 
 
-<!-- SOCIAL -->
+<!-- =========================
+SOCIAL
+========================= -->
 
 <section
 id="socialSection"
@@ -775,7 +802,9 @@ rel="noopener">
 </main>
 
 
-<!-- FOOTER -->
+<!-- =========================
+FOOTER
+========================= -->
 
 <footer class="footer">
 
@@ -813,97 +842,211 @@ SUPABASE_KEY
 YOUTUBE
 ========================= */
 
-function youtubeEmbedUrl(url){
+function cleanYoutubeId(id){
 
-if(!url) return "";
+if(!id) return "";
 
-try{
+return String(id)
+.trim()
+.split("?")[0]
+.split("&")[0]
+.split("#")[0]
+.split("/")[0];
 
-url =
-String(url).trim();
+}
+
+
+function youtubeEmbedUrl(input){
+
+if(!input) return "";
+
+const value =
+String(input).trim();
+
+if(!value) return "";
+
+
+/* Direct Video ID */
 
 if(
-/^[A-Za-z0-9_-]{6,20}$/.test(url)
+/^[A-Za-z0-9_-]{11}$/.test(value)
 ){
 
-return
-"https://www.youtube-nocookie.com/embed/" +
-url +
+return "https://www.youtube-nocookie.com/embed/" +
+value +
 "?autoplay=0&mute=0&playsinline=1&rel=0";
 
 }
 
-const parsed =
-new URL(url);
 
-const host =
-parsed.hostname
-.replace(/^www\./,"")
-.toLowerCase();
+let urlValue =
+value;
 
-let id="";
+if(
+!/^https?:\/\//i.test(urlValue)
+){
 
-
-if(host==="youtu.be"){
-
-id =
-parsed.pathname
-.split("/")
-.filter(Boolean)[0] || "";
+urlValue =
+"https://" + urlValue;
 
 }
 
-else if(
-host==="youtube.com" ||
-host==="m.youtube.com" ||
-host==="music.youtube.com" ||
-host==="youtube-nocookie.com"
-){
 
-id =
-parsed.searchParams.get("v") || "";
+try{
 
-if(!id){
+const parsed =
+new URL(urlValue);
+
+const host =
+parsed.hostname
+.replace(/^www\./i,"")
+.toLowerCase();
 
 const parts =
 parsed.pathname
 .split("/")
 .filter(Boolean);
 
+
+let videoId="";
+
+
+/* youtu.be */
+
 if(
-["live","embed","shorts"].includes(parts[0])
+host === "youtu.be"
 ){
 
-id =
+videoId =
+parts[0] || "";
+
+}
+
+
+/* YouTube */
+
+else if(
+host === "youtube.com" ||
+host === "m.youtube.com" ||
+host === "music.youtube.com" ||
+host === "youtube-nocookie.com"
+){
+
+/* watch?v= */
+
+videoId =
+parsed.searchParams.get("v") || "";
+
+
+/* /live/ */
+
+if(
+!videoId &&
+parts[0] === "live"
+){
+
+videoId =
+parts[1] || "";
+
+}
+
+
+/* /shorts/ */
+
+if(
+!videoId &&
+parts[0] === "shorts"
+){
+
+videoId =
+parts[1] || "";
+
+}
+
+
+/* /embed/ */
+
+if(
+!videoId &&
+parts[0] === "embed"
+){
+
+videoId =
+parts[1] || "";
+
+}
+
+
+/* /v/ */
+
+if(
+!videoId &&
+parts[0] === "v"
+){
+
+videoId =
+parts[1] || "";
+
+}
+
+
+/* /watch/ */
+
+if(
+!videoId &&
+parts[0] === "watch"
+){
+
+videoId =
+parts[1] || "";
+
+}
+
+
+/* /share/ */
+
+if(
+!videoId &&
+parts[0] === "share"
+){
+
+videoId =
 parts[1] || "";
 
 }
 
 }
 
-}
+
+videoId =
+cleanYoutubeId(videoId);
 
 
-id =
-String(id)
-.split("?")[0]
-.split("&")[0]
-.trim();
-
+/* Valid Video */
 
 if(
-!/^[A-Za-z0-9_-]{6,20}$/.test(id)
+/^[A-Za-z0-9_-]{11}$/.test(videoId)
 ){
 
-return "";
+return "https://www.youtube-nocookie.com/embed/" +
+videoId +
+"?autoplay=0&mute=0&playsinline=1&rel=0";
 
 }
 
 
-return
-"https://www.youtube-nocookie.com/embed/" +
-id +
-"?autoplay=0&mute=0&playsinline=1&rel=0";
+/* Playlist */
+
+const playlistId =
+parsed.searchParams.get("list");
+
+if(playlistId){
+
+return "https://www.youtube-nocookie.com/embed/videoseries?list=" +
+encodeURIComponent(playlistId) +
+"&autoplay=0&rel=0";
+
+}
 
 
 }catch(error){
@@ -913,9 +1056,51 @@ console.error(
 error
 );
 
-return "";
+}
+
+
+/* Fallback */
+
+const patterns=[
+
+/youtu\.be\/([A-Za-z0-9_-]{11})/i,
+
+/youtube(?:-nocookie)?\.com\/watch\?(?:[^#]*&)?v=([A-Za-z0-9_-]{11})/i,
+
+/youtube(?:-nocookie)?\.com\/live\/([A-Za-z0-9_-]{11})/i,
+
+/youtube(?:-nocookie)?\.com\/shorts\/([A-Za-z0-9_-]{11})/i,
+
+/youtube(?:-nocookie)?\.com\/embed\/([A-Za-z0-9_-]{11})/i,
+
+/youtube(?:-nocookie)?\.com\/v\/([A-Za-z0-9_-]{11})/i,
+
+/youtube(?:-nocookie)?\.com\/share\/([A-Za-z0-9_-]{11})/i
+
+];
+
+
+for(
+let i=0;
+i<patterns.length;
+i++
+){
+
+const match =
+value.match(patterns[i]);
+
+if(match){
+
+return "https://www.youtube-nocookie.com/embed/" +
+match[1] +
+"?autoplay=0&mute=0&playsinline=1&rel=0";
 
 }
+
+}
+
+
+return "";
 
 }
 
@@ -939,7 +1124,10 @@ document.getElementById(
 "breakingText"
 );
 
-if(!windowBox || !text){
+if(
+!windowBox ||
+!text
+){
 
 return;
 
@@ -956,7 +1144,7 @@ tickerAnimation
 
 
 let x =
--text.offsetWidth;
+-windowBox.clientWidth;
 
 
 const speed =
@@ -1062,28 +1250,19 @@ startBreakingTicker
 
 }catch(error){
 
-console.error(error);
-
-const element =
-document.getElementById(
-"breakingText"
+console.error(
+"Breaking Error:",
+error
 );
 
-if(element){
-
-element.textContent =
-"WORLD NEWS HD — تازہ ترین خبریں";
-
-startBreakingTicker();
-
-}
-
 }
 
 }
 
 
-/* RESIZE */
+/* =========================
+RESIZE
+========================= */
 
 window.addEventListener(
 "resize",
@@ -1140,7 +1319,9 @@ return;
 }
 
 
-if(!data){
+if(
+!data
+){
 
 section.classList.add(
 "live-off"
@@ -1151,14 +1332,15 @@ return;
 }
 
 
-/*
-Live صرف اس وقت دکھائیں
-جب Admin نے ON کیا ہو
-*/
+/* Only show when ON */
 
-if(data.is_live !== true){
+if(
+data.is_live !== true
+){
 
-frame.removeAttribute("src");
+frame.removeAttribute(
+"src"
+);
 
 section.classList.add(
 "live-off"
@@ -1316,32 +1498,36 @@ let visible=false;
 
 if(facebook){
 
-fb.href=facebook;
+fb.href =
+facebook;
 
-fb.style.display=
+fb.style.display =
 "inline-block";
 
 visible=true;
 
 }else{
 
-fb.style.display="none";
+fb.style.display =
+"none";
 
 }
 
 
 if(instagram){
 
-ig.href=instagram;
+ig.href =
+instagram;
 
-ig.style.display=
+ig.style.display =
 "inline-block";
 
 visible=true;
 
 }else{
 
-ig.style.display="none";
+ig.style.display =
+"none";
 
 }
 
@@ -1416,7 +1602,7 @@ return;
 
 if(
 !data ||
-data.length===0
+data.length === 0
 ){
 
 grid.innerHTML =
@@ -1434,7 +1620,8 @@ return;
 grid.innerHTML="";
 
 
-data.forEach(function(news){
+data.forEach(
+function(news){
 
 const card =
 document.createElement(
@@ -1449,8 +1636,9 @@ card.className =
 
 let imageHtml="";
 
-
-if(news.image_url){
+if(
+news.image_url
+){
 
 imageHtml =
 `
@@ -1459,7 +1647,7 @@ class="news-img"
 src="${escapeHtml(news.image_url)}"
 alt="خبر کی تصویر"
 loading="lazy"
-onerror="this.style.display='none'">
+onerror="this.style.display='none';">
 `;
 
 }
@@ -1469,8 +1657,9 @@ onerror="this.style.display='none'">
 
 let videoHtml="";
 
-
-if(news.video_url){
+if(
+news.video_url
+){
 
 const video =
 youtubeEmbedUrl(
@@ -1521,11 +1710,7 @@ ${escapeHtml(news.category)}
 
 
 <h2 class="news-headline">
-
-${escapeHtml(
-news.title || ""
-)}
-
+${escapeHtml(news.title || "")}
 </h2>
 
 
@@ -1549,9 +1734,12 @@ ${videoHtml}
 `;
 
 
-grid.appendChild(card);
+grid.appendChild(
+card
+);
 
-});
+}
+);
 
 
 }catch(error){
@@ -1574,12 +1762,14 @@ grid.innerHTML =
 
 
 /* =========================
-ESCAPE
+ESCAPE HTML
 ========================= */
 
 function escapeHtml(value){
 
-return String(value ?? "")
+return String(
+value ?? ""
+)
 
 .replace(
 /&/g,
