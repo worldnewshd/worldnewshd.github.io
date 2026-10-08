@@ -5,8 +5,7 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>WORLD NEWS HD - دنیا بھر کی خبریں</title>
 
@@ -14,10 +13,18 @@ content="width=device-width,initial-scale=1.0">
 
 <style>
 
+/* =========================
+RESET
+========================= */
+
 *{
 box-sizing:border-box;
 margin:0;
 padding:0;
+}
+
+html{
+scroll-behavior:smooth;
 }
 
 body{
@@ -29,6 +36,10 @@ color:#111;
 a{
 text-decoration:none;
 color:inherit;
+}
+
+button{
+font-family:inherit;
 }
 
 
@@ -58,7 +69,7 @@ background:linear-gradient(
 #092b4b
 );
 color:#fff;
-padding:17px 15px;
+padding:17px 15px 12px;
 box-shadow:0 3px 12px #0004;
 }
 
@@ -126,7 +137,63 @@ border-radius:5px;
 font-size:12px;
 font-weight:bold;
 box-shadow:0 2px 6px #0005;
-z-index:50;
+z-index:100;
+}
+
+
+/* =========================
+NAVIGATION
+========================= */
+
+.main-nav{
+max-width:1200px;
+margin:12px auto 0;
+background:#061b33;
+border-radius:7px;
+box-shadow:0 3px 10px #0004;
+position:relative;
+z-index:90;
+}
+
+.nav-list{
+list-style:none;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-wrap:wrap;
+direction:rtl;
+}
+
+.nav-list li{
+margin:0;
+}
+
+.nav-list a{
+display:block;
+color:#fff;
+padding:12px 16px;
+font-size:15px;
+font-weight:bold;
+transition:.2s;
+white-space:nowrap;
+}
+
+.nav-list a:hover,
+.nav-list a.active{
+background:#d71920;
+}
+
+.menu-button{
+display:none;
+width:100%;
+border:0;
+background:#061b33;
+color:#fff;
+padding:12px;
+font-size:17px;
+font-weight:bold;
+cursor:pointer;
+border-radius:7px;
 }
 
 
@@ -225,6 +292,26 @@ MAIN
 max-width:1200px;
 margin:15px auto;
 padding:0 10px;
+}
+
+
+/* =========================
+CATEGORY TITLE
+========================= */
+
+.category-heading{
+background:#0b3559;
+color:#fff;
+padding:12px 15px;
+border-right:6px solid #e21b23;
+margin-bottom:15px;
+font-size:22px;
+font-weight:bold;
+display:none;
+}
+
+.category-heading.show{
+display:block;
 }
 
 
@@ -424,6 +511,54 @@ background:#c13584;
 
 
 /* =========================
+OUR TEAM
+========================= */
+
+.team-section{
+margin-top:25px;
+background:#fff;
+border-radius:9px;
+padding:20px;
+box-shadow:0 2px 8px #0002;
+text-align:center;
+}
+
+.team-section h2{
+color:#0b3559;
+margin-bottom:10px;
+}
+
+.team-section p{
+color:#555;
+line-height:1.9;
+}
+
+
+/* =========================
+CONTACT
+========================= */
+
+.contact-section{
+margin-top:25px;
+background:#fff;
+border-radius:9px;
+padding:20px;
+box-shadow:0 2px 8px #0002;
+text-align:center;
+}
+
+.contact-section h2{
+color:#0b3559;
+margin-bottom:10px;
+}
+
+.contact-section p{
+line-height:1.9;
+color:#555;
+}
+
+
+/* =========================
 FOOTER
 ========================= */
 
@@ -471,6 +606,11 @@ height:58px;
 font-size:32px;
 }
 
+.nav-list a{
+padding:10px 11px;
+font-size:14px;
+}
+
 }
 
 
@@ -481,7 +621,7 @@ MOBILE
 @media(max-width:550px){
 
 .header{
-padding:17px 10px;
+padding:17px 10px 10px;
 }
 
 .header-inner{
@@ -514,6 +654,39 @@ left:7px;
 top:7px;
 padding:6px 8px;
 font-size:10px;
+}
+
+
+/* MOBILE MENU */
+
+.main-nav{
+margin:8px 8px 0;
+}
+
+.menu-button{
+display:block;
+}
+
+.nav-list{
+display:none;
+flex-direction:column;
+width:100%;
+}
+
+.nav-list.open{
+display:flex;
+}
+
+.nav-list li{
+width:100%;
+}
+
+.nav-list a{
+width:100%;
+text-align:center;
+padding:12px 10px;
+border-top:1px solid #ffffff18;
+font-size:15px;
 }
 
 .breaking{
@@ -560,6 +733,14 @@ font-size:13px;
 padding:5px 9px;
 }
 
+.section-title{
+font-size:19px;
+}
+
+.category-heading{
+font-size:19px;
+}
+
 }
 
 
@@ -599,7 +780,8 @@ RTL
 .news-content,
 .news-headline,
 .news-detail,
-.section-title{
+.section-title,
+.category-heading{
 direction:rtl;
 }
 
@@ -660,6 +842,128 @@ href="admin.html">
 
 </a>
 
+
+<!-- =========================
+MENU
+========================= -->
+
+<nav class="main-nav">
+
+<button
+class="menu-button"
+id="menuButton"
+type="button">
+
+☰ مینو
+
+</button>
+
+
+<ul
+class="nav-list"
+id="navList">
+
+<li>
+<a
+href="#home"
+data-category="all"
+class="active">
+
+🏠 ہوم
+
+</a>
+</li>
+
+
+<li>
+<a
+href="#pakistan"
+data-category="پاکستان">
+
+🇵🇰 پاکستان
+
+</a>
+</li>
+
+
+<li>
+<a
+href="#world"
+data-category="دنیا">
+
+🌍 دنیا
+
+</a>
+</li>
+
+
+<li>
+<a
+href="#videos"
+data-category="ویڈیوز">
+
+🎥 ویڈیوز
+
+</a>
+</li>
+
+
+<li>
+<a
+href="#crime"
+data-category="کرائم">
+
+🚨 کرائم
+
+</a>
+</li>
+
+
+<li>
+<a
+href="#sports"
+data-category="کھیل">
+
+⚽ کھیل
+
+</a>
+</li>
+
+
+<li>
+<a
+href="#business"
+data-category="کاروبار">
+
+💼 کاروبار
+
+</a>
+</li>
+
+
+<li>
+<a
+href="#team">
+
+👥 ہماری ٹیم
+
+</a>
+</li>
+
+
+<li>
+<a
+href="#contact">
+
+📞 رابطہ
+
+</a>
+</li>
+
+</ul>
+
+</nav>
+
 </header>
 
 
@@ -695,7 +999,22 @@ WORLD NEWS HD — تازہ ترین خبریں
 MAIN
 ========================= -->
 
-<main class="container">
+<main
+class="container"
+id="home">
+
+
+<!-- =========================
+CATEGORY HEADING
+========================= -->
+
+<div
+id="categoryHeading"
+class="category-heading">
+
+📰 تازہ ترین خبریں
+
+</div>
 
 
 <!-- =========================
@@ -736,7 +1055,9 @@ NEWS
 
 <section>
 
-<div class="section-title">
+<div
+class="section-title"
+id="newsSectionTitle">
 
 📰 تازہ ترین خبریں
 
@@ -799,6 +1120,44 @@ rel="noopener">
 </section>
 
 
+<!-- =========================
+OUR TEAM
+========================= -->
+
+<section
+id="team"
+class="team-section">
+
+<h2>
+👥 ہماری ٹیم
+</h2>
+
+<p>
+WORLD NEWS HD کی ٹیم پاکستان اور دنیا بھر سے اہم اور تازہ ترین خبریں اپنے قارئین تک پہنچانے کے لیے کوشاں ہے۔
+</p>
+
+</section>
+
+
+<!-- =========================
+CONTACT
+========================= -->
+
+<section
+id="contact"
+class="contact-section">
+
+<h2>
+📞 رابطہ
+</h2>
+
+<p>
+WORLD NEWS HD سے رابطے کے لیے ہماری سوشل میڈیا پروفائلز سے رابطہ کریں۔
+</p>
+
+</section>
+
+
 </main>
 
 
@@ -815,6 +1174,10 @@ WORLD NEWS HD
 <br>
 
 پاکستان اور دنیا بھر کی تازہ ترین خبریں
+
+<br>
+
+© 2026 WORLD NEWS HD - All Rights Reserved
 
 </footer>
 
@@ -836,6 +1199,164 @@ supabase.createClient(
 SUPABASE_URL,
 SUPABASE_KEY
 );
+
+
+/* =========================
+MENU
+========================= */
+
+const menuButton =
+document.getElementById(
+"menuButton"
+);
+
+const navList =
+document.getElementById(
+"navList"
+);
+
+
+menuButton.addEventListener(
+"click",
+function(){
+
+navList.classList.toggle(
+"open"
+);
+
+}
+);
+
+
+/* =========================
+NAVIGATION
+========================= */
+
+const navLinks =
+document.querySelectorAll(
+".nav-list a[data-category]"
+);
+
+
+navLinks.forEach(
+function(link){
+
+link.addEventListener(
+"click",
+function(event){
+
+event.preventDefault();
+
+
+navLinks.forEach(
+function(item){
+
+item.classList.remove(
+"active"
+);
+
+}
+);
+
+
+link.classList.add(
+"active"
+);
+
+
+const category =
+link.getAttribute(
+"data-category"
+);
+
+
+if(
+category === "all"
+){
+
+loadNews();
+
+setHeading(
+"📰 تازہ ترین خبریں"
+);
+
+}else{
+
+loadNews(
+category
+);
+
+setHeading(
+"📰 " + category + " کی خبریں"
+);
+
+}
+
+
+/* Mobile menu close */
+
+navList.classList.remove(
+"open"
+);
+
+
+/* Scroll */
+
+document.getElementById(
+"newsSectionTitle"
+).scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
+
+}
+);
+
+}
+);
+
+
+/* Team / Contact */
+
+document.querySelectorAll(
+'.nav-list a[href="#team"], .nav-list a[href="#contact"]'
+).forEach(
+function(link){
+
+link.addEventListener(
+"click",
+function(){
+
+navList.classList.remove(
+"open"
+);
+
+}
+);
+
+}
+);
+
+
+/* =========================
+HEADING
+========================= */
+
+function setHeading(text){
+
+const heading =
+document.getElementById(
+"newsSectionTitle"
+);
+
+if(heading){
+
+heading.textContent =
+text;
+
+}
+
+}
 
 
 /* =========================
@@ -932,13 +1453,9 @@ host === "music.youtube.com" ||
 host === "youtube-nocookie.com"
 ){
 
-/* watch?v= */
-
 videoId =
 parsed.searchParams.get("v") || "";
 
-
-/* /live/ */
 
 if(
 !videoId &&
@@ -951,8 +1468,6 @@ parts[1] || "";
 }
 
 
-/* /shorts/ */
-
 if(
 !videoId &&
 parts[0] === "shorts"
@@ -963,8 +1478,6 @@ parts[1] || "";
 
 }
 
-
-/* /embed/ */
 
 if(
 !videoId &&
@@ -977,8 +1490,6 @@ parts[1] || "";
 }
 
 
-/* /v/ */
-
 if(
 !videoId &&
 parts[0] === "v"
@@ -990,8 +1501,6 @@ parts[1] || "";
 }
 
 
-/* /watch/ */
-
 if(
 !videoId &&
 parts[0] === "watch"
@@ -1002,8 +1511,6 @@ parts[1] || "";
 
 }
 
-
-/* /share/ */
 
 if(
 !videoId &&
@@ -1123,6 +1630,7 @@ const text =
 document.getElementById(
 "breakingText"
 );
+
 
 if(
 !windowBox ||
@@ -1331,8 +1839,6 @@ return;
 
 }
 
-
-/* Only show when ON */
 
 if(
 data.is_live !== true
@@ -1554,7 +2060,7 @@ error
 NEWS
 ========================= */
 
-async function loadNews(){
+async function loadNews(category="all"){
 
 const grid =
 document.getElementById(
@@ -1564,11 +2070,8 @@ document.getElementById(
 
 try{
 
-const {
-data,
-error
-} =
-await supabaseClient
+let query =
+supabaseClient
 .from("news")
 .select(
 "id,title,body,category,image_url,video_url,created_at"
@@ -1579,6 +2082,29 @@ await supabaseClient
 ascending:false
 }
 );
+
+
+/* Category filter */
+
+if(
+category &&
+category !== "all"
+){
+
+query =
+query.eq(
+"category",
+category
+);
+
+}
+
+
+const {
+data,
+error
+} =
+await query;
 
 
 if(error){
@@ -1608,7 +2134,7 @@ data.length === 0
 grid.innerHTML =
 `
 <div class="empty">
-ابھی کوئی خبر موجود نہیں۔
+اس category میں ابھی کوئی خبر موجود نہیں۔
 </div>
 `;
 
@@ -1636,6 +2162,7 @@ card.className =
 
 let imageHtml="";
 
+
 if(
 news.image_url
 ){
@@ -1656,6 +2183,7 @@ onerror="this.style.display='none';">
 /* VIDEO */
 
 let videoHtml="";
+
 
 if(
 news.video_url
@@ -1827,12 +2355,27 @@ loadLive,
 );
 
 setInterval(
-loadSocial,
-30000
+function(){
+
+const active =
+document.querySelector(
+".nav-list a.active"
 );
 
-setInterval(
-loadNews,
+const category =
+active
+?
+active.getAttribute(
+"data-category"
+)
+:
+"all";
+
+loadNews(
+category || "all"
+);
+
+},
 15000
 );
 
