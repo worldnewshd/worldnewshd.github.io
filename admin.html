@@ -343,6 +343,12 @@ color:#d71920;
 font-weight:bold;
 }
 
+.youtube-id{
+color:#0d4b7c;
+font-weight:bold;
+word-break:break-all;
+}
+
 @media(max-width:650px){
 
 .row{
@@ -487,14 +493,19 @@ oninput="checkLiveUrl()">
 
 <div class="youtube-help">
 
-<b>مثال:</b><br>
+<b>Supported Links:</b><br>
 
-youtube.com/watch?v=XXXX<br>
-youtu.be/XXXX<br>
-youtube.com/live/XXXX<br>
-youtube.com/shorts/XXXX<br>
-youtube.com/embed/XXXX<br>
-YouTube Share Link بھی چلے گا۔
+✅ youtube.com/watch?v=XXXX<br>
+✅ youtu.be/XXXX<br>
+✅ youtube.com/live/XXXX<br>
+✅ youtube.com/shorts/XXXX<br>
+✅ youtube.com/embed/XXXX<br>
+✅ youtube.com/v/XXXX<br>
+✅ youtube.com/share/XXXX<br>
+✅ YouTube Share Link<br>
+✅ ?si=XXXX<br>
+✅ &t=XXXX<br>
+✅ Playlist Link
 
 </div>
 
@@ -681,9 +692,13 @@ style="margin-top:8px;">
 ✅ Live Video<br>
 ✅ Shorts<br>
 ✅ Embed<br>
+✅ /v/ Link<br>
+✅ /share/ Link<br>
 ✅ YouTube Share Link with <b>?si=</b><br>
-✅ Extra parameters جیسے <b>&t=</b> بھی چلیں گے<br>
-✅ Playlist Link بھی support ہے
+✅ Extra parameters جیسے <b>&t=</b><br>
+✅ Mobile YouTube Link<br>
+✅ YouTube Music Link<br>
+✅ Playlist Link
 
 </div>
 
@@ -856,159 +871,24 @@ return url;
 
 
 /* =====================================================
-YOUTUBE VIDEO ID
+YOUTUBE HOST CHECK
 ===================================================== */
 
-function getYoutubeVideoId(input){
+function isYoutubeHost(host){
 
-if(!input) return "";
+if(!host) return false;
 
-let url =
-String(input).trim();
-
-if(!url) return "";
-
-
-/* Add protocol */
-
-if(
-!url.startsWith("http://") &&
-!url.startsWith("https://")
-){
-
-url =
-"https://" + url;
-
-}
-
-
-/* Decode safely */
-
-try{
-
-const parsed =
-new URL(url);
-
-const host =
-parsed.hostname
-.replace(/^www\./,"")
+host =
+host.replace(/^www\./i,"")
 .toLowerCase();
 
-
-/* ---------------------------------
-youtu.be
---------------------------------- */
-
-if(
-host === "youtu.be"
-){
-
-const parts =
-parsed.pathname
-.split("/")
-.filter(Boolean);
-
-if(parts.length){
-
-return cleanYoutubeId(parts[0]);
-
-}
-
-}
-
-
-/* ---------------------------------
-youtube domains
---------------------------------- */
-
-if(
+return (
 host === "youtube.com" ||
 host === "m.youtube.com" ||
 host === "music.youtube.com" ||
-host === "youtube-nocookie.com"
-){
-
-/* watch?v= */
-
-let id =
-parsed.searchParams.get("v");
-
-if(id){
-
-return cleanYoutubeId(id);
-
-}
-
-
-/* shorts / live / embed / v */
-
-const parts =
-parsed.pathname
-.split("/")
-.filter(Boolean);
-
-
-if(parts.length >= 2){
-
-const type =
-parts[0].toLowerCase();
-
-if(
-type === "shorts" ||
-type === "live" ||
-type === "embed" ||
-type === "v"
-){
-
-return cleanYoutubeId(parts[1]);
-
-}
-
-}
-
-
-/* Sometimes /watch/VIDEO */
-
-if(
-parts.length >= 2 &&
-parts[0].toLowerCase() === "watch"
-){
-
-return cleanYoutubeId(parts[1]);
-
-}
-
-}
-
-}
-catch(error){
-
-console.log(
-"YouTube URL parser:",
-error
+host === "youtube-nocookie.com" ||
+host === "youtu.be"
 );
-
-}
-
-
-/* ---------------------------------
-Fallback Regex
---------------------------------- */
-
-const match =
-String(input).match(
-/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|live\/|embed\/|v\/))([A-Za-z0-9_-]{6,20})/i
-);
-
-
-if(match){
-
-return cleanYoutubeId(match[1]);
-
-}
-
-
-return "";
 
 }
 
@@ -1023,23 +903,269 @@ if(!id) return "";
 
 id =
 String(id)
+.trim()
 .split("?")[0]
 .split("&")[0]
 .split("#")[0]
-.split("/")[0]
-.trim();
+.split("/")[0];
 
+
+/*
+Normal YouTube Video ID = 11 characters.
+*/
 
 if(
-!/^[A-Za-z0-9_-]{6,20}$/.test(id)
+!/^[A-Za-z0-9_-]{11}$/.test(id)
 ){
 
 return "";
 
 }
 
+return id;
+
+}
+
+
+/* =====================================================
+YOUTUBE VIDEO ID
+FULL LINK SUPPORT
+===================================================== */
+
+function getYoutubeVideoId(input){
+
+if(!input) return "";
+
+let value =
+String(input).trim();
+
+if(!value) return "";
+
+
+/* ---------------------------------
+Direct Video ID
+--------------------------------- */
+
+if(
+/^[A-Za-z0-9_-]{11}$/.test(value)
+){
+
+return value;
+
+}
+
+
+/* ---------------------------------
+Protocol
+--------------------------------- */
+
+if(
+!/^https?:\/\//i.test(value)
+){
+
+value =
+"https://" + value;
+
+}
+
+
+/* ---------------------------------
+URL Parser
+--------------------------------- */
+
+try{
+
+const url =
+new URL(value);
+
+const host =
+url.hostname
+.replace(/^www\./,"")
+.toLowerCase();
+
+
+const parts =
+url.pathname
+.split("/")
+.filter(Boolean);
+
+
+/* ---------------------------------
+youtu.be/VIDEO_ID
+--------------------------------- */
+
+if(host === "youtu.be"){
+
+if(parts.length){
+
+const id =
+cleanYoutubeId(parts[0]);
+
+if(id){
+return id;
+}
+
+}
+
+}
+
+
+/* ---------------------------------
+YouTube domains
+--------------------------------- */
+
+if(isYoutubeHost(host)){
+
+/*
+watch?v=VIDEO_ID
+*/
+
+const v =
+url.searchParams.get("v");
+
+if(v){
+
+const id =
+cleanYoutubeId(v);
+
+if(id){
+return id;
+}
+
+}
+
+
+/*
+Path based links:
+
+/shorts/ID
+/live/ID
+/embed/ID
+/v/ID
+/share/ID
+/watch/ID
+*/
+
+if(parts.length >= 2){
+
+const type =
+parts[0].toLowerCase();
+
+const supported =
+[
+"shorts",
+"live",
+"embed",
+"v",
+"share",
+"watch"
+];
+
+
+if(
+supported.includes(type)
+){
+
+const id =
+cleanYoutubeId(parts[1]);
+
+if(id){
+return id;
+}
+
+}
+
+}
+
+
+/*
+Sometimes YouTube URL may contain
+the video ID after another path.
+*/
+
+for(
+let i=0;
+i<parts.length;
+i++
+){
+
+const id =
+cleanYoutubeId(parts[i]);
+
+if(id){
+
+/*
+Do not treat normal words such as
+"watch" or "shorts" as IDs.
+cleanYoutubeId already checks
+the exact 11-character format.
+*/
 
 return id;
+
+}
+
+}
+
+}
+
+}
+catch(error){
+
+console.log(
+"YouTube URL parser error:",
+error
+);
+
+}
+
+
+/* ---------------------------------
+Fallback Regex
+--------------------------------- */
+
+const patterns = [
+
+/youtu\.be\/([A-Za-z0-9_-]{11})/i,
+
+/youtube(?:-nocookie)?\.com\/watch\?(?:[^#]*&)?v=([A-Za-z0-9_-]{11})/i,
+
+/youtube(?:-nocookie)?\.com\/shorts\/([A-Za-z0-9_-]{11})/i,
+
+/youtube(?:-nocookie)?\.com\/live\/([A-Za-z0-9_-]{11})/i,
+
+/youtube(?:-nocookie)?\.com\/embed\/([A-Za-z0-9_-]{11})/i,
+
+/youtube(?:-nocookie)?\.com\/v\/([A-Za-z0-9_-]{11})/i,
+
+/youtube(?:-nocookie)?\.com\/share\/([A-Za-z0-9_-]{11})/i,
+
+/youtube(?:-nocookie)?\.com\/watch\/([A-Za-z0-9_-]{11})/i
+
+];
+
+
+for(
+let i=0;
+i<patterns.length;
+i++
+){
+
+const match =
+value.match(patterns[i]);
+
+if(match){
+
+return cleanYoutubeId(
+match[1]
+);
+
+}
+
+}
+
+
+return "";
 
 }
 
@@ -1052,26 +1178,25 @@ function getYoutubePlaylistId(input){
 
 if(!input) return "";
 
-try{
-
-let url =
+let value =
 String(input).trim();
 
 if(
-!url.startsWith("http://") &&
-!url.startsWith("https://")
+!/^https?:\/\//i.test(value)
 ){
 
-url =
-"https://" + url;
+value =
+"https://" + value;
 
 }
 
-const parsed =
-new URL(url);
+try{
+
+const url =
+new URL(value);
 
 const host =
-parsed.hostname
+url.hostname
 .replace(/^www\./,"")
 .toLowerCase();
 
@@ -1087,17 +1212,26 @@ return "";
 }
 
 
-return (
-parsed.searchParams.get("list") ||
-""
-).trim();
+const list =
+url.searchParams.get("list");
+
+if(list){
+
+return list.trim();
+
+}
 
 }
 catch(error){
 
-return "";
+console.log(
+"Playlist parser error:",
+error
+);
 
 }
+
+return "";
 
 }
 
@@ -1110,37 +1244,28 @@ function youtubeEmbedUrl(input){
 
 if(!input) return "";
 
-const original =
+
+/* Direct ID */
+
+const direct =
 String(input).trim();
 
-
-/* ---------------------------------
-Video ID directly
---------------------------------- */
-
 if(
-/^[A-Za-z0-9_-]{6,20}$/.test(original)
+/^[A-Za-z0-9_-]{11}$/.test(direct)
 ){
 
 return
 "https://www.youtube-nocookie.com/embed/" +
-original +
+direct +
 "?autoplay=0&mute=0&playsinline=1&rel=0";
 
 }
 
 
-/* ---------------------------------
-Video ID
---------------------------------- */
+/* Video */
 
 const videoId =
-getYoutubeVideoId(original);
-
-
-/* ---------------------------------
-Video found
---------------------------------- */
+getYoutubeVideoId(input);
 
 if(videoId){
 
@@ -1152,12 +1277,10 @@ videoId +
 }
 
 
-/* ---------------------------------
-Playlist
---------------------------------- */
+/* Playlist */
 
 const playlistId =
-getYoutubePlaylistId(original);
+getYoutubePlaylistId(input);
 
 if(playlistId){
 
@@ -1168,8 +1291,6 @@ encodeURIComponent(playlistId) +
 
 }
 
-
-/* Nothing found */
 
 return "";
 
@@ -1184,15 +1305,16 @@ function isYoutubeUrl(input){
 
 if(!input) return false;
 
-const text =
-String(input).trim()
-.toLowerCase();
+const value =
+String(input).trim();
+
+if(!value) return false;
 
 
-/* Direct ID */
+/* Direct Video ID */
 
 if(
-/^[a-z0-9_-]{6,20}$/i.test(text)
+/^[A-Za-z0-9_-]{11}$/.test(value)
 ){
 
 return true;
@@ -1200,22 +1322,10 @@ return true;
 }
 
 
-/* Must contain YouTube domain */
-
-if(
-!text.includes("youtube.com") &&
-!text.includes("youtu.be")
-){
-
-return false;
-
-}
-
-
 /* Video */
 
 if(
-getYoutubeVideoId(input)
+getYoutubeVideoId(value)
 ){
 
 return true;
@@ -1226,7 +1336,7 @@ return true;
 /* Playlist */
 
 if(
-getYoutubePlaylistId(input)
+getYoutubePlaylistId(value)
 ){
 
 return true;
@@ -1262,10 +1372,25 @@ return;
 }
 
 
-if(isYoutubeUrl(input)){
+const videoId =
+getYoutubeVideoId(input);
+
+const playlistId =
+getYoutubePlaylistId(input);
+
+
+if(videoId){
 
 box.innerHTML =
-'<span class="youtube-ok">✅ YouTube Link درست ہے</span>';
+'<span class="youtube-ok">✅ YouTube Link درست ہے — Video ID: ' +
+escapeHtml(videoId) +
+'</span>';
+
+}
+else if(playlistId){
+
+box.innerHTML =
+'<span class="youtube-ok">✅ YouTube Playlist Link درست ہے</span>';
 
 }
 else{
@@ -1301,10 +1426,25 @@ return;
 }
 
 
-if(isYoutubeUrl(input)){
+const videoId =
+getYoutubeVideoId(input);
+
+const playlistId =
+getYoutubePlaylistId(input);
+
+
+if(videoId){
 
 box.innerHTML =
-'<span class="youtube-ok">✅ YouTube Link درست ہے</span>';
+'<span class="youtube-ok">✅ YouTube Link درست ہے — Video ID: ' +
+escapeHtml(videoId) +
+'</span>';
+
+}
+else if(playlistId){
+
+box.innerHTML =
+'<span class="youtube-ok">✅ YouTube Playlist Link درست ہے</span>';
 
 }
 else{
@@ -2261,7 +2401,7 @@ if(!embed){
 
 showStatus(
 "newsStatus",
-"YouTube Video / Live / Shorts / Embed Link درست نہیں ہے۔",
+"YouTube Video / Live / Shorts / Share / Embed Link درست نہیں ہے۔",
 "error"
 );
 
