@@ -1094,13 +1094,6 @@ cleanYoutubeId(parts[i]);
 
 if(id){
 
-/*
-Do not treat normal words such as
-"watch" or "shorts" as IDs.
-cleanYoutubeId already checks
-the exact 11-character format.
-*/
-
 return id;
 
 }
@@ -1238,61 +1231,65 @@ return "";
 
 /* =====================================================
 YOUTUBE EMBED URL
+FIXED
 ===================================================== */
 
 function youtubeEmbedUrl(input){
 
-if(!input) return "";
+    if(!input) return "";
+
+    const original =
+        String(input).trim();
 
 
-/* Direct ID */
+    /* ---------------------------------
+    Direct Video ID
+    --------------------------------- */
 
-const direct =
-String(input).trim();
+    if(
+        /^[A-Za-z0-9_-]{11}$/.test(original)
+    ){
 
-if(
-/^[A-Za-z0-9_-]{11}$/.test(direct)
-){
+        return "https://www.youtube-nocookie.com/embed/" +
+               original +
+               "?autoplay=0&mute=0&playsinline=1&rel=0";
 
-return
-"https://www.youtube-nocookie.com/embed/" +
-direct +
-"?autoplay=0&mute=0&playsinline=1&rel=0";
-
-}
+    }
 
 
-/* Video */
+    /* ---------------------------------
+    Get Video ID
+    --------------------------------- */
 
-const videoId =
-getYoutubeVideoId(input);
+    const videoId =
+        getYoutubeVideoId(original);
 
-if(videoId){
+    if(videoId){
 
-return
-"https://www.youtube-nocookie.com/embed/" +
-videoId +
-"?autoplay=0&mute=0&playsinline=1&rel=0";
+        return "https://www.youtube-nocookie.com/embed/" +
+               videoId +
+               "?autoplay=0&mute=0&playsinline=1&rel=0";
 
-}
-
-
-/* Playlist */
-
-const playlistId =
-getYoutubePlaylistId(input);
-
-if(playlistId){
-
-return
-"https://www.youtube-nocookie.com/embed/videoseries?list=" +
-encodeURIComponent(playlistId) +
-"&autoplay=0&rel=0";
-
-}
+    }
 
 
-return "";
+    /* ---------------------------------
+    Playlist
+    --------------------------------- */
+
+    const playlistId =
+        getYoutubePlaylistId(original);
+
+    if(playlistId){
+
+        return "https://www.youtube-nocookie.com/embed/videoseries?list=" +
+               encodeURIComponent(playlistId) +
+               "&autoplay=0&rel=0";
+
+    }
+
+
+    return "";
 
 }
 
